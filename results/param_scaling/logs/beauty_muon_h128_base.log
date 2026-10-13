@@ -1,0 +1,34 @@
+=== beauty_muon_h128_base ===
+params=1751040 (1.75M), base(h=128)=1.75M, K=1.0000, arm=base, lr=3.940034e-04, muon_lr=0.0025
+muon params (8): ['attention_layers.0.in_proj_weight', 'attention_layers.0.out_proj.weight', 'attention_layers.1.in_proj_weight', 'attention_layers.1.out_proj.weight', 'forward_layers.0.conv1.weight', 'forward_layers.0.conv2.weight', 'forward_layers.1.conv1.weight', 'forward_layers.1.conv2.weight']
+adamw params (20): ['item_emb.weight', 'pos_emb.weight', 'attention_layernorms.0.weight', 'attention_layernorms.0.bias', 'attention_layernorms.1.weight', 'attention_layernorms.1.bias', 'attention_layers.0.in_proj_bias', 'attention_layers.0.out_proj.bias', 'attention_layers.1.in_proj_bias', 'attention_layers.1.out_proj.bias', 'forward_layernorms.0.weight', 'forward_layernorms.0.bias', 'forward_layernorms.1.weight', 'forward_layernorms.1.bias', 'forward_layers.0.conv1.bias', 'forward_layers.0.conv2.bias', 'forward_layers.1.conv1.bias', 'forward_layers.1.conv2.bias', 'last_layernorm.weight', 'last_layernorm.bias']
+epoch 0: train_loss=6.2729 val_ndcg@10=0.0276 val_hr@10=0.0486 *best*
+epoch 1: train_loss=6.0164 val_ndcg@10=0.0436 val_hr@10=0.0772 *best*
+epoch 2: train_loss=5.8618 val_ndcg@10=0.0522 val_hr@10=0.0882 *best*
+epoch 3: train_loss=5.7408 val_ndcg@10=0.0585 val_hr@10=0.0966 *best*
+epoch 4: train_loss=5.6414 val_ndcg@10=0.0619 val_hr@10=0.1026 *best*
+epoch 5: train_loss=5.5509 val_ndcg@10=0.0662 val_hr@10=0.1078 *best*
+epoch 6: train_loss=5.4733 val_ndcg@10=0.0671 val_hr@10=0.1104 *best*
+epoch 7: train_loss=5.4036 val_ndcg@10=0.0687 val_hr@10=0.1104 *best*
+epoch 8: train_loss=5.3424 val_ndcg@10=0.0687 val_hr@10=0.1108 *best*
+epoch 9: train_loss=5.2907 val_ndcg@10=0.0699 val_hr@10=0.1136 *best*
+epoch 10: train_loss=5.2409 val_ndcg@10=0.0698 val_hr@10=0.1132
+epoch 11: train_loss=5.2042 val_ndcg@10=0.0688 val_hr@10=0.1122
+epoch 12: train_loss=5.1692 val_ndcg@10=0.0712 val_hr@10=0.1140 *best*
+epoch 13: train_loss=5.1321 val_ndcg@10=0.0706 val_hr@10=0.1130
+epoch 14: train_loss=5.1076 val_ndcg@10=0.0709 val_hr@10=0.1150
+epoch 15: train_loss=5.0832 val_ndcg@10=0.0695 val_hr@10=0.1122
+epoch 16: train_loss=5.0600 val_ndcg@10=0.0714 val_hr@10=0.1134 *best*
+epoch 17: train_loss=5.0460 val_ndcg@10=0.0700 val_hr@10=0.1110
+epoch 18: train_loss=5.0318 val_ndcg@10=0.0705 val_hr@10=0.1110
+epoch 19: train_loss=5.0132 val_ndcg@10=0.0690 val_hr@10=0.1118
+epoch 20: train_loss=5.0077 val_ndcg@10=0.0708 val_hr@10=0.1128
+epoch 21: train_loss=4.9932 val_ndcg@10=0.0692 val_hr@10=0.1114
+epoch 22: train_loss=4.9879 val_ndcg@10=0.0694 val_hr@10=0.1086
+epoch 23: train_loss=4.9762 val_ndcg@10=0.0690 val_hr@10=0.1112
+epoch 24: train_loss=4.9767 val_ndcg@10=0.0702 val_hr@10=0.1104
+epoch 25: train_loss=4.9710 val_ndcg@10=0.0696 val_hr@10=0.1124
+epoch 26: train_loss=4.9671 val_ndcg@10=0.0710 val_hr@10=0.1132
+early stopping at epoch 26 (no val NDCG improvement for 10 epochs)
+test metrics: {'HR@10': 0.08418447694038245, 'NDCG@10': 0.05097937703740058, 'Coverage@10': 0.7055032226078334, 'ubucket1_n_users': 13985, 'ubucket1_mean_len': 4.68, 'ubucket1_HR@10': 0.073936360386128, 'ubucket1_NDCG@10': 0.04524853980086706, 'ubucket1_Coverage@10': 0.6565030573458932, 'ubucket2_n_users': 6072, 'ubucket2_mean_len': 8.93, 'ubucket2_HR@10': 0.08448616600790514, 'ubucket2_NDCG@10': 0.049390033219732773, 'ubucket2_Coverage@10': 0.5302429350520576, 'ubucket3_n_users': 2168, 'ubucket3_mean_len': 25.36, 'ubucket3_HR@10': 0.14944649446494465, 'ubucket3_NDCG@10': 0.09239831357513131, 'ubucket3_Coverage@10': 0.2993720046273343, 'ibucket1_n_users': 5614, 'ibucket1_n_items': 735, 'ibucket1_HR@10': 0.20074812967581046, 'ibucket1_NDCG@10': 0.12323522424013086, 'ibucket1_Coverage@10': 0.9918367346938776, 'ibucket2_n_users': 7747, 'ibucket2_n_items': 2612, 'ibucket2_HR@10': 0.07138247063379373, 'ibucket2_NDCG@10': 0.04243084670330099, 'ibucket2_Coverage@10': 0.9379785604900459, 'ibucket3_n_users': 8864, 'ibucket3_n_items': 8720, 'ibucket3_HR@10': 0.02154783393501805, 'ibucket3_NDCG@10': 0.012687537946938249, 'ibucket3_Coverage@10': 0.48543577981651376}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/beauty_muon_h128_base.json

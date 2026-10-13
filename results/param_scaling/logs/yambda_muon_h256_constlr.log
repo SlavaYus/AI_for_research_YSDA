@@ -1,0 +1,33 @@
+=== yambda_muon_h256_constlr ===
+params=138892800 (138.89M), base(h=128)=69.25M, K=2.0057, arm=constlr, lr=3.940034e-04, muon_lr=0.0025
+muon params (8): ['attention_layers.0.in_proj_weight', 'attention_layers.0.out_proj.weight', 'attention_layers.1.in_proj_weight', 'attention_layers.1.out_proj.weight', 'forward_layers.0.conv1.weight', 'forward_layers.0.conv2.weight', 'forward_layers.1.conv1.weight', 'forward_layers.1.conv2.weight']
+adamw params (20): ['item_emb.weight', 'pos_emb.weight', 'attention_layernorms.0.weight', 'attention_layernorms.0.bias', 'attention_layernorms.1.weight', 'attention_layernorms.1.bias', 'attention_layers.0.in_proj_bias', 'attention_layers.0.out_proj.bias', 'attention_layers.1.in_proj_bias', 'attention_layers.1.out_proj.bias', 'forward_layernorms.0.weight', 'forward_layernorms.0.bias', 'forward_layernorms.1.weight', 'forward_layernorms.1.bias', 'forward_layers.0.conv1.bias', 'forward_layers.0.conv2.bias', 'forward_layers.1.conv1.bias', 'forward_layers.1.conv2.bias', 'last_layernorm.weight', 'last_layernorm.bias']
+epoch 0: train_loss=5.3313 val_ndcg@10=0.0265 val_hr@10=0.0526 *best*
+epoch 1: train_loss=4.7035 val_ndcg@10=0.0411 val_hr@10=0.0866 *best*
+epoch 2: train_loss=4.4687 val_ndcg@10=0.0466 val_hr@10=0.0990 *best*
+epoch 3: train_loss=4.3682 val_ndcg@10=0.0509 val_hr@10=0.1086 *best*
+epoch 4: train_loss=4.3382 val_ndcg@10=0.0537 val_hr@10=0.1158 *best*
+epoch 5: train_loss=4.3634 val_ndcg@10=0.0557 val_hr@10=0.1170 *best*
+epoch 6: train_loss=4.4134 val_ndcg@10=0.0582 val_hr@10=0.1270 *best*
+epoch 7: train_loss=4.4509 val_ndcg@10=0.0583 val_hr@10=0.1246 *best*
+epoch 8: train_loss=4.4333 val_ndcg@10=0.0628 val_hr@10=0.1362 *best*
+epoch 9: train_loss=4.3817 val_ndcg@10=0.0606 val_hr@10=0.1310
+epoch 10: train_loss=4.3539 val_ndcg@10=0.0624 val_hr@10=0.1348
+epoch 11: train_loss=4.3222 val_ndcg@10=0.0618 val_hr@10=0.1342
+epoch 12: train_loss=4.2876 val_ndcg@10=0.0615 val_hr@10=0.1304
+epoch 13: train_loss=4.2402 val_ndcg@10=0.0624 val_hr@10=0.1316
+epoch 14: train_loss=4.1752 val_ndcg@10=0.0622 val_hr@10=0.1348
+epoch 15: train_loss=4.1282 val_ndcg@10=0.0632 val_hr@10=0.1326 *best*
+epoch 16: train_loss=4.0904 val_ndcg@10=0.0619 val_hr@10=0.1322
+epoch 17: train_loss=4.0502 val_ndcg@10=0.0644 val_hr@10=0.1364 *best*
+epoch 18: train_loss=3.9911 val_ndcg@10=0.0630 val_hr@10=0.1368
+epoch 19: train_loss=3.9410 val_ndcg@10=0.0625 val_hr@10=0.1330
+epoch 20: train_loss=3.8862 val_ndcg@10=0.0617 val_hr@10=0.1322
+epoch 21: train_loss=3.8559 val_ndcg@10=0.0614 val_hr@10=0.1326
+epoch 22: train_loss=3.8107 val_ndcg@10=0.0621 val_hr@10=0.1336
+epoch 23: train_loss=3.7648 val_ndcg@10=0.0641 val_hr@10=0.1360
+epoch 24: train_loss=3.7462 val_ndcg@10=0.0634 val_hr@10=0.1326
+epoch 25: train_loss=3.7079 val_ndcg@10=0.0620 val_hr@10=0.1334
+early stopping at epoch 25 (no val NDCG improvement for 8 epochs)
+test metrics: {'HR@10': 0.13155679824248562, 'NDCG@10': 0.0636016375513724, 'Coverage@10': 0.276409273281469, 'ubucket1_n_users': 15528, 'ubucket1_mean_len': 16.71, 'ubucket1_HR@10': 0.16679546625450797, 'ubucket1_NDCG@10': 0.08188201192116126, 'ubucket1_Coverage@10': 0.09027803528652689, 'ubucket2_n_users': 10984, 'ubucket2_mean_len': 49.11, 'ubucket2_HR@10': 0.13710852148579752, 'ubucket2_NDCG@10': 0.06505024577008607, 'ubucket2_Coverage@10': 0.08607858260592262, 'ubucket3_n_users': 43587, 'ubucket3_mean_len': 240.09, 'ubucket3_HR@10': 0.11760387271434143, 'ubucket3_NDCG@10': 0.056724147338959655, 'ubucket3_Coverage@10': 0.22904908817181974, 'ibucket1_n_users': 23667, 'ibucket1_n_items': 2817, 'ibucket1_HR@10': 0.11822368699032408, 'ibucket1_NDCG@10': 0.0544873281368842, 'ibucket1_Coverage@10': 0.9989350372736954, 'ibucket2_n_users': 22807, 'ibucket2_n_items': 15383, 'ibucket2_HR@10': 0.13013548471960362, 'ibucket2_NDCG@10': 0.06242587200715115, 'ibucket2_Coverage@10': 0.9430540206721706, 'ibucket3_n_users': 23625, 'ibucket3_n_items': 487962, 'ibucket3_HR@10': 0.1462857142857143, 'ibucket3_NDCG@10': 0.07386720562247272, 'ibucket3_Coverage@10': 0.18580750140379784}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/yambda_muon_h256_constlr.json

@@ -1,0 +1,36 @@
+=== yambda_muon_h64_scaled ===
+params=34575744 (34.58M), base(h=128)=69.25M, K=0.4993, arm=scaled, lr=5.576009e-04, muon_lr=0.0035380460260856
+muon params (8): ['attention_layers.0.in_proj_weight', 'attention_layers.0.out_proj.weight', 'attention_layers.1.in_proj_weight', 'attention_layers.1.out_proj.weight', 'forward_layers.0.conv1.weight', 'forward_layers.0.conv2.weight', 'forward_layers.1.conv1.weight', 'forward_layers.1.conv2.weight']
+adamw params (20): ['item_emb.weight', 'pos_emb.weight', 'attention_layernorms.0.weight', 'attention_layernorms.0.bias', 'attention_layernorms.1.weight', 'attention_layernorms.1.bias', 'attention_layers.0.in_proj_bias', 'attention_layers.0.out_proj.bias', 'attention_layers.1.in_proj_bias', 'attention_layers.1.out_proj.bias', 'forward_layernorms.0.weight', 'forward_layernorms.0.bias', 'forward_layernorms.1.weight', 'forward_layernorms.1.bias', 'forward_layers.0.conv1.bias', 'forward_layers.0.conv2.bias', 'forward_layers.1.conv1.bias', 'forward_layers.1.conv2.bias', 'last_layernorm.weight', 'last_layernorm.bias']
+epoch 0: train_loss=5.5319 val_ndcg@10=0.0083 val_hr@10=0.0166 *best*
+epoch 1: train_loss=5.6998 val_ndcg@10=0.0174 val_hr@10=0.0336 *best*
+epoch 2: train_loss=5.3128 val_ndcg@10=0.0282 val_hr@10=0.0542 *best*
+epoch 3: train_loss=4.8140 val_ndcg@10=0.0340 val_hr@10=0.0650 *best*
+epoch 4: train_loss=4.6455 val_ndcg@10=0.0359 val_hr@10=0.0708 *best*
+epoch 5: train_loss=4.6384 val_ndcg@10=0.0380 val_hr@10=0.0752 *best*
+epoch 6: train_loss=4.7585 val_ndcg@10=0.0394 val_hr@10=0.0784 *best*
+epoch 7: train_loss=4.8190 val_ndcg@10=0.0420 val_hr@10=0.0834 *best*
+epoch 8: train_loss=4.8609 val_ndcg@10=0.0429 val_hr@10=0.0868 *best*
+epoch 9: train_loss=4.8363 val_ndcg@10=0.0429 val_hr@10=0.0842 *best*
+epoch 10: train_loss=4.8316 val_ndcg@10=0.0461 val_hr@10=0.0910 *best*
+epoch 11: train_loss=4.7945 val_ndcg@10=0.0484 val_hr@10=0.0942 *best*
+epoch 12: train_loss=4.7766 val_ndcg@10=0.0491 val_hr@10=0.0972 *best*
+epoch 13: train_loss=4.7592 val_ndcg@10=0.0471 val_hr@10=0.0952
+epoch 14: train_loss=4.7217 val_ndcg@10=0.0480 val_hr@10=0.0976
+epoch 15: train_loss=4.7057 val_ndcg@10=0.0510 val_hr@10=0.1020 *best*
+epoch 16: train_loss=4.6790 val_ndcg@10=0.0494 val_hr@10=0.0992
+epoch 17: train_loss=4.6528 val_ndcg@10=0.0508 val_hr@10=0.1034
+epoch 18: train_loss=4.6313 val_ndcg@10=0.0509 val_hr@10=0.1030
+epoch 19: train_loss=4.6184 val_ndcg@10=0.0514 val_hr@10=0.1034 *best*
+epoch 20: train_loss=4.5726 val_ndcg@10=0.0527 val_hr@10=0.1068 *best*
+epoch 21: train_loss=4.5775 val_ndcg@10=0.0520 val_hr@10=0.1052
+epoch 22: train_loss=4.5451 val_ndcg@10=0.0513 val_hr@10=0.1020
+epoch 23: train_loss=4.5429 val_ndcg@10=0.0524 val_hr@10=0.1038
+epoch 24: train_loss=4.5267 val_ndcg@10=0.0518 val_hr@10=0.1044
+epoch 25: train_loss=4.4812 val_ndcg@10=0.0526 val_hr@10=0.1052
+epoch 26: train_loss=4.4992 val_ndcg@10=0.0517 val_hr@10=0.1042
+epoch 27: train_loss=4.4645 val_ndcg@10=0.0524 val_hr@10=0.1030
+epoch 28: train_loss=4.4698 val_ndcg@10=0.0509 val_hr@10=0.1012
+early stopping at epoch 28 (no val NDCG improvement for 8 epochs)
+test metrics: {'HR@10': 0.10035806502232557, 'NDCG@10': 0.050483875109139154, 'Coverage@10': 0.16095491660424655, 'ubucket1_n_users': 15528, 'ubucket1_mean_len': 16.71, 'ubucket1_HR@10': 0.1359479649665121, 'ubucket1_NDCG@10': 0.06833452314443635, 'ubucket1_Coverage@10': 0.06511283827379319, 'ubucket2_n_users': 10984, 'ubucket2_mean_len': 49.11, 'ubucket2_HR@10': 0.10342316096139839, 'ubucket2_NDCG@10': 0.05215840635064548, 'ubucket2_Coverage@10': 0.05816010204762717, 'ubucket3_n_users': 43587, 'ubucket3_mean_len': 240.09, 'ubucket3_HR@10': 0.08690664647716062, 'ubucket3_NDCG@10': 0.043702543201717216, 'ubucket3_Coverage@10': 0.12586492038653505, 'ibucket1_n_users': 23667, 'ibucket1_n_items': 2817, 'ibucket1_HR@10': 0.11146321882790383, 'ibucket1_NDCG@10': 0.05590786151832985, 'ibucket1_Coverage@10': 0.9950301739439119, 'ibucket2_n_users': 22807, 'ibucket2_n_items': 15383, 'ibucket2_HR@10': 0.10694085149296269, 'ibucket2_NDCG@10': 0.0547386579156256, 'ibucket2_Coverage@10': 0.8624455567834622, 'ibucket3_n_users': 23625, 'ibucket3_n_items': 487962, 'ibucket3_HR@10': 0.08287830687830688, 'ibucket3_NDCG@10': 0.0409427822916216, 'ibucket3_Coverage@10': 0.10944089908640427}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/yambda_muon_h64_scaled.json

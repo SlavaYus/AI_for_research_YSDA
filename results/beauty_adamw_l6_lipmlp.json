@@ -1,0 +1,227 @@
+{
+  "run": "beauty_adamw_l6_lipmlp",
+  "dataset": "beauty",
+  "dataset_name": "Beauty",
+  "optimizer": "adamw",
+  "optimizer_settings": {},
+  "num_blocks": 6,
+  "lipschitz": true,
+  "lipschitz_mode": "mlp",
+  "config": {
+    "key": "beauty",
+    "name": "Beauty",
+    "split": "leave-one-out-no_cold_items",
+    "max_sequence_length": 20,
+    "filter_seen": true,
+    "loss": "sce",
+    "hidden_units": 128,
+    "num_heads": 2,
+    "dropout_rate": 0.4,
+    "lr": 0.00039400340300651556,
+    "batch_size": 64,
+    "eval_batch_size": 256,
+    "num_workers": 2,
+    "patience": 10,
+    "max_epochs": 200,
+    "val_size": 5000,
+    "random_state": 42,
+    "sce": {
+      "n_buckets": 32,
+      "bucket_size_x": 512,
+      "bucket_size_y": 512,
+      "mix_x": true
+    }
+  },
+  "item_count": 12102,
+  "n_test_users": 22225,
+  "metrics": {
+    "HR@10": 0.08692913385826771,
+    "NDCG@10": 0.053397815839814344,
+    "Coverage@10": 0.6803007767311188,
+    "ubucket1_n_users": 13985,
+    "ubucket1_mean_len": 4.68,
+    "ubucket1_HR@10": 0.0774401144082946,
+    "ubucket1_NDCG@10": 0.04792373597750165,
+    "ubucket1_Coverage@10": 0.6165096678235003,
+    "ubucket2_n_users": 6072,
+    "ubucket2_mean_len": 8.93,
+    "ubucket2_HR@10": 0.08514492753623189,
+    "ubucket2_NDCG@10": 0.05031540830201847,
+    "ubucket2_Coverage@10": 0.5202445876714593,
+    "ubucket3_n_users": 2168,
+    "ubucket3_mean_len": 25.36,
+    "ubucket3_HR@10": 0.15313653136531366,
+    "ubucket3_NDCG@10": 0.09734218181949125,
+    "ubucket3_Coverage@10": 0.3048256486531152,
+    "ibucket1_n_users": 5614,
+    "ibucket1_n_items": 735,
+    "ibucket1_HR@10": 0.20912005700035624,
+    "ibucket1_NDCG@10": 0.1292019849073763,
+    "ibucket1_Coverage@10": 0.9959183673469387,
+    "ibucket2_n_users": 7747,
+    "ibucket2_n_items": 2612,
+    "ibucket2_HR@10": 0.07422227959210016,
+    "ibucket2_NDCG@10": 0.04561040774225688,
+    "ibucket2_Coverage@10": 0.9287901990811639,
+    "ibucket3_n_users": 8864,
+    "ibucket3_n_items": 8720,
+    "ibucket3_HR@10": 0.020645306859205775,
+    "ibucket3_NDCG@10": 0.012193443703813095,
+    "ibucket3_Coverage@10": 0.44747706422018346
+  },
+  "training": {
+    "history": [
+      {
+        "epoch": 0,
+        "train_loss": 6.282808287484305,
+        "val_ndcg@10": 0.024726832069796943,
+        "val_hr@10": 0.0464
+      },
+      {
+        "epoch": 1,
+        "train_loss": 6.070899475642613,
+        "val_ndcg@10": 0.037585411150871516,
+        "val_hr@10": 0.066
+      },
+      {
+        "epoch": 2,
+        "train_loss": 5.922013116564069,
+        "val_ndcg@10": 0.045005843404997185,
+        "val_hr@10": 0.0794
+      },
+      {
+        "epoch": 3,
+        "train_loss": 5.795968287331718,
+        "val_ndcg@10": 0.051364892748892416,
+        "val_hr@10": 0.0874
+      },
+      {
+        "epoch": 4,
+        "train_loss": 5.6838227599007745,
+        "val_ndcg@10": 0.0582503055292074,
+        "val_hr@10": 0.0962
+      },
+      {
+        "epoch": 5,
+        "train_loss": 5.584834865842547,
+        "val_ndcg@10": 0.06240998018663872,
+        "val_hr@10": 0.1016
+      },
+      {
+        "epoch": 6,
+        "train_loss": 5.496202962057931,
+        "val_ndcg@10": 0.06497141785435999,
+        "val_hr@10": 0.1076
+      },
+      {
+        "epoch": 7,
+        "train_loss": 5.413204634530204,
+        "val_ndcg@10": 0.06648366474329877,
+        "val_hr@10": 0.1076
+      },
+      {
+        "epoch": 8,
+        "train_loss": 5.340938576289585,
+        "val_ndcg@10": 0.06669961559814276,
+        "val_hr@10": 0.1074
+      },
+      {
+        "epoch": 9,
+        "train_loss": 5.272172391074045,
+        "val_ndcg@10": 0.06865301310493999,
+        "val_hr@10": 0.1128
+      },
+      {
+        "epoch": 10,
+        "train_loss": 5.214389702933175,
+        "val_ndcg@10": 0.06941561300016381,
+        "val_hr@10": 0.1124
+      },
+      {
+        "epoch": 11,
+        "train_loss": 5.15939703805106,
+        "val_ndcg@10": 0.06997296255146745,
+        "val_hr@10": 0.1114
+      },
+      {
+        "epoch": 12,
+        "train_loss": 5.108412490572248,
+        "val_ndcg@10": 0.06992714771445079,
+        "val_hr@10": 0.1116
+      },
+      {
+        "epoch": 13,
+        "train_loss": 5.064733185086932,
+        "val_ndcg@10": 0.07076836008380569,
+        "val_hr@10": 0.1122
+      },
+      {
+        "epoch": 14,
+        "train_loss": 5.026671593529837,
+        "val_ndcg@10": 0.06863890120404446,
+        "val_hr@10": 0.1092
+      },
+      {
+        "epoch": 15,
+        "train_loss": 4.9972007315499445,
+        "val_ndcg@10": 0.06997926269031662,
+        "val_hr@10": 0.111
+      },
+      {
+        "epoch": 16,
+        "train_loss": 4.965257058824812,
+        "val_ndcg@10": 0.06967615550297124,
+        "val_hr@10": 0.1098
+      },
+      {
+        "epoch": 17,
+        "train_loss": 4.938801377160209,
+        "val_ndcg@10": 0.06851167542470858,
+        "val_hr@10": 0.1094
+      },
+      {
+        "epoch": 18,
+        "train_loss": 4.916464800153459,
+        "val_ndcg@10": 0.06998175675100787,
+        "val_hr@10": 0.1106
+      },
+      {
+        "epoch": 19,
+        "train_loss": 4.894421318599156,
+        "val_ndcg@10": 0.06784176771535515,
+        "val_hr@10": 0.11
+      },
+      {
+        "epoch": 20,
+        "train_loss": 4.8725840255192345,
+        "val_ndcg@10": 0.06757417501807157,
+        "val_hr@10": 0.1076
+      },
+      {
+        "epoch": 21,
+        "train_loss": 4.85981420653207,
+        "val_ndcg@10": 0.07012421758065719,
+        "val_hr@10": 0.1112
+      },
+      {
+        "epoch": 22,
+        "train_loss": 4.844180628912789,
+        "val_ndcg@10": 0.06762530202808624,
+        "val_hr@10": 0.1072
+      },
+      {
+        "epoch": 23,
+        "train_loss": 4.828715035574777,
+        "val_ndcg@10": 0.0681828973837842,
+        "val_hr@10": 0.1074
+      }
+    ],
+    "best_epoch": 13,
+    "best_val_ndcg@10": 0.07076836008380569,
+    "train_time_sec": 767.1,
+    "train_time_h": 0.21,
+    "n_lipschitz_weights": 12,
+    "finished": "2026-10-13T19:26:37"
+  },
+  "wall_time_sec": 774.0
+}

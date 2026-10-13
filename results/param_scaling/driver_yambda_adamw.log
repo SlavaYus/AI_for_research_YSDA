@@ -1,0 +1,168 @@
+planned runs (5):
+   yambda_adamw_h64_scaled
+   yambda_adamw_h64_constlr
+   yambda_adamw_h128_base
+   yambda_adamw_h256_scaled
+   yambda_adamw_h256_constlr
+
+[1/5] starting yambda_adamw_h64_scaled
+=== yambda_adamw_h64_scaled ===
+params=34575744 (34.58M), base(h=128)=69.25M, K=0.4993, arm=scaled, lr=5.576009e-04
+epoch 0: train_loss=5.2051 val_ndcg@10=0.0038 val_hr@10=0.0076 *best*
+epoch 1: train_loss=4.5259 val_ndcg@10=0.0052 val_hr@10=0.0094 *best*
+epoch 2: train_loss=3.9130 val_ndcg@10=0.0040 val_hr@10=0.0074
+epoch 3: train_loss=3.6719 val_ndcg@10=0.0032 val_hr@10=0.0050
+epoch 4: train_loss=3.7842 val_ndcg@10=0.0040 val_hr@10=0.0082
+epoch 5: train_loss=3.9062 val_ndcg@10=0.0058 val_hr@10=0.0110 *best*
+epoch 6: train_loss=4.1177 val_ndcg@10=0.0045 val_hr@10=0.0088
+epoch 7: train_loss=4.1031 val_ndcg@10=0.0053 val_hr@10=0.0104
+epoch 8: train_loss=4.1095 val_ndcg@10=0.0018 val_hr@10=0.0036
+epoch 9: train_loss=4.1006 val_ndcg@10=0.0059 val_hr@10=0.0126 *best*
+epoch 10: train_loss=5.5896 val_ndcg@10=0.0063 val_hr@10=0.0134 *best*
+epoch 11: train_loss=6.0876 val_ndcg@10=0.0072 val_hr@10=0.0144 *best*
+epoch 12: train_loss=6.0169 val_ndcg@10=0.0074 val_hr@10=0.0154 *best*
+epoch 13: train_loss=4.2714 val_ndcg@10=0.0086 val_hr@10=0.0162 *best*
+epoch 14: train_loss=4.9258 val_ndcg@10=0.0100 val_hr@10=0.0176 *best*
+epoch 15: train_loss=5.1896 val_ndcg@10=0.0122 val_hr@10=0.0236 *best*
+epoch 16: train_loss=5.4024 val_ndcg@10=0.0159 val_hr@10=0.0312 *best*
+epoch 17: train_loss=5.5431 val_ndcg@10=0.0216 val_hr@10=0.0418 *best*
+epoch 18: train_loss=5.5394 val_ndcg@10=0.0252 val_hr@10=0.0494 *best*
+epoch 19: train_loss=5.4268 val_ndcg@10=0.0298 val_hr@10=0.0576 *best*
+epoch 20: train_loss=5.3256 val_ndcg@10=0.0353 val_hr@10=0.0698 *best*
+epoch 21: train_loss=5.2462 val_ndcg@10=0.0385 val_hr@10=0.0746 *best*
+epoch 22: train_loss=5.2048 val_ndcg@10=0.0409 val_hr@10=0.0772 *best*
+epoch 23: train_loss=5.1597 val_ndcg@10=0.0442 val_hr@10=0.0856 *best*
+epoch 24: train_loss=5.1327 val_ndcg@10=0.0448 val_hr@10=0.0872 *best*
+epoch 25: train_loss=5.0907 val_ndcg@10=0.0457 val_hr@10=0.0890 *best*
+epoch 26: train_loss=5.0261 val_ndcg@10=0.0473 val_hr@10=0.0898 *best*
+epoch 27: train_loss=5.0043 val_ndcg@10=0.0472 val_hr@10=0.0928
+epoch 28: train_loss=4.9695 val_ndcg@10=0.0499 val_hr@10=0.0976 *best*
+epoch 29: train_loss=4.9137 val_ndcg@10=0.0481 val_hr@10=0.0944
+epoch 30: train_loss=4.8864 val_ndcg@10=0.0502 val_hr@10=0.0998 *best*
+epoch 31: train_loss=4.8336 val_ndcg@10=0.0503 val_hr@10=0.1012 *best*
+epoch 32: train_loss=4.8011 val_ndcg@10=0.0525 val_hr@10=0.1036 *best*
+epoch 33: train_loss=4.7571 val_ndcg@10=0.0513 val_hr@10=0.1028
+epoch 34: train_loss=4.7148 val_ndcg@10=0.0519 val_hr@10=0.1040
+epoch 35: train_loss=4.6776 val_ndcg@10=0.0537 val_hr@10=0.1068 *best*
+epoch 36: train_loss=4.6331 val_ndcg@10=0.0563 val_hr@10=0.1116 *best*
+epoch 37: train_loss=4.5989 val_ndcg@10=0.0537 val_hr@10=0.1090
+epoch 38: train_loss=4.5698 val_ndcg@10=0.0543 val_hr@10=0.1112
+epoch 39: train_loss=4.5197 val_ndcg@10=0.0544 val_hr@10=0.1112
+epoch 40: train_loss=4.5357 val_ndcg@10=0.0555 val_hr@10=0.1142
+epoch 41: train_loss=4.4972 val_ndcg@10=0.0559 val_hr@10=0.1134
+epoch 42: train_loss=4.4690 val_ndcg@10=0.0548 val_hr@10=0.1114
+epoch 43: train_loss=4.4737 val_ndcg@10=0.0540 val_hr@10=0.1106
+epoch 44: train_loss=4.4358 val_ndcg@10=0.0524 val_hr@10=0.1080
+early stopping at epoch 44 (no val NDCG improvement for 8 epochs)
+test metrics: {'HR@10': 0.10279747214653562, 'NDCG@10': 0.05129674015426121, 'Coverage@10': 0.13893421042873352, 'ubucket1_n_users': 15528, 'ubucket1_mean_len': 16.71, 'ubucket1_HR@10': 0.13845955692941783, 'ubucket1_NDCG@10': 0.06923875559467998, 'ubucket1_Coverage@10': 0.06267845356313827, 'ubucket2_n_users': 10984, 'ubucket2_mean_len': 49.11, 'ubucket2_HR@10': 0.10697378004369992, 'ubucket2_NDCG@10': 0.05338985101232309, 'ubucket2_Coverage@10': 0.05399402250090849, 'ubucket3_n_users': 43587, 'ubucket3_mean_len': 240.09, 'ubucket3_HR@10': 0.08904031018422924, 'ubucket3_NDCG@10': 0.04437737554041362, 'ubucket3_Coverage@10': 0.10835700353755219, 'ibucket1_n_users': 23667, 'ibucket1_n_items': 2817, 'ibucket1_HR@10': 0.11492795876114421, 'ibucket1_NDCG@10': 0.056752507719161946, 'ibucket1_Coverage@10': 0.9953851615193469, 'ibucket2_n_users': 22807, 'ibucket2_n_items': 15383, 'ibucket2_HR@10': 0.11027316174858597, 'ibucket2_NDCG@10': 0.05540947607550434, 'ibucket2_Coverage@10': 0.8642657479035298, 'ibucket3_n_users': 23625, 'ibucket3_n_items': 487962, 'ibucket3_HR@10': 0.08342857142857144, 'ibucket3_NDCG@10': 0.04186093828698935, 'ibucket3_Coverage@10': 0.09190264815702862}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/yambda_adamw_h64_scaled.json
+
+[2/5] starting yambda_adamw_h64_constlr
+=== yambda_adamw_h64_constlr ===
+params=34575744 (34.58M), base(h=128)=69.25M, K=0.4993, arm=constlr, lr=3.940034e-04
+epoch 0: train_loss=5.4622 val_ndcg@10=0.0038 val_hr@10=0.0068 *best*
+epoch 1: train_loss=4.5244 val_ndcg@10=0.0051 val_hr@10=0.0088 *best*
+epoch 2: train_loss=4.4586 val_ndcg@10=0.0043 val_hr@10=0.0088
+epoch 3: train_loss=3.9721 val_ndcg@10=0.0030 val_hr@10=0.0058
+epoch 4: train_loss=3.8734 val_ndcg@10=0.0033 val_hr@10=0.0060
+epoch 5: train_loss=3.8170 val_ndcg@10=0.0057 val_hr@10=0.0108 *best*
+epoch 6: train_loss=3.8461 val_ndcg@10=0.0053 val_hr@10=0.0106
+epoch 7: train_loss=3.9165 val_ndcg@10=0.0041 val_hr@10=0.0078
+epoch 8: train_loss=4.0365 val_ndcg@10=0.0017 val_hr@10=0.0034
+epoch 9: train_loss=3.9847 val_ndcg@10=0.0051 val_hr@10=0.0096
+epoch 10: train_loss=3.9614 val_ndcg@10=0.0056 val_hr@10=0.0110
+epoch 11: train_loss=3.9748 val_ndcg@10=0.0042 val_hr@10=0.0092
+epoch 12: train_loss=4.0479 val_ndcg@10=0.0046 val_hr@10=0.0100
+epoch 13: train_loss=4.1091 val_ndcg@10=0.0049 val_hr@10=0.0092
+early stopping at epoch 13 (no val NDCG improvement for 8 epochs)
+test metrics: {'HR@10': 0.011369634374242142, 'NDCG@10': 0.005810591966486109, 'Coverage@10': 2.0394692930086992e-05, 'ubucket1_n_users': 15528, 'ubucket1_mean_len': 16.71, 'ubucket1_HR@10': 0.013459556929417827, 'ubucket1_NDCG@10': 0.006826650452170963, 'ubucket1_Coverage@10': 2.0394692930086992e-05, 'ubucket2_n_users': 10984, 'ubucket2_mean_len': 49.11, 'ubucket2_HR@10': 0.012381646030589949, 'ubucket2_NDCG@10': 0.0063608344626655475, 'ubucket2_Coverage@10': 1.8540629936442722e-05, 'ubucket3_n_users': 43587, 'ubucket3_mean_len': 240.09, 'ubucket3_HR@10': 0.010370064468763622, 'ubucket3_NDCG@10': 0.0053099560029247405, 'ubucket3_Coverage@10': 1.8540629936442722e-05, 'ibucket1_n_users': 23667, 'ibucket1_n_items': 2817, 'ibucket1_HR@10': 0.03367558203405586, 'ibucket1_NDCG@10': 0.01721032180921578, 'ibucket1_Coverage@10': 0.003549875754348598, 'ibucket2_n_users': 22807, 'ibucket2_n_items': 15383, 'ibucket2_HR@10': 0.0, 'ibucket2_NDCG@10': 0.0, 'ibucket2_Coverage@10': 0.0, 'ibucket3_n_users': 23625, 'ibucket3_n_items': 487962, 'ibucket3_HR@10': 0.0, 'ibucket3_NDCG@10': 0.0, 'ibucket3_Coverage@10': 0.0}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/yambda_adamw_h64_constlr.json
+
+[3/5] starting yambda_adamw_h128_base
+FAILED: Unknown arm: 'base'
+
+[4/5] starting yambda_adamw_h256_scaled
+=== yambda_adamw_h256_scaled ===
+params=138892800 (138.89M), base(h=128)=69.25M, K=2.0057, arm=scaled, lr=2.782078e-04
+epoch 0: train_loss=5.3803 val_ndcg@10=0.0037 val_hr@10=0.0064 *best*
+epoch 1: train_loss=5.0363 val_ndcg@10=0.0055 val_hr@10=0.0112 *best*
+epoch 2: train_loss=5.6481 val_ndcg@10=0.0102 val_hr@10=0.0206 *best*
+epoch 3: train_loss=5.6683 val_ndcg@10=0.0258 val_hr@10=0.0522 *best*
+epoch 4: train_loss=5.0935 val_ndcg@10=0.0366 val_hr@10=0.0750 *best*
+epoch 5: train_loss=4.7309 val_ndcg@10=0.0430 val_hr@10=0.0874 *best*
+epoch 6: train_loss=4.5274 val_ndcg@10=0.0478 val_hr@10=0.0980 *best*
+epoch 7: train_loss=4.4446 val_ndcg@10=0.0497 val_hr@10=0.1026 *best*
+epoch 8: train_loss=4.3511 val_ndcg@10=0.0537 val_hr@10=0.1084 *best*
+epoch 9: train_loss=4.2755 val_ndcg@10=0.0551 val_hr@10=0.1146 *best*
+epoch 10: train_loss=4.2980 val_ndcg@10=0.0565 val_hr@10=0.1166 *best*
+epoch 11: train_loss=4.3163 val_ndcg@10=0.0586 val_hr@10=0.1224 *best*
+epoch 12: train_loss=4.3082 val_ndcg@10=0.0595 val_hr@10=0.1246 *best*
+epoch 13: train_loss=4.2808 val_ndcg@10=0.0615 val_hr@10=0.1280 *best*
+epoch 14: train_loss=4.2443 val_ndcg@10=0.0616 val_hr@10=0.1292 *best*
+epoch 15: train_loss=4.1955 val_ndcg@10=0.0637 val_hr@10=0.1342 *best*
+epoch 16: train_loss=4.1929 val_ndcg@10=0.0654 val_hr@10=0.1366 *best*
+epoch 17: train_loss=4.1505 val_ndcg@10=0.0653 val_hr@10=0.1382
+epoch 18: train_loss=4.1088 val_ndcg@10=0.0665 val_hr@10=0.1398 *best*
+epoch 19: train_loss=4.0651 val_ndcg@10=0.0673 val_hr@10=0.1424 *best*
+epoch 20: train_loss=4.0009 val_ndcg@10=0.0676 val_hr@10=0.1414 *best*
+epoch 21: train_loss=3.9651 val_ndcg@10=0.0685 val_hr@10=0.1444 *best*
+epoch 22: train_loss=3.9325 val_ndcg@10=0.0694 val_hr@10=0.1468 *best*
+epoch 23: train_loss=3.8886 val_ndcg@10=0.0694 val_hr@10=0.1462 *best*
+epoch 24: train_loss=3.8520 val_ndcg@10=0.0703 val_hr@10=0.1470 *best*
+epoch 25: train_loss=3.8033 val_ndcg@10=0.0705 val_hr@10=0.1474 *best*
+epoch 26: train_loss=3.7796 val_ndcg@10=0.0703 val_hr@10=0.1484
+epoch 27: train_loss=3.7420 val_ndcg@10=0.0721 val_hr@10=0.1532 *best*
+epoch 28: train_loss=3.7006 val_ndcg@10=0.0709 val_hr@10=0.1494
+epoch 29: train_loss=3.6506 val_ndcg@10=0.0705 val_hr@10=0.1492
+epoch 30: train_loss=3.6273 val_ndcg@10=0.0717 val_hr@10=0.1520
+epoch 31: train_loss=3.6027 val_ndcg@10=0.0714 val_hr@10=0.1506
+epoch 32: train_loss=3.5680 val_ndcg@10=0.0709 val_hr@10=0.1516
+epoch 33: train_loss=3.5115 val_ndcg@10=0.0716 val_hr@10=0.1498
+epoch 34: train_loss=3.4945 val_ndcg@10=0.0711 val_hr@10=0.1506
+epoch 35: train_loss=3.4859 val_ndcg@10=0.0709 val_hr@10=0.1496
+early stopping at epoch 35 (no val NDCG improvement for 8 epochs)
+test metrics: {'HR@10': 0.1465356139174596, 'NDCG@10': 0.07046591001451463, 'Coverage@10': 0.22415992405757978, 'ubucket1_n_users': 15528, 'ubucket1_mean_len': 16.71, 'ubucket1_HR@10': 0.17890262751159197, 'ubucket1_NDCG@10': 0.08670605640579249, 'ubucket1_Coverage@10': 0.09027432716053961, 'ubucket2_n_users': 10984, 'ubucket2_mean_len': 49.11, 'ubucket2_HR@10': 0.15030954115076475, 'ubucket2_NDCG@10': 0.0720015979596942, 'ubucket2_Coverage@10': 0.07899420790720786, 'ubucket3_n_users': 43587, 'ubucket3_mean_len': 240.09, 'ubucket3_HR@10': 0.1340537316172253, 'ubucket3_NDCG@10': 0.06429331292011459, 'ubucket3_Coverage@10': 0.17593203746690497, 'ibucket1_n_users': 23667, 'ibucket1_n_items': 2817, 'ibucket1_HR@10': 0.12342079689018465, 'ibucket1_NDCG@10': 0.05638647838620805, 'ibucket1_Coverage@10': 0.9996450124245652, 'ibucket2_n_users': 22807, 'ibucket2_n_items': 15383, 'ibucket2_HR@10': 0.14692857456044198, 'ibucket2_NDCG@10': 0.07071066840022341, 'ibucket2_Coverage@10': 0.9494246895924072, 'ibucket3_n_users': 23625, 'ibucket3_n_items': 487962, 'ibucket3_HR@10': 0.1693121693121693, 'ibucket3_NDCG@10': 0.08433408795501289, 'ibucket3_Coverage@10': 0.15344022690291456}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/yambda_adamw_h256_scaled.json
+
+[5/5] starting yambda_adamw_h256_constlr
+=== yambda_adamw_h256_constlr ===
+params=138892800 (138.89M), base(h=128)=69.25M, K=2.0057, arm=constlr, lr=3.940034e-04
+epoch 0: train_loss=5.2848 val_ndcg@10=0.0037 val_hr@10=0.0066 *best*
+epoch 1: train_loss=5.6573 val_ndcg@10=0.0128 val_hr@10=0.0254 *best*
+epoch 2: train_loss=5.5848 val_ndcg@10=0.0320 val_hr@10=0.0660 *best*
+epoch 3: train_loss=4.9340 val_ndcg@10=0.0432 val_hr@10=0.0888 *best*
+epoch 4: train_loss=4.6008 val_ndcg@10=0.0480 val_hr@10=0.0994 *best*
+epoch 5: train_loss=4.4270 val_ndcg@10=0.0535 val_hr@10=0.1090 *best*
+epoch 6: train_loss=4.3337 val_ndcg@10=0.0555 val_hr@10=0.1142 *best*
+epoch 7: train_loss=4.3375 val_ndcg@10=0.0556 val_hr@10=0.1160 *best*
+epoch 8: train_loss=4.3021 val_ndcg@10=0.0603 val_hr@10=0.1252 *best*
+epoch 9: train_loss=4.2645 val_ndcg@10=0.0615 val_hr@10=0.1286 *best*
+epoch 10: train_loss=4.2365 val_ndcg@10=0.0612 val_hr@10=0.1276
+epoch 11: train_loss=4.2022 val_ndcg@10=0.0625 val_hr@10=0.1302 *best*
+epoch 12: train_loss=4.1285 val_ndcg@10=0.0647 val_hr@10=0.1366 *best*
+epoch 13: train_loss=4.0891 val_ndcg@10=0.0661 val_hr@10=0.1400 *best*
+epoch 14: train_loss=4.0242 val_ndcg@10=0.0661 val_hr@10=0.1408
+epoch 15: train_loss=3.9611 val_ndcg@10=0.0677 val_hr@10=0.1430 *best*
+epoch 16: train_loss=3.9209 val_ndcg@10=0.0688 val_hr@10=0.1446 *best*
+epoch 17: train_loss=3.8794 val_ndcg@10=0.0687 val_hr@10=0.1454
+epoch 18: train_loss=3.8134 val_ndcg@10=0.0696 val_hr@10=0.1490 *best*
+epoch 19: train_loss=3.7632 val_ndcg@10=0.0695 val_hr@10=0.1456
+epoch 20: train_loss=3.6750 val_ndcg@10=0.0689 val_hr@10=0.1456
+epoch 21: train_loss=3.6380 val_ndcg@10=0.0702 val_hr@10=0.1496 *best*
+epoch 22: train_loss=3.5964 val_ndcg@10=0.0696 val_hr@10=0.1456
+epoch 23: train_loss=3.5384 val_ndcg@10=0.0729 val_hr@10=0.1538 *best*
+epoch 24: train_loss=3.4803 val_ndcg@10=0.0703 val_hr@10=0.1466
+epoch 25: train_loss=3.4384 val_ndcg@10=0.0691 val_hr@10=0.1454
+epoch 26: train_loss=3.4071 val_ndcg@10=0.0707 val_hr@10=0.1494
+epoch 27: train_loss=3.3652 val_ndcg@10=0.0713 val_hr@10=0.1488
+epoch 28: train_loss=3.3222 val_ndcg@10=0.0699 val_hr@10=0.1496
+epoch 29: train_loss=3.2672 val_ndcg@10=0.0690 val_hr@10=0.1454
+epoch 30: train_loss=3.2248 val_ndcg@10=0.0692 val_hr@10=0.1490
+epoch 31: train_loss=3.2015 val_ndcg@10=0.0682 val_hr@10=0.1436
+early stopping at epoch 31 (no val NDCG improvement for 8 epochs)
+test metrics: {'HR@10': 0.1471205010057205, 'NDCG@10': 0.07046569383264416, 'Coverage@10': 0.25241028189173753, 'ubucket1_n_users': 15528, 'ubucket1_mean_len': 16.71, 'ubucket1_HR@10': 0.1799330242143225, 'ubucket1_NDCG@10': 0.08693758560390753, 'ubucket1_Coverage@10': 0.0924139158552051, 'ubucket2_n_users': 10984, 'ubucket2_mean_len': 49.11, 'ubucket2_HR@10': 0.14967225054624908, 'ubucket2_NDCG@10': 0.07141910196517505, 'ubucket2_Coverage@10': 0.08217763406729507, 'ubucket3_n_users': 43587, 'ubucket3_mean_len': 240.09, 'ubucket3_HR@10': 0.134787895473421, 'ubucket3_NDCG@10': 0.06435727227686153, 'ubucket3_Coverage@10': 0.19922463085605796, 'ibucket1_n_users': 23667, 'ibucket1_n_items': 2817, 'ibucket1_HR@10': 0.12819537752989393, 'ibucket1_NDCG@10': 0.05841510309271917, 'ibucket1_Coverage@10': 0.9996450124245652, 'ibucket2_n_users': 22807, 'ibucket2_n_items': 15383, 'ibucket2_HR@10': 0.14197395536458104, 'ibucket2_NDCG@10': 0.06830015472953449, 'ibucket2_Coverage@10': 0.9406487681206527, 'ibucket3_n_users': 23625, 'ibucket3_n_items': 487962, 'ibucket3_HR@10': 0.17104761904761906, 'ibucket3_NDCG@10': 0.08462826658889501, 'ibucket3_Coverage@10': 0.1708965042359856}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/yambda_adamw_h256_constlr.json
+
+=== param-scaling sweep done ===
+failures:
+  yambda_adamw_h128_base: Unknown arm: 'base'

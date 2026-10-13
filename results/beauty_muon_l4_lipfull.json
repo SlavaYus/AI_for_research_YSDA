@@ -1,0 +1,224 @@
+{
+  "run": "beauty_muon_l4_lipfull",
+  "dataset": "beauty",
+  "dataset_name": "Beauty",
+  "optimizer": "muon",
+  "optimizer_settings": {
+    "muon_lr": 0.0025,
+    "muon_momentum": 0.99
+  },
+  "num_blocks": 4,
+  "lipschitz": true,
+  "lipschitz_mode": "attn+mlp",
+  "config": {
+    "key": "beauty",
+    "name": "Beauty",
+    "split": "leave-one-out-no_cold_items",
+    "max_sequence_length": 20,
+    "filter_seen": true,
+    "loss": "sce",
+    "hidden_units": 128,
+    "num_heads": 2,
+    "dropout_rate": 0.4,
+    "lr": 0.00039400340300651556,
+    "batch_size": 64,
+    "eval_batch_size": 256,
+    "num_workers": 2,
+    "patience": 10,
+    "max_epochs": 200,
+    "val_size": 5000,
+    "random_state": 42,
+    "sce": {
+      "n_buckets": 32,
+      "bucket_size_x": 512,
+      "bucket_size_y": 512,
+      "mix_x": true
+    }
+  },
+  "item_count": 12102,
+  "n_test_users": 22225,
+  "metrics": {
+    "HR@10": 0.08422947131608549,
+    "NDCG@10": 0.051746848607347996,
+    "Coverage@10": 0.7181457610312345,
+    "ubucket1_n_users": 13985,
+    "ubucket1_mean_len": 4.68,
+    "ubucket1_HR@10": 0.07550947443689668,
+    "ubucket1_NDCG@10": 0.0459452107432778,
+    "ubucket1_Coverage@10": 0.6584035696579078,
+    "ubucket2_n_users": 6072,
+    "ubucket2_mean_len": 8.93,
+    "ubucket2_HR@10": 0.08119235836627141,
+    "ubucket2_NDCG@10": 0.049544417541333284,
+    "ubucket2_Coverage@10": 0.5397454966121302,
+    "ubucket3_n_users": 2168,
+    "ubucket3_mean_len": 25.36,
+    "ubucket3_HR@10": 0.14898523985239853,
+    "ubucket3_NDCG@10": 0.09533959167093796,
+    "ubucket3_Coverage@10": 0.31920343744835566,
+    "ibucket1_n_users": 5614,
+    "ibucket1_n_items": 735,
+    "ibucket1_HR@10": 0.2059137869611685,
+    "ibucket1_NDCG@10": 0.12675318828870197,
+    "ibucket1_Coverage@10": 0.9959183673469387,
+    "ibucket2_n_users": 7747,
+    "ibucket2_n_items": 2612,
+    "ibucket2_HR@10": 0.06789725054859946,
+    "ibucket2_NDCG@10": 0.042058968791393966,
+    "ibucket2_Coverage@10": 0.9318529862174579,
+    "ibucket3_n_users": 8864,
+    "ibucket3_n_items": 8720,
+    "ibucket3_HR@10": 0.021435018050541516,
+    "ibucket3_NDCG@10": 0.012708763540005339,
+    "ibucket3_Coverage@10": 0.4950688073394495
+  },
+  "training": {
+    "history": [
+      {
+        "epoch": 0,
+        "train_loss": 6.274738807678222,
+        "val_ndcg@10": 0.025095221375911757,
+        "val_hr@10": 0.0478
+      },
+      {
+        "epoch": 1,
+        "train_loss": 6.054526371274676,
+        "val_ndcg@10": 0.03732551551009897,
+        "val_hr@10": 0.067
+      },
+      {
+        "epoch": 2,
+        "train_loss": 5.907091018131801,
+        "val_ndcg@10": 0.04889907717493382,
+        "val_hr@10": 0.0856
+      },
+      {
+        "epoch": 3,
+        "train_loss": 5.785843067169189,
+        "val_ndcg@10": 0.054926194565904814,
+        "val_hr@10": 0.0902
+      },
+      {
+        "epoch": 4,
+        "train_loss": 5.6835763549804685,
+        "val_ndcg@10": 0.05842266342420253,
+        "val_hr@10": 0.0972
+      },
+      {
+        "epoch": 5,
+        "train_loss": 5.5941406236376086,
+        "val_ndcg@10": 0.06215408395620036,
+        "val_hr@10": 0.1004
+      },
+      {
+        "epoch": 6,
+        "train_loss": 5.513808397565569,
+        "val_ndcg@10": 0.06581970255436995,
+        "val_hr@10": 0.1098
+      },
+      {
+        "epoch": 7,
+        "train_loss": 5.443473826817104,
+        "val_ndcg@10": 0.0667169780418375,
+        "val_hr@10": 0.1086
+      },
+      {
+        "epoch": 8,
+        "train_loss": 5.378937797546387,
+        "val_ndcg@10": 0.06874269643363227,
+        "val_hr@10": 0.1124
+      },
+      {
+        "epoch": 9,
+        "train_loss": 5.321262945447649,
+        "val_ndcg@10": 0.06846708597722995,
+        "val_hr@10": 0.1134
+      },
+      {
+        "epoch": 10,
+        "train_loss": 5.272939893177577,
+        "val_ndcg@10": 0.07102933340604212,
+        "val_hr@10": 0.1158
+      },
+      {
+        "epoch": 11,
+        "train_loss": 5.229317238671439,
+        "val_ndcg@10": 0.06962470251686242,
+        "val_hr@10": 0.113
+      },
+      {
+        "epoch": 12,
+        "train_loss": 5.1907644408089775,
+        "val_ndcg@10": 0.07128946651781123,
+        "val_hr@10": 0.1142
+      },
+      {
+        "epoch": 13,
+        "train_loss": 5.158800814492362,
+        "val_ndcg@10": 0.06977527701111183,
+        "val_hr@10": 0.1128
+      },
+      {
+        "epoch": 14,
+        "train_loss": 5.132866983413696,
+        "val_ndcg@10": 0.06886065992536755,
+        "val_hr@10": 0.1092
+      },
+      {
+        "epoch": 15,
+        "train_loss": 5.1079390989031115,
+        "val_ndcg@10": 0.06777386410762833,
+        "val_hr@10": 0.1098
+      },
+      {
+        "epoch": 16,
+        "train_loss": 5.088267815453666,
+        "val_ndcg@10": 0.06978136780419415,
+        "val_hr@10": 0.1144
+      },
+      {
+        "epoch": 17,
+        "train_loss": 5.074529792240687,
+        "val_ndcg@10": 0.06797383456917347,
+        "val_hr@10": 0.1118
+      },
+      {
+        "epoch": 18,
+        "train_loss": 5.058270616531372,
+        "val_ndcg@10": 0.06726114842296743,
+        "val_hr@10": 0.1112
+      },
+      {
+        "epoch": 19,
+        "train_loss": 5.045903190885271,
+        "val_ndcg@10": 0.06589446944873721,
+        "val_hr@10": 0.1082
+      },
+      {
+        "epoch": 20,
+        "train_loss": 5.040814162663051,
+        "val_ndcg@10": 0.06733933475170442,
+        "val_hr@10": 0.1102
+      },
+      {
+        "epoch": 21,
+        "train_loss": 5.031179204668318,
+        "val_ndcg@10": 0.06820722458174566,
+        "val_hr@10": 0.1116
+      },
+      {
+        "epoch": 22,
+        "train_loss": 5.0277092729296005,
+        "val_ndcg@10": 0.06635706484227243,
+        "val_hr@10": 0.1096
+      }
+    ],
+    "best_epoch": 12,
+    "best_val_ndcg@10": 0.07128946651781123,
+    "train_time_sec": 861.3,
+    "train_time_h": 0.24,
+    "n_lipschitz_weights": 16,
+    "finished": "2026-10-13T21:19:17"
+  },
+  "wall_time_sec": 868.7
+}

@@ -1,0 +1,35 @@
+=== beauty_adamw_l4_lipmlp ===
+config: dataset=Beauty blocks=4 optimizer=adamw lipschitz_mode=mlp loss=sce hidden=128 heads=2 dropout=0.4 lr=0.00039400340300651556 muon={} max_epochs=200 patience=10
+train: 153776 rows, 22363 users, 12068 items
+validation_input: 153440 rows, 22312 users, 12068 items
+validation_target: 22312 rows, 22312 users, 8327 items
+test_input: 174663 rows, 22225 users, 12066 items
+test_target: 22225 rows, 22225 users, 7945 items
+item_count (catalog): 12102
+lipschitz regularization (mode=mlp): 8 weight matrices renormalized
+epoch 0: train_loss=6.2798 val_ndcg@10=0.0232 val_hr@10=0.0430 *best*
+epoch 1: train_loss=6.0530 val_ndcg@10=0.0363 val_hr@10=0.0670 *best*
+epoch 2: train_loss=5.8974 val_ndcg@10=0.0462 val_hr@10=0.0818 *best*
+epoch 3: train_loss=5.7695 val_ndcg@10=0.0568 val_hr@10=0.0956 *best*
+epoch 4: train_loss=5.6597 val_ndcg@10=0.0602 val_hr@10=0.1006 *best*
+epoch 5: train_loss=5.5600 val_ndcg@10=0.0645 val_hr@10=0.1048 *best*
+epoch 6: train_loss=5.4745 val_ndcg@10=0.0659 val_hr@10=0.1118 *best*
+epoch 7: train_loss=5.3966 val_ndcg@10=0.0686 val_hr@10=0.1136 *best*
+epoch 8: train_loss=5.3299 val_ndcg@10=0.0693 val_hr@10=0.1146 *best*
+epoch 9: train_loss=5.2659 val_ndcg@10=0.0686 val_hr@10=0.1142
+epoch 10: train_loss=5.2115 val_ndcg@10=0.0706 val_hr@10=0.1152 *best*
+epoch 11: train_loss=5.1635 val_ndcg@10=0.0698 val_hr@10=0.1124
+epoch 12: train_loss=5.1196 val_ndcg@10=0.0711 val_hr@10=0.1130 *best*
+epoch 13: train_loss=5.0858 val_ndcg@10=0.0688 val_hr@10=0.1112
+epoch 14: train_loss=5.0492 val_ndcg@10=0.0701 val_hr@10=0.1150
+epoch 15: train_loss=5.0241 val_ndcg@10=0.0691 val_hr@10=0.1124
+epoch 16: train_loss=4.9992 val_ndcg@10=0.0700 val_hr@10=0.1150
+epoch 17: train_loss=4.9814 val_ndcg@10=0.0698 val_hr@10=0.1132
+epoch 18: train_loss=4.9585 val_ndcg@10=0.0697 val_hr@10=0.1154
+epoch 19: train_loss=4.9377 val_ndcg@10=0.0687 val_hr@10=0.1134
+epoch 20: train_loss=4.9248 val_ndcg@10=0.0689 val_hr@10=0.1144
+epoch 21: train_loss=4.9100 val_ndcg@10=0.0706 val_hr@10=0.1152
+epoch 22: train_loss=4.8996 val_ndcg@10=0.0689 val_hr@10=0.1124
+early stopping at epoch 22 (no val NDCG improvement for 10 epochs)
+test metrics: {'HR@10': 0.08445444319460067, 'NDCG@10': 0.0518179064492495, 'Coverage@10': 0.7304577755742853, 'ubucket1_n_users': 13985, 'ubucket1_mean_len': 4.68, 'ubucket1_HR@10': 0.07643904183053271, 'ubucket1_NDCG@10': 0.04660420169253546, 'ubucket1_Coverage@10': 0.6711287390513965, 'ubucket2_n_users': 6072, 'ubucket2_mean_len': 8.93, 'ubucket2_HR@10': 0.08036890645586298, 'ubucket2_NDCG@10': 0.04918383073860474, 'ubucket2_Coverage@10': 0.5536274995868451, 'ubucket3_n_users': 2168, 'ubucket3_mean_len': 25.36, 'ubucket3_HR@10': 0.14760147601476015, 'ubucket3_NDCG@10': 0.09282702487068907, 'ubucket3_Coverage@10': 0.326970748636589, 'ibucket1_n_users': 5614, 'ibucket1_n_items': 735, 'ibucket1_HR@10': 0.20520128250801567, 'ibucket1_NDCG@10': 0.1270124569576589, 'ibucket1_Coverage@10': 0.9945578231292517, 'ibucket2_n_users': 7747, 'ibucket2_n_items': 2612, 'ibucket2_HR@10': 0.06957531947850781, 'ibucket2_NDCG@10': 0.04254514467705305, 'ibucket2_Coverage@10': 0.9402756508422665, 'ibucket3_n_users': 8864, 'ibucket3_n_items': 8720, 'ibucket3_HR@10': 0.02098375451263538, 'ibucket3_NDCG@10': 0.012297811559244497, 'ibucket3_Coverage@10': 0.5118119266055046}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/beauty_adamw_l4_lipmlp.json

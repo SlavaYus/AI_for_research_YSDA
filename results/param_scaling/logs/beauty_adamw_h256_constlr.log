@@ -1,0 +1,23 @@
+=== beauty_adamw_h256_constlr ===
+params=3895296 (3.90M), base(h=128)=1.75M, K=2.2246, arm=constlr, lr=3.940034e-04
+epoch 0: train_loss=6.2842 val_ndcg@10=0.0372 val_hr@10=0.0634 *best*
+epoch 1: train_loss=5.8794 val_ndcg@10=0.0554 val_hr@10=0.0904 *best*
+epoch 2: train_loss=5.6562 val_ndcg@10=0.0629 val_hr@10=0.1042 *best*
+epoch 3: train_loss=5.4924 val_ndcg@10=0.0663 val_hr@10=0.1086 *best*
+epoch 4: train_loss=5.3592 val_ndcg@10=0.0699 val_hr@10=0.1128 *best*
+epoch 5: train_loss=5.2484 val_ndcg@10=0.0698 val_hr@10=0.1128
+epoch 6: train_loss=5.1547 val_ndcg@10=0.0705 val_hr@10=0.1136 *best*
+epoch 7: train_loss=5.0709 val_ndcg@10=0.0732 val_hr@10=0.1196 *best*
+epoch 8: train_loss=5.0008 val_ndcg@10=0.0725 val_hr@10=0.1160
+epoch 9: train_loss=4.9368 val_ndcg@10=0.0717 val_hr@10=0.1146
+epoch 10: train_loss=4.8818 val_ndcg@10=0.0717 val_hr@10=0.1156
+epoch 11: train_loss=4.8317 val_ndcg@10=0.0727 val_hr@10=0.1160
+epoch 12: train_loss=4.7791 val_ndcg@10=0.0711 val_hr@10=0.1138
+epoch 13: train_loss=4.7350 val_ndcg@10=0.0715 val_hr@10=0.1158
+epoch 14: train_loss=4.6919 val_ndcg@10=0.0717 val_hr@10=0.1150
+epoch 15: train_loss=4.6483 val_ndcg@10=0.0716 val_hr@10=0.1134
+epoch 16: train_loss=4.6105 val_ndcg@10=0.0695 val_hr@10=0.1134
+epoch 17: train_loss=4.5722 val_ndcg@10=0.0693 val_hr@10=0.1104
+early stopping at epoch 17 (no val NDCG improvement for 10 epochs)
+test metrics: {'HR@10': 0.08773903262092239, 'NDCG@10': 0.05352466538344929, 'Coverage@10': 0.9146422078995208, 'ubucket1_n_users': 13985, 'ubucket1_mean_len': 4.68, 'ubucket1_HR@10': 0.07994279585269932, 'ubucket1_NDCG@10': 0.04858024481668093, 'ubucket1_Coverage@10': 0.8710130556932738, 'ubucket2_n_users': 6072, 'ubucket2_mean_len': 8.93, 'ubucket2_HR@10': 0.08333333333333333, 'ubucket2_NDCG@10': 0.049982583871576246, 'ubucket2_Coverage@10': 0.7475623863824161, 'ubucket3_n_users': 2168, 'ubucket3_mean_len': 25.36, 'ubucket3_HR@10': 0.1503690036900369, 'ubucket3_NDCG@10': 0.0953398132461561, 'ubucket3_Coverage@10': 0.43819203437448356, 'ibucket1_n_users': 5614, 'ibucket1_n_items': 735, 'ibucket1_HR@10': 0.19825436408977556, 'ibucket1_NDCG@10': 0.12160565343756266, 'ibucket1_Coverage@10': 0.9959183673469387, 'ibucket2_n_users': 7747, 'ibucket2_n_items': 2612, 'ibucket2_HR@10': 0.07590034852200853, 'ibucket2_NDCG@10': 0.04560475259376296, 'ibucket2_Coverage@10': 0.9743491577335375, 'ibucket3_n_users': 8864, 'ibucket3_n_items': 8720, 'ibucket3_HR@10': 0.02809115523465704, 'ibucket3_NDCG@10': 0.017327564463538114, 'ibucket3_Coverage@10': 0.7845183486238532}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/beauty_adamw_h256_constlr.json

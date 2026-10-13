@@ -1,0 +1,19 @@
+=== yambda_adamw_h64_constlr ===
+params=34575744 (34.58M), base(h=128)=69.25M, K=0.4993, arm=constlr, lr=3.940034e-04
+epoch 0: train_loss=5.4622 val_ndcg@10=0.0038 val_hr@10=0.0068 *best*
+epoch 1: train_loss=4.5244 val_ndcg@10=0.0051 val_hr@10=0.0088 *best*
+epoch 2: train_loss=4.4586 val_ndcg@10=0.0043 val_hr@10=0.0088
+epoch 3: train_loss=3.9721 val_ndcg@10=0.0030 val_hr@10=0.0058
+epoch 4: train_loss=3.8734 val_ndcg@10=0.0033 val_hr@10=0.0060
+epoch 5: train_loss=3.8170 val_ndcg@10=0.0057 val_hr@10=0.0108 *best*
+epoch 6: train_loss=3.8461 val_ndcg@10=0.0053 val_hr@10=0.0106
+epoch 7: train_loss=3.9165 val_ndcg@10=0.0041 val_hr@10=0.0078
+epoch 8: train_loss=4.0365 val_ndcg@10=0.0017 val_hr@10=0.0034
+epoch 9: train_loss=3.9847 val_ndcg@10=0.0051 val_hr@10=0.0096
+epoch 10: train_loss=3.9614 val_ndcg@10=0.0056 val_hr@10=0.0110
+epoch 11: train_loss=3.9748 val_ndcg@10=0.0042 val_hr@10=0.0092
+epoch 12: train_loss=4.0479 val_ndcg@10=0.0046 val_hr@10=0.0100
+epoch 13: train_loss=4.1091 val_ndcg@10=0.0049 val_hr@10=0.0092
+early stopping at epoch 13 (no val NDCG improvement for 8 epochs)
+test metrics: {'HR@10': 0.011369634374242142, 'NDCG@10': 0.005810591966486109, 'Coverage@10': 2.0394692930086992e-05, 'ubucket1_n_users': 15528, 'ubucket1_mean_len': 16.71, 'ubucket1_HR@10': 0.013459556929417827, 'ubucket1_NDCG@10': 0.006826650452170963, 'ubucket1_Coverage@10': 2.0394692930086992e-05, 'ubucket2_n_users': 10984, 'ubucket2_mean_len': 49.11, 'ubucket2_HR@10': 0.012381646030589949, 'ubucket2_NDCG@10': 0.0063608344626655475, 'ubucket2_Coverage@10': 1.8540629936442722e-05, 'ubucket3_n_users': 43587, 'ubucket3_mean_len': 240.09, 'ubucket3_HR@10': 0.010370064468763622, 'ubucket3_NDCG@10': 0.0053099560029247405, 'ubucket3_Coverage@10': 1.8540629936442722e-05, 'ibucket1_n_users': 23667, 'ibucket1_n_items': 2817, 'ibucket1_HR@10': 0.03367558203405586, 'ibucket1_NDCG@10': 0.01721032180921578, 'ibucket1_Coverage@10': 0.003549875754348598, 'ibucket2_n_users': 22807, 'ibucket2_n_items': 15383, 'ibucket2_HR@10': 0.0, 'ibucket2_NDCG@10': 0.0, 'ibucket2_Coverage@10': 0.0, 'ibucket3_n_users': 23625, 'ibucket3_n_items': 487962, 'ibucket3_HR@10': 0.0, 'ibucket3_NDCG@10': 0.0, 'ibucket3_Coverage@10': 0.0}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/param_scaling/yambda_adamw_h64_constlr.json

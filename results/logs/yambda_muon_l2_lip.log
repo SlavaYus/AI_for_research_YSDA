@@ -1,0 +1,34 @@
+=== yambda_muon_l2_lip ===
+config: dataset=Yambda blocks=2 optimizer=muon lipschitz=True loss=sce hidden=128 heads=2 dropout=0.4 lr=0.00039400340300651556 muon={'muon_lr': 0.0025, 'muon_momentum': 0.99}
+train: 11457938 rows, 72192 users, 535256 items
+validation_input: 11207409 rows, 70168 users, 506618 items
+validation_target: 70168 rows, 70168 users, 34514 items
+test_input: 11263711 rows, 70099 users, 506057 items
+test_target: 70099 rows, 70099 users, 34639 items
+item_count (catalog): 539356
+lipschitz attention regularization: 4 weight matrices renormalized
+muon params (8): ['attention_layers.0.in_proj_weight', 'attention_layers.0.out_proj.weight', 'attention_layers.1.in_proj_weight', 'attention_layers.1.out_proj.weight', 'forward_layers.0.conv1.weight', 'forward_layers.0.conv2.weight', 'forward_layers.1.conv1.weight', 'forward_layers.1.conv2.weight']
+adamw params (20): ['item_emb.weight', 'pos_emb.weight', 'attention_layernorms.0.weight', 'attention_layernorms.0.bias', 'attention_layernorms.1.weight', 'attention_layernorms.1.bias', 'attention_layers.0.in_proj_bias', 'attention_layers.0.out_proj.bias', 'attention_layers.1.in_proj_bias', 'attention_layers.1.out_proj.bias', 'forward_layernorms.0.weight', 'forward_layernorms.0.bias', 'forward_layernorms.1.weight', 'forward_layernorms.1.bias', 'forward_layers.0.conv1.bias', 'forward_layers.0.conv2.bias', 'forward_layers.1.conv1.bias', 'forward_layers.1.conv2.bias', 'last_layernorm.weight', 'last_layernorm.bias']
+epoch 0: train_loss=5.2387 val_ndcg@10=0.0156 val_hr@10=0.0298 *best*
+epoch 1: train_loss=5.0291 val_ndcg@10=0.0304 val_hr@10=0.0620 *best*
+epoch 2: train_loss=4.6922 val_ndcg@10=0.0368 val_hr@10=0.0740 *best*
+epoch 3: train_loss=4.5502 val_ndcg@10=0.0388 val_hr@10=0.0820 *best*
+epoch 4: train_loss=4.5683 val_ndcg@10=0.0445 val_hr@10=0.0924 *best*
+epoch 5: train_loss=4.5760 val_ndcg@10=0.0468 val_hr@10=0.0960 *best*
+epoch 6: train_loss=4.6582 val_ndcg@10=0.0483 val_hr@10=0.0984 *best*
+epoch 7: train_loss=4.6796 val_ndcg@10=0.0504 val_hr@10=0.1046 *best*
+epoch 8: train_loss=4.7092 val_ndcg@10=0.0524 val_hr@10=0.1066 *best*
+epoch 9: train_loss=4.6905 val_ndcg@10=0.0537 val_hr@10=0.1118 *best*
+epoch 10: train_loss=4.6678 val_ndcg@10=0.0527 val_hr@10=0.1096
+epoch 11: train_loss=4.6367 val_ndcg@10=0.0541 val_hr@10=0.1118 *best*
+epoch 12: train_loss=4.6117 val_ndcg@10=0.0538 val_hr@10=0.1116
+epoch 13: train_loss=4.5609 val_ndcg@10=0.0541 val_hr@10=0.1130
+epoch 14: train_loss=4.5301 val_ndcg@10=0.0596 val_hr@10=0.1228 *best*
+epoch 15: train_loss=4.4934 val_ndcg@10=0.0580 val_hr@10=0.1220
+epoch 16: train_loss=4.4694 val_ndcg@10=0.0585 val_hr@10=0.1242
+epoch 17: train_loss=4.4343 val_ndcg@10=0.0586 val_hr@10=0.1212
+epoch 18: train_loss=4.4043 val_ndcg@10=0.0593 val_hr@10=0.1256
+epoch 19: train_loss=4.3810 val_ndcg@10=0.0579 val_hr@10=0.1202
+early stopping at epoch 19 (no val NDCG improvement for 5 epochs)
+test metrics: {'HR@10': 0.11844676814219889, 'NDCG@10': 0.05770242503613274, 'Coverage@10': 0.1399131556893777, 'ubucket1_n_users': 15528, 'ubucket1_mean_len': 16.71, 'ubucket1_HR@10': 0.15558990211231324, 'ubucket1_NDCG@10': 0.07508127730938305, 'ubucket1_Coverage@10': 0.06651450989698826, 'ubucket2_n_users': 10984, 'ubucket2_mean_len': 49.11, 'ubucket2_HR@10': 0.12354333576110707, 'ubucket2_NDCG@10': 0.06067888438847749, 'ubucket2_Coverage@10': 0.05686967420405076, 'ubucket3_n_users': 43587, 'ubucket3_mean_len': 240.09, 'ubucket3_HR@10': 0.10393007089269736, 'ubucket3_NDCG@10': 0.0507610836355962, 'ubucket3_Coverage@10': 0.11106393550827283, 'ibucket1_n_users': 23667, 'ibucket1_n_items': 2817, 'ibucket1_HR@10': 0.1180969282122787, 'ibucket1_NDCG@10': 0.056464795845763575, 'ibucket1_Coverage@10': 1.0, 'ibucket2_n_users': 22807, 'ibucket2_n_items': 15383, 'ibucket2_HR@10': 0.12921471478054983, 'ibucket2_NDCG@10': 0.06376125485018967, 'ibucket2_Coverage@10': 0.9073002665279855, 'ibucket3_n_users': 23625, 'ibucket3_n_items': 487962, 'ibucket3_HR@10': 0.1084021164021164, 'ibucket3_NDCG@10': 0.053093207617265874, 'ibucket3_Coverage@10': 0.09183706927998492}
+saved: /home/jovyan/Yusupov/SID/SID3/SemantID/SASRec_exp/results/yambda_muon_l2_lip.json
