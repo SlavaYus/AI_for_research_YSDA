@@ -1,0 +1,902 @@
+"""AI4Science unified MCP server — единый stdio-процесс со всеми инструментами.
+
+Tools (Goose namespace: `ai4science`):
+
+  Lean verification
+    lean_check(code)                 verify Lean 4 code via SciLib /check
+    lean_health()                    ping the Lean checker service
+
+  Mathlib search (4 engines)
+    lean_search_engines()            health-check of all 4 + comparison
+    lean_search_loogle(query)        type/pattern search (Loogle)
+    lean_search_leansearch(query, n) semantic with informal descriptions
+    lean_search_moogle(query)        neural, best-effort
+    lean_search_scilib(lean_code, n) SciLib GraphRAG premise retrieval
+
+  Web
+    web_search(query, n)             Brave (if API key) or DuckDuckGo
+    web_fetch(url, max_chars)        GET + HTML→text + truncate
+
+  PDF
+    pdf_info(path)                   metadata, pages, size
+    pdf_read(path, pages, max_chars) extract text from page range
+    pdf_search(path, query, context) substring search with context
+
+## Lean checker schemas
+
+`lean_check` supports **two** backends automatically, selected by inspecting
+LEAN_CHECKER_URL:
+
+1. **SciLib-GRC21** (default, remote). URL ends with `/grag`:
+     POST {URL}/check  body: {"lean_code": str, "timeout": int}
+     response: {"success": bool, "error_class": str, "error_message": str,
+                "sanity_ok": bool, "sanity_reason": str, "time_ms": int}
+   Pre-rejects sorry-only proofs, bare imports, natural language.
+
+2. **andkhalov/lean-checker** (optional, local Docker). Simple root URL:
+     POST {URL}/check  body: {"code": str, "import_line": str}
+     response: {"ok": bool, "messages": [{"line", "column", "message", ...}]}
+
+The tool routes automatically: URL containing `/grag` → new schema, else old.
+
+## Env (all optional, sensible defaults)
+
+  LEAN_CHECKER_URL  https://scilibai.ru/grag   (default)
+                    http://localhost:8888                    (local Docker option)
+  LEANSEARCH_URL    https://leansearch.net
+  LOOGLE_URL        https://loogle.lean-lang.org
+  MOOGLE_URL        https://www.moogle.ai
+  BRAVE_API_KEY     optional, enables Brave Search API instead of DuckDuckGo
+
+  AI4SCIENCE_LEAN_DISABLED=1  disable lean_check/lean_health
+  AI4SCIENCE_WEB_DISABLED=1   disable web_search/web_fetch
+"""
+from __future__ import annotations
+
+import json
+import os
+import re
+import sys
+from pathlib import Path
+from urllib.parse import parse_qs, urlparse
+
+# Переменные версии 1.x (AI4MATH_*) принимаются как запасные для AI4SCIENCE_*.
+for _k, _v in list(os.environ.items()):
+    if _k.startswith("AI4MATH_"):
+        os.environ.setdefault("AI4SCIENCE_" + _k[len("AI4MATH_"):], _v)
+
+# Force UTF-8 for stdio JSON-RPC on Windows — MCP protocol is UTF-8 native.
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
+        sys.stderr.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
+        sys.stdin.reconfigure(encoding="utf-8")   # type: ignore[attr-defined]
+    except Exception:
+        pass
+
+import requests
+from mcp.server.fastmcp import FastMCP
+from pypdf import PdfReader
+
+mcp = FastMCP("ai4science")
+
+# ---------- config ----------
+
+LEAN_CHECKER_URL = os.environ.get("LEAN_CHECKER_URL", "https://scilibai.ru/grag").rstrip("/")
+SCILIB = os.environ.get("SCILIB_GRAG_URL", "https://scilibai.ru/grag").rstrip("/")
+
+# Schema routing: URLs containing `/grag` use the SciLib schema; everything
+# else uses the legacy andkhalov/lean-checker schema. Override explicitly
+# with AI4SCIENCE_LEAN_SCHEMA=scilib|lean-checker if needed.
+_forced_schema = os.environ.get("AI4SCIENCE_LEAN_SCHEMA")
+if _forced_schema in ("scilib", "lean-checker"):
+    LEAN_SCHEMA = _forced_schema
+else:
+    LEAN_SCHEMA = "scilib" if "/grag" in LEAN_CHECKER_URL else "lean-checker"
+LEANSEARCH = os.environ.get("LEANSEARCH_URL", "https://leansearch.net").rstrip("/")
+LOOGLE = os.environ.get("LOOGLE_URL", "https://loogle.lean-lang.org").rstrip("/")
+MOOGLE = os.environ.get("MOOGLE_URL", "https://www.moogle.ai").rstrip("/")
+
+LEAN_DISABLED = os.environ.get("AI4SCIENCE_LEAN_DISABLED") == "1"
+WEB_DISABLED = os.environ.get("AI4SCIENCE_WEB_DISABLED") == "1"
+
+UA = "Mozilla/5.0 (X11; Linux x86_64) AI4Science/2.0"
+MAX_RESULTS = 10
+CHARS_PER_HIT = 400
+PDF_DEFAULT_MAX_CHARS = 8000
+WEB_DEFAULT_MAX_CHARS = 3000
+
+
+def _fmt_err(tool: str, e: Exception) -> str:
+    return f"ERROR [{tool}]: {type(e).__name__}: {str(e)[:300]}"
+
+
+def _truncate(s: str | None, n: int = CHARS_PER_HIT) -> str:
+    s = (s or "").strip()
+    return s if len(s) <= n else s[: n - 3] + "..."
+
+
+# ========================================================================
+# Artifact cache — in-process memory for trimming heavy tool outputs
+# ========================================================================
+#
+# Heavy tools (web_search, pdf_read, lean_search_*, web_fetch, pdf_search)
+# often return 1-5 KB. Without trimming, those bytes stay in Goose's
+# conversation history and get re-sent with every subsequent LLM call
+# for the rest of the session — a major token sink.
+#
+# Pattern: return a short preview + artifact id. Full content is kept in
+# a dict keyed by id in this process's memory. If the agent needs the
+# full text later, it calls load_artifact(id). Dies with the MCP process
+# on session end — no cleanup, no disk, no stale state.
+#
+# Threshold: outputs under ARTIFACT_THRESHOLD chars are returned whole
+# (no benefit from trimming a 200-char result). Over the threshold, we
+# return preview + marker.
+
+_ARTIFACTS: dict[str, dict] = {}
+_ARTIFACT_COUNTER = 0
+ARTIFACT_THRESHOLD = 800    # chars; under this, return full content unchanged
+ARTIFACT_PREVIEW = 500      # chars shown in the trimmed response
+
+
+def _store_artifact(tool: str, content: str) -> str:
+    """Stash full content in process memory, return a short id."""
+    global _ARTIFACT_COUNTER
+    _ARTIFACT_COUNTER += 1
+    aid = f"{tool}_{_ARTIFACT_COUNTER:04d}"
+    _ARTIFACTS[aid] = {"tool": tool, "content": content, "size": len(content)}
+    return aid
+
+
+def _maybe_trim(tool: str, content: str) -> str:
+    """Return content unchanged if short, else preview + artifact id.
+
+    The preview keeps the first ARTIFACT_PREVIEW chars — enough for the
+    agent to judge whether the full result is worth loading. The artifact
+    id is embedded in a machine-readable line the agent can parse.
+    """
+    if len(content) <= ARTIFACT_THRESHOLD:
+        return content
+    aid = _store_artifact(tool, content)
+    preview = content[:ARTIFACT_PREVIEW].rstrip()
+    return (
+        f"{preview}\n\n"
+        f"[... усечено, полный размер {len(content):,} симв. | "
+        f"artifact_id: {aid} | для полного текста: load_artifact(\"{aid}\")]"
+    )
+
+
+@mcp.tool()
+def token_budget() -> str:
+    """Check current daily token usage (today's spend / limit / remaining).
+
+    Reads the live counter written by the token proxy. Call this when the
+    user asks about cost, before heavy operations, or when the session
+    has been running for a while."""
+    try:
+        path = Path.home() / ".ai4science_budget.json"
+        import json as _json
+        from datetime import date
+        today = date.today().isoformat()
+        try:
+            d = _json.loads(path.read_text())
+            used = d.get("tokens", 0) if d.get("date") == today else 0
+        except Exception:
+            used = 0
+        limit = int(os.environ.get("AI4SCIENCE_DAILY_TOKEN_LIMIT", "3000000"))
+        remaining = max(0, limit - used)
+        pct = (used * 100) // limit if limit else 0
+        return (
+            f"Токен-бюджет на сегодня: {used:,} / {limit:,} ({pct}%). "
+            f"Осталось {remaining:,}. Сброс — в полночь локального времени."
+        )
+    except Exception as e:
+        return f"ERROR [token_budget]: {type(e).__name__}: {e}"
+
+
+@mcp.tool()
+def load_artifact(artifact_id: str) -> str:
+    """Get the full content of a previous heavy tool call by artifact_id.
+
+    Artifact ids look like "web_search_0003" and appear at the end of
+    trimmed tool outputs. Content lives in MCP-process memory and is
+    lost when the session ends. Call only when you actually need the
+    full text — the preview is usually enough.
+    """
+    a = _ARTIFACTS.get(artifact_id)
+    if a is None:
+        available = sorted(_ARTIFACTS.keys())
+        return (
+            f"ERROR: artifact '{artifact_id}' не найден. "
+            f"Доступно {len(available)}: {', '.join(available[-10:])}"
+        )
+    return a["content"]
+
+
+# ========================================================================
+# Modular skills — on-demand loading of topic-specific guidance
+# ========================================================================
+
+# Skills directory: overridable via AI4SCIENCE_SKILLS_DIR. By default points at
+# the skills/ folder next to this Python file (../skills relative to src/).
+_SKILLS_DIR_ENV = os.environ.get("AI4SCIENCE_SKILLS_DIR")
+if _SKILLS_DIR_ENV:
+    SKILLS_DIR = Path(_SKILLS_DIR_ENV).expanduser().resolve()
+else:
+    SKILLS_DIR = (Path(__file__).resolve().parent.parent / "skills").resolve()
+
+
+def _parse_skill_frontmatter(path: Path) -> dict:
+    """Parse YAML-like frontmatter from a skill file.
+
+    We keep a tiny custom parser to avoid adding a yaml dependency for this
+    one feature (pypdf + requests are enough). Format:
+
+        ---
+        name: foo
+        description: ...
+        triggers: comma, separated, words
+        combines_with: ...
+        ---
+    """
+    try:
+        text = path.read_text(encoding="utf-8")
+    except Exception:
+        return {}
+    if not text.startswith("---\n"):
+        return {}
+    end = text.find("\n---\n", 4)
+    if end == -1:
+        return {}
+    out: dict = {}
+    for line in text[4:end].splitlines():
+        if ":" not in line:
+            continue
+        k, v = line.split(":", 1)
+        out[k.strip()] = v.strip()
+    return out
+
+
+@mcp.tool()
+def list_skills() -> str:
+    """List available skill files with descriptions and trigger keywords."""
+    if not SKILLS_DIR.exists():
+        return f"ERROR: skills dir не найден: {SKILLS_DIR}"
+    items = []
+    for p in sorted(SKILLS_DIR.glob("*.md")):
+        fm = _parse_skill_frontmatter(p)
+        name = fm.get("name") or p.stem
+        desc = fm.get("description") or ""
+        triggers = fm.get("triggers") or ""
+        combines = fm.get("combines_with") or ""
+        entry = f"  - {name}\n    description:   {desc}"
+        if triggers:
+            entry += f"\n    triggers:      {triggers}"
+        if combines:
+            entry += f"\n    combines with: {combines}"
+        items.append(entry)
+    if not items:
+        return f"{SKILLS_DIR}: (пусто)"
+    return (
+        f"Доступные skills в {SKILLS_DIR}:\n\n"
+        + "\n\n".join(items)
+        + "\n\nВызывай `load_skill(<name>)` чтобы прочитать полное содержимое skill'а. "
+        + "Можно комбинировать несколько skills последовательно для сложных задач."
+    )
+
+
+@mcp.tool()
+def load_skill(name: str) -> str:
+    """Load a skill by name (e.g. python, latex, lean, literature, debug-loop).
+    Call before writing code/docs in that domain."""
+    if not SKILLS_DIR.exists():
+        return f"ERROR: skills dir не найден: {SKILLS_DIR}"
+    safe = Path(name).name.replace(".md", "")  # guard against path traversal
+    p = SKILLS_DIR / f"{safe}.md"
+    if not p.exists():
+        available = sorted(q.stem for q in SKILLS_DIR.glob("*.md"))
+        return (
+            f"ERROR: skill '{safe}' не найден. Доступные: "
+            + ", ".join(available)
+        )
+    try:
+        content = p.read_text(encoding="utf-8")
+    except Exception as e:
+        return _fmt_err(f"load_skill({safe})", e)
+    return f"# Skill: {safe}\n# File: {p}\n\n{content}"
+
+
+# ========================================================================
+# Lean verification (SciLib /check primary, legacy lean-checker fallback)
+# ========================================================================
+
+def _lean_format_ok_scilib(data: dict) -> str:
+    time_ms = data.get("time_ms") or data.get("processing_time_ms") or 0
+    return f"OK: Lean 4 code compiles (Mathlib imported, {time_ms} ms)."
+
+
+def _lean_format_err_scilib(data: dict) -> str:
+    if not data.get("sanity_ok", True):
+        reason = data.get("sanity_reason", "unknown")
+        return (
+            f"ERROR [SANITY_CHECK_FAILED]: {reason}\n"
+            "Note: Lean checker rejects sorry-only proofs, bare imports, "
+            "comment-only or natural-language submissions. Provide a real "
+            "Lean 4 term or tactic block."
+        )
+    cls = data.get("error_class") or "ERROR"
+    msg = (data.get("error_message") or "").strip()
+    return f"ERROR [{cls}]: {msg[:1500]}"
+
+
+def _lean_format_ok_legacy() -> str:
+    return "OK: Lean 4 code compiles successfully (Mathlib imported)."
+
+
+def _lean_format_err_legacy(payload: dict) -> str:
+    msgs = payload.get("messages") or []
+    if not msgs:
+        stderr = (payload.get("stderr") or "").strip()
+        stdout = (payload.get("stdout") or "").strip()
+        return f"ERROR (rc={payload.get('returncode')}):\nstdout:\n{stdout}\nstderr:\n{stderr}"
+    lines = [f"ERROR: Lean reported {len(msgs)} diagnostic(s):"]
+    for m in msgs:
+        sev = m.get("severity") or "?"
+        line = m.get("line")
+        col = m.get("column")
+        loc = f"L{line}:C{col}" if line is not None else "?"
+        text = (m.get("message") or "").strip()
+        lines.append(f"  [{sev} @ {loc}] {text}")
+    return "\n".join(lines)
+
+
+# Short timeouts: verification endpoint may be temporarily unreachable
+# (SciLib Funnel issues, network outages, cold start). Fail fast so the
+# agent can decide to skip verification and continue with the task
+# rather than blocking the whole session on one slow HTTP call.
+LEAN_CONNECT_TIMEOUT = 5      # TCP connect phase — should be near-instant
+LEAN_READ_TIMEOUT = 15        # first response body byte — SciLib normally 20-50 ms after warmup
+
+
+def _is_remote_unavailable(exc: Exception) -> bool:
+    """Heuristic: does this exception look like the checker is just unreachable
+    right now (vs. a real Lean compilation error)?"""
+    import socket
+    import ssl
+    if isinstance(exc, (requests.ConnectionError, requests.Timeout, socket.timeout, ssl.SSLError)):
+        return True
+    # requests wraps these; match on class names as a last resort
+    name = type(exc).__name__
+    return name in {"ConnectionError", "ReadTimeout", "ConnectTimeout", "SSLError", "SSLEOFError"}
+
+
+@mcp.tool()
+def lean_check(code: str, timeout: int = 15) -> str:
+    """Verify Lean 4 code against Mathlib. Returns OK/ERROR [class]/OFFLINE.
+    No sorry-only proofs. Example: lean_check("example : 1+1=2 := by norm_num")"""
+    if LEAN_DISABLED:
+        return "ERROR: lean_check is disabled via AI4SCIENCE_LEAN_DISABLED."
+
+    # Build request + URL per schema
+    if LEAN_SCHEMA == "scilib":
+        url = f"{LEAN_CHECKER_URL}/check"
+        body = {"lean_code": code, "timeout": max(5, min(60, int(timeout)))}
+    else:
+        url = f"{LEAN_CHECKER_URL}/check"
+        body = {"code": code, "import_line": "import Mathlib"}
+
+    read_to = max(int(timeout), LEAN_READ_TIMEOUT)
+    last_err = None
+    for attempt in (1, 2):
+        try:
+            resp = requests.post(url, json=body, timeout=(LEAN_CONNECT_TIMEOUT, read_to))
+            break
+        except Exception as e:
+            if _is_remote_unavailable(e):
+                last_err = f"{type(e).__name__}: {str(e)[:200]}"
+                continue
+            return f"ERROR: unexpected exception from Lean checker: {type(e).__name__}: {e}"
+    else:
+        return (
+            f"OFFLINE: Lean verification endpoint unreachable "
+            f"({LEAN_CHECKER_URL}). Last error: {last_err}. "
+            "Продолжай задачу без формальной проверки; сообщи пользователю "
+            "одной фразой что lean_check временно недоступен."
+        )
+
+    if resp.status_code != 200:
+        return f"ERROR: Lean checker HTTP {resp.status_code}: {resp.text[:500]}"
+
+    try:
+        data = resp.json()
+    except ValueError:
+        return f"ERROR: Lean checker returned non-JSON: {resp.text[:300]}"
+
+    if LEAN_SCHEMA == "scilib":
+        return _lean_format_ok_scilib(data) if data.get("success") else _lean_format_err_scilib(data)
+    else:
+        return _lean_format_ok_legacy() if data.get("ok") else _lean_format_err_legacy(data)
+
+
+@mcp.tool()
+def lean_health() -> str:
+    """Quick 5s probe of the Lean checker. Returns OK/OFFLINE/ERROR."""
+    if LEAN_DISABLED:
+        return "Lean checker: disabled via AI4SCIENCE_LEAN_DISABLED"
+    last_err = None
+    for attempt in (1, 2):
+        try:
+            resp = requests.get(
+                f"{LEAN_CHECKER_URL}/health",
+                timeout=(LEAN_CONNECT_TIMEOUT, 5),
+            )
+            resp.raise_for_status()
+            return f"OK: Lean checker ({LEAN_SCHEMA} @ {LEAN_CHECKER_URL}): {resp.json()}"
+        except Exception as e:
+            if _is_remote_unavailable(e):
+                last_err = f"{type(e).__name__}: {str(e)[:150]}"
+                continue
+            return f"ERROR: unexpected health-check failure: {type(e).__name__}: {e}"
+    return (
+        f"OFFLINE: {LEAN_CHECKER_URL}/health unreachable. Last error: {last_err}. "
+        "Попробуй вызвать lean_check напрямую — иногда endpoint отвечает на /check "
+        "даже когда /health падает. Если lean_check тоже OFFLINE — продолжай задачу "
+        "без формальной верификации."
+    )
+
+
+# ========================================================================
+# Mathlib search (4 engines)
+# ========================================================================
+
+@mcp.tool()
+def lean_search_engines() -> str:
+    """Health-check all 4 Mathlib search engines (loogle/leansearch/moogle/scilib)."""
+    lines = ["Доступные Mathlib search движки:\n"]
+    engines = [
+        ("loogle", f"{LOOGLE}/json?q=ping"),
+        ("leansearch", f"{LEANSEARCH}/openapi.json"),
+        ("moogle", f"{MOOGLE}/"),
+        ("scilib", f"{SCILIB}/health"),
+    ]
+    for name, probe in engines:
+        try:
+            r = requests.get(probe, timeout=4)
+            status = "OK" if r.status_code < 500 else f"HTTP {r.status_code}"
+        except Exception as e:
+            status = f"DOWN ({type(e).__name__})"
+        lines.append(f"  - {name:12s}  {status}")
+    lines.append("")
+    lines.append(
+        "Если пользователь уже назвал конкретный движок в промпте — "
+        "вызывай его напрямую. Если нет — спроси, какой использовать."
+    )
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def lean_search_loogle(query: str) -> str:
+    """Search Mathlib by type pattern via Loogle. E.g. "Nat.add_comm" or "?a + ?b = ?b + ?a"."""
+    try:
+        r = requests.get(f"{LOOGLE}/json", params={"q": query}, timeout=20)
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        return _fmt_err("loogle", e)
+    hits = (data.get("hits") or [])[:MAX_RESULTS]
+    header = data.get("header", f"Loogle: {data.get('count', 0)} results")
+    lines = [f"Loogle — {header.strip()}"]
+    for h in hits:
+        lines.append(
+            f"  • {h.get('name')}  ::  {_truncate(h.get('type'), 200)}\n"
+            f"    module: {h.get('module')}"
+        )
+        if h.get("doc"):
+            lines.append(f"    doc: {_truncate(h['doc'], 200)}")
+    out = "\n".join(lines) if hits else f"{header}\n(нет результатов)"
+    return _maybe_trim("loogle", out)
+
+
+@mcp.tool()
+def lean_search_leansearch(query: str, num_results: int = 5) -> str:
+    """Semantic Mathlib search via LeanSearch. Natural English queries."""
+    try:
+        r = requests.post(
+            f"{LEANSEARCH}/search",
+            json={"query": [query], "num_results": min(num_results, MAX_RESULTS)},
+            timeout=30,
+        )
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        return _fmt_err("leansearch", e)
+    items = data[0] if isinstance(data, list) and data else []
+    if not items:
+        return f"LeanSearch: пусто по запросу «{query}»"
+    lines = [f"LeanSearch — {len(items)} результатов по «{query}»"]
+    for it in items:
+        res = it.get("result") or {}
+        name = ".".join(res.get("name") or [])
+        module = ".".join(res.get("module_name") or [])
+        lines.append(
+            f"  • {name}  (dist={it.get('distance', 0):.3f})"
+            f"\n    type: {_truncate(res.get('type') or res.get('signature'), 200)}"
+            f"\n    module: {module}"
+        )
+        if res.get("informal_description"):
+            lines.append(f"    informal: {_truncate(res['informal_description'], 300)}")
+    return _maybe_trim("leansearch", "\n".join(lines))
+
+
+@mcp.tool()
+def lean_search_moogle(query: str) -> str:
+    """Search Mathlib via Moogle — neural semantic search (best-effort; may be down)."""
+    try:
+        r = requests.post(
+            f"{MOOGLE}/api/search",
+            json=[{"isFind": False, "contents": query}],
+            timeout=20,
+        )
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        return _fmt_err("moogle", e)
+    return _maybe_trim(
+        "moogle",
+        f"Moogle — raw response:\n{_truncate(json.dumps(data, ensure_ascii=False), 1500)}",
+    )
+
+
+@mcp.tool()
+def lean_search_scilib(lean_code: str, num_results: int = 10) -> str:
+    """SciLib GraphRAG premise retrieval. Input: Lean 4 goal (with sorry). Returns apply/rw/simp hints."""
+    body = {
+        "lean_code": lean_code,
+        "num_results": min(num_results, 50),
+        "include_vector": True,
+    }
+    last_err = None
+    data = None
+    for attempt in (1, 2):
+        try:
+            r = requests.post(
+                f"{SCILIB}/search",
+                json=body,
+                timeout=(LEAN_CONNECT_TIMEOUT, 20),
+            )
+            r.raise_for_status()
+            data = r.json()
+            break
+        except Exception as e:
+            if _is_remote_unavailable(e):
+                last_err = f"{type(e).__name__}: {str(e)[:150]}"
+                continue
+            return _fmt_err("scilib", e)
+    if data is None:
+        return (
+            f"OFFLINE: SciLib GraphRAG endpoint unreachable ({SCILIB}). "
+            f"Last error: {last_err}. Попробуй lean_search_loogle или "
+            "lean_search_leansearch как альтернативу, либо продолжай "
+            "без premise retrieval."
+        )
+    pieces = []
+    if data.get("hints_text"):
+        pieces.append(
+            f"SciLib GraphRAG hints (processing {data.get('processing_time_ms', '?')} ms):\n"
+        )
+        pieces.append(_truncate(data["hints_text"], 2000))
+    hints = data.get("hints_list") or []
+    if hints:
+        pieces.append(f"\n\nStructured ({len(hints)} items):")
+        for h in hints[:num_results]:
+            pieces.append(
+                f"  • [{h.get('role')}] {h.get('name')}  ::  {_truncate(h.get('signature'), 200)}"
+            )
+    out = "\n".join(pieces) if pieces else f"SciLib: пусто. features={data.get('features')}"
+    return _maybe_trim("scilib", out)
+
+
+# ========================================================================
+# Web search / fetch
+# ========================================================================
+
+def _strip_html(html: str) -> str:
+    html = re.sub(r"<(script|style|noscript)[\s\S]*?</\1>", " ", html, flags=re.IGNORECASE)
+    text = re.sub(r"<[^>]+>", " ", html)
+    text = re.sub(r"&nbsp;", " ", text)
+    text = re.sub(r"&amp;", "&", text)
+    text = re.sub(r"&lt;", "<", text)
+    text = re.sub(r"&gt;", ">", text)
+    text = re.sub(r"&quot;", '"', text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+
+def _ddg_search(query: str, num: int) -> list[dict]:
+    r = requests.post(
+        "https://html.duckduckgo.com/html/",
+        data={"q": query},
+        headers={"User-Agent": UA},
+        timeout=20,
+    )
+    r.raise_for_status()
+    html = r.text
+    results = []
+    for m in re.finditer(
+        r'<a[^>]+class="result__a"[^>]+href="([^"]+)"[^>]*>(.*?)</a>'
+        r'.*?<a[^>]+class="result__snippet"[^>]*>(.*?)</a>',
+        html,
+        flags=re.DOTALL,
+    ):
+        url, title, snippet = m.group(1), _strip_html(m.group(2)), _strip_html(m.group(3))
+        if url.startswith("//duckduckgo.com/l/?uddg="):
+            q = parse_qs(urlparse("https:" + url).query)
+            url = q.get("uddg", [url])[0]
+        results.append({"url": url, "title": title, "snippet": snippet[:400]})
+        if len(results) >= num:
+            break
+    return results
+
+
+def _brave_search(query: str, num: int, api_key: str) -> list[dict]:
+    r = requests.get(
+        "https://api.search.brave.com/res/v1/web/search",
+        params={"q": query, "count": num},
+        headers={"X-Subscription-Token": api_key, "Accept": "application/json"},
+        timeout=20,
+    )
+    r.raise_for_status()
+    data = r.json()
+    out = []
+    for w in (data.get("web") or {}).get("results", [])[:num]:
+        out.append(
+            {
+                "url": w.get("url"),
+                "title": w.get("title"),
+                "snippet": w.get("description", "")[:400],
+            }
+        )
+    return out
+
+
+@mcp.tool()
+def web_search(query: str, num_results: int = 5) -> str:
+    """Web search (Brave or DuckDuckGo). Returns title/url/snippet."""
+    if WEB_DISABLED:
+        return "ERROR: web_search is disabled via AI4SCIENCE_WEB_DISABLED."
+    key = os.environ.get("BRAVE_API_KEY")
+    n = min(max(num_results, 1), MAX_RESULTS)
+    try:
+        results = _brave_search(query, n, key) if key else _ddg_search(query, n)
+    except Exception as e:
+        return _fmt_err("web_search", e)
+    if not results:
+        return f"Ничего не найдено по запросу «{query}»."
+    lines = [f"Результаты по «{query}» (провайдер: {'brave' if key else 'duckduckgo'}):"]
+    for i, r in enumerate(results, 1):
+        lines.append(f"\n{i}. {r['title']}\n   {r['url']}\n   {r['snippet']}")
+    return _maybe_trim("web_search", "\n".join(lines))
+
+
+@mcp.tool()
+def web_fetch(url: str, max_chars: int = WEB_DEFAULT_MAX_CHARS) -> str:
+    """Fetch URL, strip HTML, return text. Not for PDFs — use pdf_download."""
+    if WEB_DISABLED:
+        return "ERROR: web_fetch is disabled via AI4SCIENCE_WEB_DISABLED."
+    try:
+        r = requests.get(url, headers={"User-Agent": UA}, timeout=30)
+        r.raise_for_status()
+    except Exception as e:
+        return _fmt_err("web_fetch", e)
+    ct = r.headers.get("Content-Type", "")
+    body = r.text
+    if "html" in ct.lower():
+        body = _strip_html(body)
+    if len(body) > max_chars:
+        body = body[:max_chars] + f"\n\n[... truncated, total {len(r.text)} chars ...]"
+    return _maybe_trim("web_fetch", f"{url}\nContent-Type: {ct}\n\n{body}")
+
+
+# ========================================================================
+# PDF
+# ========================================================================
+
+def _pdf_resolve(path: str) -> Path:
+    p = Path(path).expanduser()
+    if not p.is_absolute():
+        p = Path.cwd() / p
+    return p
+
+
+def _pdf_parse_pages(spec: str, total: int) -> list[int]:
+    pages: set[int] = set()
+    for part in (spec or "").split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if "-" in part:
+            a, b = part.split("-", 1)
+            start, end = int(a), int(b)
+            for i in range(start, end + 1):
+                if 1 <= i <= total:
+                    pages.add(i - 1)
+        else:
+            i = int(part)
+            if 1 <= i <= total:
+                pages.add(i - 1)
+    return sorted(pages)
+
+
+@mcp.tool()
+def pdf_download(url: str, dest_path: str = "literature/") -> str:
+    """Download PDF from URL. dest_path ending with / → auto filename from URL."""
+    if WEB_DISABLED:
+        return "ERROR: pdf_download is disabled via AI4SCIENCE_WEB_DISABLED."
+    try:
+        r = requests.get(url, headers={"User-Agent": UA}, timeout=60, stream=True)
+        r.raise_for_status()
+    except Exception as e:
+        return _fmt_err("pdf_download", e)
+
+    ct = r.headers.get("Content-Type", "")
+    if "pdf" not in ct.lower() and not url.lower().endswith(".pdf"):
+        return (
+            f"ERROR: URL не похож на PDF (Content-Type: {ct}). "
+            "Если уверен что это PDF — сохрани вручную через shell: "
+            f"curl -L -o <path> '{url}'"
+        )
+
+    target = _pdf_resolve(dest_path)
+    # If dest_path ends with / or is a directory, pick a filename.
+    # Prefer URL basename (deterministic — matches what the agent sees in
+    # the URL it just downloaded). Content-Disposition is fallback only,
+    # because arxiv etc. rewrite filenames with version suffixes ("v5")
+    # that the agent can't predict, which breaks subsequent pdf_info calls.
+    if dest_path.endswith("/") or (target.exists() and target.is_dir()):
+        target.mkdir(parents=True, exist_ok=True)
+        from urllib.parse import urlparse
+        fname = Path(urlparse(url).path).name
+        if not fname:
+            cd = r.headers.get("Content-Disposition", "")
+            if "filename=" in cd:
+                fname = cd.split("filename=", 1)[1].strip('"').strip().split(";")[0]
+        if not fname:
+            fname = "download.pdf"
+        if not fname.lower().endswith(".pdf"):
+            fname += ".pdf"
+        target = target / fname
+    else:
+        target.parent.mkdir(parents=True, exist_ok=True)
+
+    try:
+        with open(target, "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+    except Exception as e:
+        return _fmt_err("pdf_download.write", e)
+
+    size = target.stat().st_size
+    # Quick sanity: PDF magic bytes
+    try:
+        with open(target, "rb") as f:
+            magic = f.read(5)
+        if not magic.startswith(b"%PDF-"):
+            target.unlink()
+            return (
+                f"ERROR: скачанный файл не похож на PDF (magic={magic!r}). "
+                "Возможно URL вернул HTML-страницу или редирект. Удалено."
+            )
+    except Exception:
+        pass
+    return f"OK: PDF сохранён в {target} ({size} байт)"
+
+
+def _pdf_suggest_near(p: Path) -> str:
+    """When a PDF path is missing, list candidate PDFs in the parent dir
+    so the agent can recover from a stale filename (e.g. arxiv version
+    suffix added by Content-Disposition)."""
+    parent = p.parent if p.parent.exists() else Path.cwd()
+    try:
+        candidates = sorted(parent.glob("*.pdf"))
+    except Exception:
+        candidates = []
+    if not candidates:
+        return ""
+    listing = "\n".join(f"  - {c}" for c in candidates[:10])
+    return f"\nДоступные PDF в {parent}:\n{listing}"
+
+
+@mcp.tool()
+def pdf_info(path: str) -> str:
+    """Return page count, metadata, and file size for a local PDF."""
+    p = _pdf_resolve(path)
+    if not p.exists():
+        return f"ERROR: файл не найден: {p}{_pdf_suggest_near(p)}"
+    try:
+        reader = PdfReader(str(p))
+    except Exception as e:
+        return _fmt_err("pdf_info", e)
+    n = len(reader.pages)
+    meta = reader.metadata or {}
+    size = p.stat().st_size
+    lines = [f"PDF: {p}", f"Страниц: {n}", f"Размер: {size} байт"]
+    for k in ("/Title", "/Author", "/Subject", "/Creator", "/Producer"):
+        if meta.get(k):
+            lines.append(f"{k[1:]}: {meta[k]}")
+    return "\n".join(lines)
+
+
+@mcp.tool()
+def pdf_read(path: str, pages: str = "1-5", max_chars: int = PDF_DEFAULT_MAX_CHARS) -> str:
+    """Extract text from PDF pages. pages: "1-3", "1,3,5". Default first 5."""
+    p = _pdf_resolve(path)
+    if not p.exists():
+        return f"ERROR: файл не найден: {p}{_pdf_suggest_near(p)}"
+    try:
+        reader = PdfReader(str(p))
+    except Exception as e:
+        return _fmt_err("pdf_read", e)
+    total = len(reader.pages)
+    idxs = _pdf_parse_pages(pages, total)
+    if not idxs:
+        return f"ERROR: пустой или некорректный диапазон «{pages}» (всего {total})"
+    parts = []
+    for i in idxs:
+        try:
+            txt = reader.pages[i].extract_text() or ""
+        except Exception as e:
+            txt = f"[error on page {i + 1}: {e}]"
+        parts.append(f"\n=== стр. {i + 1} ===\n{txt.strip()}")
+    out = "\n".join(parts).strip()
+    if len(out) > max_chars:
+        out = out[:max_chars] + f"\n\n[... truncated, {len(out) - max_chars} chars cut ...]"
+    return _maybe_trim("pdf_read", out)
+
+
+@mcp.tool()
+def pdf_search(path: str, query: str, context: int = 120) -> str:
+    """Substring search in PDF. Returns page number + surrounding context."""
+    p = _pdf_resolve(path)
+    if not p.exists():
+        return f"ERROR: файл не найден: {p}{_pdf_suggest_near(p)}"
+    try:
+        reader = PdfReader(str(p))
+    except Exception as e:
+        return _fmt_err("pdf_search", e)
+    import unicodedata
+    def norm(s: str) -> str:
+        # NFKD decomposes composed chars (ö → o + combining diaeresis),
+        # then we strip combining marks. This also handles dvips PDFs
+        # that already emit "G" + combining U+0308 as separate glyphs.
+        d = unicodedata.normalize("NFKD", s)
+        return "".join(c for c in d if not unicodedata.combining(c)).casefold()
+    q = norm(query)
+    hits: list[str] = []
+    for i, page in enumerate(reader.pages):
+        try:
+            txt = page.extract_text() or ""
+        except Exception:
+            continue
+        lower = norm(txt)
+        start = 0
+        while True:
+            j = lower.find(q, start)
+            if j == -1:
+                break
+            a, b = max(0, j - context), min(len(txt), j + len(query) + context)
+            snippet = txt[a:b].replace("\n", " ")
+            hits.append(f"стр. {i + 1}: ...{snippet}...")
+            start = j + len(query)
+            if len(hits) >= 30:
+                break
+        if len(hits) >= 30:
+            break
+    if not hits:
+        return f"«{query}» не найдено в {p}"
+    return _maybe_trim("pdf_search", f"{len(hits)} совпадений:\n" + "\n".join(hits))
+
+
+if __name__ == "__main__":
+    mcp.run()

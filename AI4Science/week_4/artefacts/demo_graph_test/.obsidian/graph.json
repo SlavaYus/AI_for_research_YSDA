@@ -1,0 +1,65 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": false,
+  "showAttachments": true,
+  "hideUnresolved": false,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:ontology",
+      "color": {
+        "a": 1,
+        "rgb": 9474192
+      }
+    },
+    {
+      "query": "[status:открыта OR \"в работе\" OR заблокирована]",
+      "color": {
+        "a": 1,
+        "rgb": 14254635
+      }
+    },
+    {
+      "query": "path:tasks",
+      "color": {
+        "a": 1,
+        "rgb": 16761685
+      }
+    },
+    {
+      "query": "[type:Эксперимент OR Проверка]",
+      "color": {
+        "a": 1,
+        "rgb": 1153422
+      }
+    },
+    {
+      "query": "path:notes",
+      "color": {
+        "a": 1,
+        "rgb": 5987296
+      }
+    },
+    {
+      "query": "path:reports  ",
+      "color": {
+        "a": 1,
+        "rgb": 5419488
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": true,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 2.88791268462207,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": false,
+  "centerStrength": 0.518713248970312,
+  "repelStrength": 10,
+  "linkStrength": 1,
+  "linkDistance": 250,
+  "scale": 1.535901091986938,
+  "close": false
+}

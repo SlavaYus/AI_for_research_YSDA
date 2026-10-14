@@ -1,0 +1,61 @@
+{
+  "title": "AI4Science: A CLI Agent for AI-Assisted Scientific Research",
+  "description": "AI4Science (formerly AI4Math) is an open-source CLI agent for AI-assisted scientific research. It is inference-agnostic — any OpenAI-compatible LLM backend can be plugged in; by default it uses Yandex AI Studio. The agent integrates code execution, Lean 4 proof verification, Mathlib premise retrieval through scilibai.ru, PDF reading and web search inside an interactive REPL built on Goose and MCP. Developed for the Yandex School of Data Analysis (YSDA) semester course \"AI Assistants for Researchers. AI4Science\". Cross-platform: Windows 10/11 (native, WSL2 fallback), macOS and Linux.",
+  "upload_type": "software",
+  "license": "MIT",
+  "version": "2.0.0",
+  "language": "eng",
+  "access_right": "open",
+  "keywords": [
+    "CLI agent",
+    "AI assistant",
+    "scientific research",
+    "verification",
+    "Lean 4",
+    "Mathlib",
+    "MCP",
+    "retrieval-augmented generation",
+    "research tooling",
+    "inference-agnostic"
+  ],
+  "creators": [
+    {
+      "name": "Khalov, Andrey P.",
+      "affiliation": "Moscow Institute of Physics and Technology (MIPT); Federal Research Center \"Computer Science and Control\" of the Russian Academy of Sciences",
+      "orcid": "0009-0005-4584-8245"
+    },
+    {
+      "name": "Ataeva, Olga M.",
+      "affiliation": "Federal Research Center \"Computer Science and Control\" of the Russian Academy of Sciences",
+      "orcid": "0000-0003-0367-5575"
+    },
+    {
+      "name": "Tuchkova, Natalia P.",
+      "affiliation": "Federal Research Center \"Computer Science and Control\" of the Russian Academy of Sciences",
+      "orcid": "0000-0001-5357-9640"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.20037667",
+      "relation": "isPartOf",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.20037665",
+      "relation": "isPartOf",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.20036192",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.20034395",
+      "relation": "references",
+      "scheme": "doi"
+    }
+  ],
+  "notes": "Copyright (c) 2026 Andrey P. Khalov, Olga M. Ataeva, Natalia P. Tuchkova. Distributed under MIT (see license field)."
+}
