@@ -1,0 +1,1282 @@
+[
+  {
+    "openalex_id": "W2777827707",
+    "title": "Block-diagonal Hessian-free Optimization for Training Neural Networks",
+    "year": 2017,
+    "authors": [
+      "Huishuai Zhang",
+      "Caiming Xiong",
+      "James Bradbury",
+      "Richard Socher"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 8,
+    "doi": "10.48550/arxiv.1712.07296",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1712.07296"
+  },
+  {
+    "openalex_id": "W2963352852",
+    "title": "Distributed Hessian-Free Optimization for Deep Neural Network",
+    "year": 2016,
+    "authors": [
+      "Xi He",
+      "Dheevatsa Mudigere",
+      "Mikhail Smelyanskiy",
+      "Martin Takáč"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 6,
+    "doi": "10.48550/arxiv.1606.00511",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1606.00511"
+  },
+  {
+    "openalex_id": "W2155894447",
+    "title": "Optimizing Neural Networks with Kronecker-factored Approximate Curvature",
+    "year": 2015,
+    "authors": [
+      "James Martens",
+      "Roger Grosse"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 414,
+    "doi": "10.48550/arxiv.1503.05671",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1503.05671"
+  },
+  {
+    "openalex_id": "W2962856867",
+    "title": "Hessian-free Optimization for Learning Deep Multidimensional Recurrent Neural Networks",
+    "year": 2015,
+    "authors": [
+      "Minhyung Cho",
+      "Chandra Dhir",
+      "Jaehyung Lee"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 7,
+    "doi": "10.48550/arxiv.1509.03475",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1509.03475"
+  },
+  {
+    "openalex_id": "W2410732425",
+    "title": "Large Scale Distributed Hessian-Free Optimization for Deep Neural Network.",
+    "year": 2016,
+    "authors": [
+      "Xi He",
+      "Dheevatsa Mudigere",
+      "Mikhail Smelyanskiy",
+      "Martin Takáč"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 4,
+    "doi": null,
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1606.00511v1"
+  },
+  {
+    "openalex_id": "W3092641135",
+    "title": "Dissecting Hessian: Understanding Common Structure of Hessian in Neural Networks",
+    "year": 2020,
+    "authors": [
+      "Yikai Wu",
+      "Xingyu Zhu",
+      "Chenwei Wu",
+      "Annie N. Wang",
+      "Rong Ge"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 9,
+    "doi": "10.48550/arxiv.2010.04261",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2010.04261"
+  },
+  {
+    "openalex_id": "W3037301072",
+    "title": "WoodFisher: Efficient Second-Order Approximation for Neural Network Compression",
+    "year": 2020,
+    "authors": [
+      "Sidak Pal Singh",
+      "Dan Alistarh"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 36,
+    "doi": "10.48550/arxiv.2004.14340",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2004.14340"
+  },
+  {
+    "openalex_id": "W4392539810",
+    "title": "SGD with Partial Hessian for Deep Neural Networks Optimization",
+    "year": 2024,
+    "authors": [
+      "Ying Sun",
+      "Hongwei Yong",
+      "Lei Zhang"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2403.02681",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2403.02681"
+  },
+  {
+    "openalex_id": "W3212202353",
+    "title": "Analytic Insights into Structure and Rank of Neural Network Hessian Maps",
+    "year": 2021,
+    "authors": [
+      "Sidak Pal Singh",
+      "Gregor Bachmann",
+      "Thomas Hofmann"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 4,
+    "doi": "10.48550/arxiv.2106.16225",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2106.16225"
+  },
+  {
+    "openalex_id": "W2907014936",
+    "title": "Hessian-Aware Zeroth-Order Optimization for Black-Box Adversarial Attack",
+    "year": 2018,
+    "authors": [
+      "Haishan Ye",
+      "Zhichao Huang",
+      "Cong Fang",
+      "Chris Junchi Li",
+      "Tong Zhang"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 22,
+    "doi": "10.48550/arxiv.1812.11377",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1812.11377"
+  },
+  {
+    "openalex_id": "W2912473957",
+    "title": "A Modular Approach to Block-diagonal Hessian Approximations for Second-order Optimization Methods.",
+    "year": 2019,
+    "authors": [
+      "Felix Dangel",
+      "Philipp Hennig"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 2,
+    "doi": null,
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/abs/1902.01813"
+  },
+  {
+    "openalex_id": "W4415032543",
+    "title": "Towards Quantifying the Hessian Structure of Neural Networks",
+    "year": 2025,
+    "authors": [
+      "Zhaorui Dong",
+      "Yushun Zhang",
+      "Jianfeng Yao",
+      "Sun, Ruoyu"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2505.02809",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2505.02809"
+  },
+  {
+    "openalex_id": "W2964346549",
+    "title": "Hessian-based Analysis of Large Batch Training and Robustness to Adversaries",
+    "year": 2018,
+    "authors": [
+      "Zhewei Yao",
+      "Amir Gholami",
+      "Qi Lei",
+      "Kurt Keutzer",
+      "Michael W. Mahoney"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 86,
+    "doi": "10.48550/arxiv.1802.08241",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1802.08241"
+  },
+  {
+    "openalex_id": "W7164130110",
+    "title": "Accelerating SAV-based optimization via randomized low-rank Hessian approximation",
+    "year": 2026,
+    "authors": [
+      "Ryo Sagawa",
+      "Daisuke Furihata",
+      "Yuto Miyatake"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2606.10562",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2606.10562"
+  },
+  {
+    "openalex_id": "W4416062466",
+    "title": "Subspace-based Approximate Hessian Method for Zeroth-Order Optimization",
+    "year": 2025,
+    "authors": [
+      "Kim, Dongyoon",
+      "Lee, Sungjae",
+      "Won Jin Lee",
+      "Kwang In Kim"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2507.06125",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2507.06125"
+  },
+  {
+    "openalex_id": "W4310633768",
+    "title": "Second-order optimization with lazy Hessians",
+    "year": 2022,
+    "authors": [
+      "Nikita Doikov",
+      "El Mahdi Chayti",
+      "Martin Jaggi"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2212.00781",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2212.00781"
+  },
+  {
+    "openalex_id": "W4403882827",
+    "title": "Efficient Second-Order Neural Network Optimization via Adaptive Trust Region Methods",
+    "year": 2024,
+    "authors": [
+      "Vo, James"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2410.02293",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2410.02293"
+  },
+  {
+    "openalex_id": "W2892675382",
+    "title": "Stochastic Second-order Methods for Non-convex Optimization with Inexact Hessian and Gradient",
+    "year": 2018,
+    "authors": [
+      "Liu Liu",
+      "Xuanqing Liu",
+      "Cho‐Jui Hsieh",
+      "Dacheng Tao"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 7,
+    "doi": "10.48550/arxiv.1809.09853",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1809.09853"
+  },
+  {
+    "openalex_id": "W7214321739",
+    "title": "On the second-order optimization for spiking neural networks",
+    "year": 2026,
+    "authors": [
+      "Ngoc Phu Doan",
+      "Ihsen Alouani"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2609.29379",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2609.29379"
+  },
+  {
+    "openalex_id": "W4283830621",
+    "title": "Hessian-Free Second-Order Adversarial Examples for Adversarial Learning",
+    "year": 2022,
+    "authors": [
+      "Yaguan Qian",
+      "Yuqi Wang",
+      "Bin Wang",
+      "Zhaoquan Gu",
+      "Yuhan Guo",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 2,
+    "doi": "10.48550/arxiv.2207.01396",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2207.01396"
+  },
+  {
+    "openalex_id": "W2284692871",
+    "title": "Optimizing and Contrasting Recurrent Neural Network Architectures",
+    "year": 2015,
+    "authors": [
+      "Krause, Ben"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.1510.04953",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1510.04953"
+  },
+  {
+    "openalex_id": "W3088037699",
+    "title": "Second-order Neural Network Training Using Complex-step Directional Derivative",
+    "year": 2020,
+    "authors": [
+      "Siyuan Shen",
+      "Tianjia Shao",
+      "Kun Zhou",
+      "Chenfanfu Jiang",
+      "Feng Luo",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2009.07098",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2009.07098"
+  },
+  {
+    "openalex_id": "W2749928749",
+    "title": "Scalable trust-region method for deep reinforcement learning using Kronecker-factored approximation",
+    "year": 2017,
+    "authors": [
+      "Yuhuai Wu",
+      "Elman Mansimov",
+      "Liao, Shun",
+      "Roger Grosse",
+      "Jimmy Lei Ba"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 432,
+    "doi": "10.48550/arxiv.1708.05144",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1708.05144"
+  },
+  {
+    "openalex_id": "W4388276184",
+    "title": "Kronecker-Factored Approximate Curvature for Modern Neural Network Architectures",
+    "year": 2023,
+    "authors": [
+      "Runa Eschenhagen",
+      "Alexander Immer",
+      "Richard E. Turner",
+      "Schneider, Frank",
+      "Philipp Hennig"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 2,
+    "doi": "10.48550/arxiv.2311.00636",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2311.00636"
+  },
+  {
+    "openalex_id": "W2271349422",
+    "title": "A Kronecker-factored approximate Fisher matrix for convolution layers",
+    "year": 2016,
+    "authors": [
+      "Roger Grosse",
+      "James Martens"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 31,
+    "doi": "10.48550/arxiv.1602.01407",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1602.01407"
+  },
+  {
+    "openalex_id": "W4415945288",
+    "title": "KFCPO: Kronecker-Factored Approximated Constrained Policy Optimization",
+    "year": 2025,
+    "authors": [
+      "Lim, Joonyoung",
+      "Younghwan Yoo"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2511.00880",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2511.00880"
+  },
+  {
+    "openalex_id": "W3119667229",
+    "title": "An iterative K-FAC algorithm for Deep Learning",
+    "year": 2021,
+    "authors": [
+      "Yingshi Chen"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2101.00218",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2101.00218"
+  },
+  {
+    "openalex_id": "W4385681731",
+    "title": "Kronfluence: Influence Functions with Eigenvalue-corrected Kronecker-Factored Approximate Curvature",
+    "year": 2023,
+    "authors": [
+      "Roger Grosse",
+      "Juhan Bae",
+      "Cem Anil",
+      "Nelson Elhage",
+      "Alex Tamkin",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 26,
+    "doi": "10.48550/arxiv.2308.03296",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2308.03296"
+  },
+  {
+    "openalex_id": "W2889392686",
+    "title": "A Coordinate-Free Construction of Scalable Natural Gradient",
+    "year": 2018,
+    "authors": [
+      "Kevin Luk",
+      "Roger Grosse"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 7,
+    "doi": "10.48550/arxiv.1808.10340",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1808.10340"
+  },
+  {
+    "openalex_id": "W4306798213",
+    "title": "Brand New K-FACs: Speeding up K-FAC with Online Decomposition Updates",
+    "year": 2022,
+    "authors": [
+      "Constantin Octavian Puiu"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2210.08494",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2210.08494"
+  },
+  {
+    "openalex_id": "W7123326475",
+    "title": "Generalizable and Adaptive Continual Learning Framework for AI-generated Image Detection",
+    "year": 2026,
+    "authors": [
+      "Hanyi Wang",
+      "Jun Lan",
+      "Yaoyu Kang",
+      "Huijia Zhu",
+      "Weiqiang Wang",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2601.05580",
+    "oa_status": "green",
+    "oa_url": "https://doi.org/10.48550/arxiv.2601.05580"
+  },
+  {
+    "openalex_id": "W7123371824",
+    "title": "Generalizable and Adaptive Continual Learning Framework for AI-generated Image Detection",
+    "year": 2026,
+    "authors": [
+      "Hanyi Wang",
+      "Jun Lan",
+      "Yaoyu Kang",
+      "Huijia Zhu",
+      "Weiqiang Wang",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": null,
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2601.05580"
+  },
+  {
+    "openalex_id": "W7201880288",
+    "title": "FastKron: Efficient Quantization with Kronecker-Factored Hessians",
+    "year": 2026,
+    "authors": [
+      "Johann Birnick",
+      "Rayan Saab"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2608.06291",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2608.06291"
+  },
+  {
+    "openalex_id": "W7204566882",
+    "title": "Unifying Detection and Adaptation in Task-Free Continual Learning",
+    "year": 2026,
+    "authors": [
+      "Dezheng Han",
+      "Anbang Zhang",
+      "Zhihao Zhu",
+      "Shuaishuai Guo"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2608.27070",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2608.27070"
+  },
+  {
+    "openalex_id": "W7163160606",
+    "title": "Rethinking Bregman Divergences in Kronecker-Factored Optimizers",
+    "year": 2026,
+    "authors": [
+      "Bing Liu",
+      "Wenjie Zhou",
+      "Chengcheng Zhao"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2606.00542",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2606.00542"
+  },
+  {
+    "openalex_id": "W7130573490",
+    "title": "Beyond SGD, Without SVD: Proximal Subspace Iteration LoRA with Diagonal Fractional K-FAC",
+    "year": 2026,
+    "authors": [
+      "Abdulla Jasem Almansoori",
+      "Maria Ivanova",
+      "Andrey Veprikov",
+      "Aleksandr Beznosikov",
+      "Samuel Horváth",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2602.16456",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2602.16456"
+  },
+  {
+    "openalex_id": "W4378509498",
+    "title": "Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training",
+    "year": 2023,
+    "authors": [
+      "Hong Liu",
+      "Zhiyuan Li",
+      "David Hall",
+      "Percy Liang",
+      "Tengyu Ma"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 28,
+    "doi": "10.48550/arxiv.2305.14342",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2305.14342"
+  },
+  {
+    "openalex_id": "W4402427651",
+    "title": "Fast Unconstrained Optimization via Hessian Averaging and Adaptive Gradient Sampling Methods",
+    "year": 2024,
+    "authors": [
+      "Thomas O’Leary-Roseberry",
+      "Raghu Bollapragada"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2408.07268",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2408.07268"
+  },
+  {
+    "openalex_id": "W4407424955",
+    "title": "Improving Adaptive Moment Optimization via Preconditioner Diagonalization",
+    "year": 2025,
+    "authors": [
+      "Nguyen, Son",
+      "Bo Liu",
+      "Lizhang Chen",
+      "Qiang Liu"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2502.07488",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2502.07488"
+  },
+  {
+    "openalex_id": "W7114801997",
+    "title": "Adaptive Regularized Newton Method with Inexact Hessian",
+    "year": 2025,
+    "authors": [
+      "Shestakov, Aleksandr",
+      "Bashirov, Nail",
+      "Semenov, Andrei",
+      "Gasnikov, Alexander",
+      "Takáč, Martin",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2512.08775",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2512.08775"
+  },
+  {
+    "openalex_id": "W4407123326",
+    "title": "Gradient Heterogeneity Complements Hessian Heterogeneity in Transformer Optimization",
+    "year": 2025,
+    "authors": [
+      "Akiyoshi Tomihari",
+      "Issei Sato"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2502.00213",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2502.00213"
+  },
+  {
+    "openalex_id": "W7208794461",
+    "title": "Scalable Kronecker-Fisher Approximation: Efficient Hessian Analysis for Billion-Parameter Language Models Compression",
+    "year": 2026,
+    "authors": [
+      "Viacheslav Yusupov",
+      "Daria Cherniuk",
+      "Evgeny Frolov"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": null,
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2609.02451"
+  },
+  {
+    "openalex_id": "W4403569928",
+    "title": "Second-Order Min-Max Optimization with Lazy Hessians",
+    "year": 2024,
+    "authors": [
+      "Lesi Chen",
+      "Chengchang Liu",
+      "Jingzhao Zhang"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2410.09568",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2410.09568"
+  },
+  {
+    "openalex_id": "W7160987047",
+    "title": "ADMM-Q: An Improved Hessian-based Weight Quantizer for Post-Training Quantization of Large Language Models",
+    "year": 2026,
+    "authors": [
+      "Ryan Lucas",
+      "Mehdi Makni",
+      "Xiang Meng",
+      "Adam Deng",
+      "Rahul Mazumder"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2605.11222",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2605.11222"
+  },
+  {
+    "openalex_id": "W4403370389",
+    "title": "Potential Hessian Ascent: The Sherrington-Kirkpatrick Model",
+    "year": 2024,
+    "authors": [
+      "David Jekel",
+      "Juspreet Singh Sandhu",
+      "Jonathan Jingsheng SHI"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2408.02360",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2408.02360"
+  },
+  {
+    "openalex_id": "W4400611281",
+    "title": "Deconstructing What Makes a Good Optimizer for Language Models",
+    "year": 2024,
+    "authors": [
+      "Rosie Zhao",
+      "Depen Morwani",
+      "David Brandfonbrener",
+      "Nikhil Vyas",
+      "Sham M. Kakade"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 2,
+    "doi": "10.48550/arxiv.2407.07972",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2407.07972"
+  },
+  {
+    "openalex_id": "W7161989972",
+    "title": "Correcting Stochastic Update Bias in Preconditioned Language Model Optimizers",
+    "year": 2026,
+    "authors": [
+      "Nikhil Nayak",
+      "Julia White",
+      "Urchade Zaratiana",
+      "Kelton Zhang",
+      "Henrijs Princis",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2605.20756",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2605.20756"
+  },
+  {
+    "openalex_id": "W4281477088",
+    "title": "HessianFR: An Efficient Hessian-based Follow-the-Ridge Algorithm for Minimax Optimization",
+    "year": 2022,
+    "authors": [
+      "Yihang Gao",
+      "Huafeng Liu",
+      "Michael K. Ng",
+      "Mingjie Zhou"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2205.11030",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2205.11030"
+  },
+  {
+    "openalex_id": "W2899695365",
+    "title": "Quasi-Newton Optimization in Deep Q-Learning for Playing ATARI Games.",
+    "year": 2018,
+    "authors": [
+      "Jacob Rafati",
+      "Roummel F. Marcia"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": null,
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/abs/1811.02693"
+  },
+  {
+    "openalex_id": "W3015669543",
+    "title": "Deep Neural Network Learning with Second-Order Optimizers -- a Practical Study with a Stochastic Quasi-Gauss-Newton Method",
+    "year": 2020,
+    "authors": [
+      "Christopher Thiele",
+      "Mauricio Araya–Polo",
+      "Detlef Hohl"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2004.03040",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2004.03040"
+  },
+  {
+    "openalex_id": "W4306178095",
+    "title": "Learning to Optimize Quasi-Newton Methods",
+    "year": 2022,
+    "authors": [
+      "Isaac Liao",
+      "Rumen Dangovski",
+      "Jakob Foerster",
+      "Marin Soljacic A"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2210.06171",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2210.06171"
+  },
+  {
+    "openalex_id": "W4281254880",
+    "title": "On the efficiency of Stochastic Quasi-Newton Methods for Deep Learning",
+    "year": 2022,
+    "authors": [
+      "Mahsa Yousefi",
+      "Ángeles Martínez"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 2,
+    "doi": "10.48550/arxiv.2205.09121",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2205.09121"
+  },
+  {
+    "openalex_id": "W7219155397",
+    "title": "SoftServe: A Scalable Quasi-Newton Method for Deep Learning",
+    "year": 2026,
+    "authors": [
+      "Joohwan Ko",
+      "Tetiana Parshakova",
+      "Diana Cai",
+      "Robert M. Gower"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": null,
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2610.02182"
+  },
+  {
+    "openalex_id": "W2913310393",
+    "title": "Quasi-Newton Methods for Deep Learning: Forget the Past, Just Sample.",
+    "year": 2019,
+    "authors": [
+      "Albert S. Berahas",
+      "Majid Jahani",
+      "Martin Takáč"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 32,
+    "doi": null,
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/abs/1901.09997"
+  },
+  {
+    "openalex_id": "W4287329019",
+    "title": "Kronecker-factored Quasi-Newton Methods for Deep Learning",
+    "year": 2021,
+    "authors": [
+      "Yi Ren",
+      "Achraf Bahamou",
+      "Donald Goldfarb"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2102.06737",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2102.06737"
+  },
+  {
+    "openalex_id": "W4404570740",
+    "title": "Quasi-Newton method of Optimization is proved to be a steepest descent method under the ellipsoid norm",
+    "year": 2024,
+    "authors": [
+      "Jiongcheng Li"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2411.11286",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2411.11286"
+  },
+  {
+    "openalex_id": "W2896101215",
+    "title": "Quasi-hyperbolic momentum and Adam for deep learning",
+    "year": 2018,
+    "authors": [
+      "Jerry Ma",
+      "Denis Yarats"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 83,
+    "doi": "10.48550/arxiv.1810.06801",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1810.06801"
+  },
+  {
+    "openalex_id": "W2939421193",
+    "title": "Deep Reinforcement Learning via L-BFGS Optimization",
+    "year": 2018,
+    "authors": [
+      "Jacob Rafati",
+      "Roummel F. Marcia"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 4,
+    "doi": "10.48550/arxiv.1811.02693",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1811.02693"
+  },
+  {
+    "openalex_id": "W2994927236",
+    "title": "Optimization for deep learning: theory and algorithms",
+    "year": 2019,
+    "authors": [
+      "Ruoyu Sun"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 125,
+    "doi": "10.48550/arxiv.1912.08957",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1912.08957"
+  },
+  {
+    "openalex_id": "W2766151966",
+    "title": "Regularization for Deep Learning: A Taxonomy",
+    "year": 2017,
+    "authors": [
+      "Jan Kukačka",
+      "Vladimir Golkov",
+      "Daniel Cremers"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 255,
+    "doi": "10.48550/arxiv.1710.10686",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1710.10686"
+  },
+  {
+    "openalex_id": "W3094377873",
+    "title": "A Nesterov's Accelerated quasi-Newton method for Global Routing using Deep Reinforcement Learning",
+    "year": 2020,
+    "authors": [
+      "S. Indrapriyadarsini",
+      "Shahrzad Mahboubi",
+      "Hiroshi Ninomiya",
+      "Takeshi Kamio",
+      "Hideki Asai"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 2,
+    "doi": "10.48550/arxiv.2010.09465",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2010.09465"
+  },
+  {
+    "openalex_id": "W2962707965",
+    "title": "Asynchronous Stochastic Quasi-Newton MCMC for Non-Convex Optimization",
+    "year": 2018,
+    "authors": [
+      "Umut Şimşekli",
+      "Çağatay Yıldız",
+      "Thanh Huy Nguyen",
+      "Gaël Richard",
+      "Ali Taylan Cemgil"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 15,
+    "doi": "10.48550/arxiv.1806.02617",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1806.02617"
+  },
+  {
+    "openalex_id": "W2990228100",
+    "title": "A Quasi-Newton Method Based Vertical Federated Learning Framework for Logistic Regression",
+    "year": 2019,
+    "authors": [
+      "Kai Yang",
+      "Fan, Tao",
+      "Tianjian Chen",
+      "Yuanming Shi",
+      "Qiang Yang"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 52,
+    "doi": "10.48550/arxiv.1912.00513",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1912.00513"
+  },
+  {
+    "openalex_id": "W2788190072",
+    "title": "Shampoo: Preconditioned Stochastic Tensor Optimization",
+    "year": 2018,
+    "authors": [
+      "Vineet Gupta",
+      "Tomer Koren",
+      "Yoram Singer"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 51,
+    "doi": "10.48550/arxiv.1802.09568",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1802.09568"
+  },
+  {
+    "openalex_id": "W4379087214",
+    "title": "KrADagrad: Kronecker Approximation-Domination Gradient Preconditioned Stochastic Optimization",
+    "year": 2023,
+    "authors": [
+      "Jonathan Mei",
+      "Moreno, Alexander",
+      "Luke Walters"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2305.19416",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2305.19416"
+  },
+  {
+    "openalex_id": "W4386793277",
+    "title": "A Distributed Data-Parallel PyTorch Implementation of the Distributed Shampoo Optimizer for Training Neural Networks At-Scale",
+    "year": 2023,
+    "authors": [
+      "Hao-Jun Michael Shi",
+      "Tsung-Hsien Lee",
+      "Shintaro Iwasaki",
+      "Jose Gallego-Posada",
+      "Li, Zhijing",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2309.06497",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2309.06497"
+  },
+  {
+    "openalex_id": "W7160984813",
+    "title": "Constrained Stochastic Spectral Preconditioning Converges for Nonconvex Objectives",
+    "year": 2026,
+    "authors": [
+      "Konstantinos A. Oikonomidis",
+      "Jan Quan",
+      "Kimon Antonakopoulos",
+      "Antonio Silveti-Falls",
+      "Volkan Cevher",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2605.11850",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2605.11850"
+  },
+  {
+    "openalex_id": "W4385262487",
+    "title": "An Isometric Stochastic Optimizer",
+    "year": 2023,
+    "authors": [
+      "Jackson, Jacob"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2307.12979",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2307.12979"
+  },
+  {
+    "openalex_id": "W7128604818",
+    "title": "Clarifying Shampoo: Adapting Spectral Descent to Stochasticity and the Parameter Trajectory",
+    "year": 2026,
+    "authors": [
+      "Runa Eschenhagen",
+      "Anna Cai",
+      "Tsung-Hsien Lee",
+      "Hao-Jun Michael Shi"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2602.09314",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2602.09314"
+  },
+  {
+    "openalex_id": "W7127404891",
+    "title": "DASH: Faster Shampoo via Batched Block Preconditioning and Efficient Inverse-Root Solvers",
+    "year": 2026,
+    "authors": [
+      "Ionuț-Vlad Modoranu",
+      "Philip Zmushko",
+      "Erik Schultheis",
+      "Mher Safaryan",
+      "Dan Alistarh"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2602.02016",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2602.02016"
+  },
+  {
+    "openalex_id": "W4403707245",
+    "title": "SOAP: Improving and Stabilizing Shampoo using Adam",
+    "year": 2024,
+    "authors": [
+      "Nikhil Vyas",
+      "Depen Morwani",
+      "Rosie Zhao",
+      "Kwun, Mujin",
+      "Shapira, Itai",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 2,
+    "doi": "10.48550/arxiv.2409.11321",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2409.11321"
+  },
+  {
+    "openalex_id": "W4387838171",
+    "title": "Jorge: Approximate Preconditioning for GPU-efficient Second-order Optimization",
+    "year": 2023,
+    "authors": [
+      "Siddharth Singh",
+      "Zachary Sating",
+      "Abhinav S Bhatele"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2310.12298",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2310.12298"
+  },
+  {
+    "openalex_id": "W7123475028",
+    "title": "Convergence Rate Analysis of the AdamW-style Shampoo: Unifying One-Sided and Two-Sided Preconditioning",
+    "year": 2026,
+    "authors": [
+      "Huan Li",
+      "Yiming Dong",
+      "Zhouchen Lin"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2601.07326",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2601.07326"
+  },
+  {
+    "openalex_id": "W4286692870",
+    "title": "Stochastic optimization in digital pre-distortion of the signal",
+    "year": 2022,
+    "authors": [
+      "Artem V Alpatov",
+      "Egor A Peters",
+      "Dmitry Arkad'evich Pasechnyuk",
+      "A. M. Raigorodskii"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2201.12159",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2201.12159"
+  },
+  {
+    "openalex_id": "W7169847197",
+    "title": "PoLoRA: A Preconditioned Orthogonalized LoRA Optimizer",
+    "year": 2026,
+    "authors": [
+      "Nikhil Ghosh",
+      "Tetiana Parshakova",
+      "Robert M. Gower"
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2607.17620",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2607.17620"
+  },
+  {
+    "openalex_id": "W4414968374",
+    "title": "Understanding and Improving Shampoo and SOAP via Kullback-Leibler Minimization",
+    "year": 2025,
+    "authors": [
+      "Wu Lin",
+      "Scott C. Lowe",
+      "Felix Dangel",
+      "Runa Eschenhagen",
+      "Zikun Xu",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 0,
+    "doi": "10.48550/arxiv.2509.03378",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2509.03378"
+  },
+  {
+    "openalex_id": "W4310630347",
+    "title": "Differentially Private Adaptive Optimization with Delayed Preconditioners",
+    "year": 2022,
+    "authors": [
+      "Tian Li",
+      "Manzil Zaheer",
+      "Ken Ziyu Liu",
+      "Sashank Jakkam Reddi",
+      "H. Brendan McMahan",
+      "и др."
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 3,
+    "doi": "10.48550/arxiv.2212.00309",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2212.00309"
+  }
+]

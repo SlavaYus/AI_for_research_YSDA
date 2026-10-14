@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Сервер MCP «research» (OpenAlex и Wikidata) для учебного агента.
+# Лежит в bin/ агента рядом с ai4science-mcp и запускает src/research_mcp.py
+# интерпретатором из окружения агента.
+if readlink -f "${BASH_SOURCE[0]}" >/dev/null 2>&1; then
+    SELF="$(readlink -f "${BASH_SOURCE[0]}")"
+elif command -v greadlink >/dev/null 2>&1; then
+    SELF="$(greadlink -f "${BASH_SOURCE[0]}")"
+else
+    SELF="${BASH_SOURCE[0]}"
+    while [ -L "$SELF" ]; do
+        TARGET="$(readlink "$SELF")"
+        [[ "$TARGET" = /* ]] || TARGET="$(dirname "$SELF")/$TARGET"
+        SELF="$TARGET"
+    done
+fi
+REPO="$(cd "$(dirname "$SELF")/.." && pwd)"
+PY="$REPO/.venv/bin/python"
+[ -x "$PY" ] || PY="$(command -v python3 || command -v python)"
+exec "$PY" "$REPO/src/research_mcp.py" "$@"

@@ -1,0 +1,211 @@
+{
+  "main": {
+    "id": "cb6b2b0d1750b311",
+    "type": "split",
+    "children": [
+      {
+        "id": "f2eb1681678883ae",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9e6fd96ce0965da4",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ae76f15ae61b633b",
+    "type": "split",
+    "children": [
+      {
+        "id": "deb00e1c7a268eb3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c807f481777a1f8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "462c6b3039776c5c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "d48c399bbc74bb1b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "4ca8da149e999d08",
+    "type": "split",
+    "children": [
+      {
+        "id": "e8b4438bc347e1ef",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f9034a3d4e0ed614",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "e68cea312bffec1f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "17ccec2a72c5a876",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "710d0c1ff9fb2583",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "0aabcbf455b139a6",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "9e6fd96ce0965da4",
+  "lastOpenFiles": [
+    "notes/Расчёт E_a по трём сериям.md",
+    "reports/отчёт.md",
+    "Untitled",
+    "notes/Laidler 1984.md",
+    "notes/Подготовка хранилища и заметок классов.md",
+    "notes/Линейный фит Аррениуса.md",
+    "notes/Независимый пересчёт E_a.md",
+    "reports",
+    "results/arrhenius_plot.png",
+    "notes/Результат E_a по трём сериям.md",
+    "src/plot_arrhenius.py",
+    "notes/Ограничение серия 2024-03.md",
+    "notes/Нелинейный фит Гаусса–Ньютона.md",
+    "notes/Гипотеза Аррениуса.md",
+    "notes/Arrhenius 1889.md",
+    "tasks/Написать отчёт.md",
+    "tasks/Построить график Аррениуса.md",
+    "tasks/Написать отчёт о проверке закона Аррениуса.md",
+    "library/laidler_1984.md",
+    "library/arrhenius_1889.md",
+    "tasks/Независимый пересчёт E_a.md",
+    "ontology/Подготовка.md",
+    "ontology/НаборДанных.md",
+    "tasks/Расчёт E_a и проверка линейности.md"
+  ]
+}

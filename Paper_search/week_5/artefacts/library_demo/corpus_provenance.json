@@ -1,0 +1,31 @@
+{
+ "source": "OpenAlex",
+ "license": "CC0",
+ "retrieved": "2026-10-11",
+ "queries": [
+  {
+   "topic": "химическая кинетика",
+   "request": "https://api.openalex.org/works?search=Arrhenius+equation+activation+energy+temperature+dependence+of+reaction+rate&filter=has_abstract%3Atrue%2Clanguage%3Aen%2Ccited_by_count%3A%3E30%2Ctype%3Aarticle%7Creview&per_page=50&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cauthorships%2Cprimary_location%2Ctype%2Ccited_by_count%2Copen_access%2Cabstract_inverted_index",
+   "found": 5153,
+   "kept": 20
+  },
+  {
+   "topic": "температура в биологии",
+   "request": "https://api.openalex.org/works?search=temperature+dependence+of+enzyme+activity+and+metabolic+rate+thermal+adaptation&filter=has_abstract%3Atrue%2Clanguage%3Aen%2Ccited_by_count%3A%3E30%2Ctype%3Aarticle%7Creview&per_page=50&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cauthorships%2Cprimary_location%2Ctype%2Ccited_by_count%2Copen_access%2Cabstract_inverted_index",
+   "found": 2673,
+   "kept": 20
+  },
+  {
+   "topic": "информационный поиск",
+   "request": "https://api.openalex.org/works?search=information+retrieval+ranking+BM25+dense+passage+retrieval&filter=has_abstract%3Atrue%2Clanguage%3Aen%2Ccited_by_count%3A%3E30%2Ctype%3Aarticle%7Creview&per_page=50&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cauthorships%2Cprimary_location%2Ctype%2Ccited_by_count%2Copen_access%2Cabstract_inverted_index",
+   "found": 46,
+   "kept": 20
+  },
+  {
+   "topic": "графы знаний",
+   "request": "https://api.openalex.org/works?search=knowledge+graph+ontology+SPARQL+linked+data&filter=has_abstract%3Atrue%2Clanguage%3Aen%2Ccited_by_count%3A%3E30%2Ctype%3Aarticle%7Creview&per_page=50&select=id%2Cdoi%2Cdisplay_name%2Cpublication_year%2Cauthorships%2Cprimary_location%2Ctype%2Ccited_by_count%2Copen_access%2Cabstract_inverted_index",
+   "found": 702,
+   "kept": 20
+  }
+ ]
+}

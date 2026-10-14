@@ -1,0 +1,312 @@
+[
+  {
+    "openalex_id": "W2155894447",
+    "title": "Optimizing Neural Networks with Kronecker-factored Approximate Curvature",
+    "year": 2015,
+    "authors": [
+      {
+        "name": "James Martens",
+        "openalex_id": "A5100891241",
+        "institutions": [
+          "University of Toronto"
+        ]
+      },
+      {
+        "name": "Roger Grosse",
+        "openalex_id": "A5067036768",
+        "institutions": [
+          "University of Toronto"
+        ]
+      }
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 414,
+    "doi": "10.48550/arxiv.1503.05671",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1503.05671",
+    "publication_date": "2015-03-19",
+    "volume": null,
+    "issue": null,
+    "pages": "2408–2417",
+    "topic": {
+      "name": "Stochastic Gradient Optimization Techniques",
+      "field": "Computer Science",
+      "domain": "Physical Sciences"
+    },
+    "references_count": 47,
+    "is_retracted": false,
+    "pdf_urls": [
+      "https://arxiv.org/pdf/1503.05671"
+    ],
+    "abstract": "We propose an efficient method for approximating natural gradient descent in neural networks which we call Kronecker-Factored Approximate Curvature (K-FAC). K-FAC is based on an efficiently invertible approximation of a neural network's Fisher information matrix which is neither diagonal nor low-rank, and in some cases is completely non-sparse. It is derived by approximating various large blocks of the Fisher (corresponding to entire layers) as being the Kronecker product of two much smaller matrices. While only several times more expensive to compute than the plain stochastic gradient, the updates produced by K-FAC make much more progress optimizing the objective, which results in an algorithm that can be much faster than stochastic gradient descent with momentum in practice. And unlike some previously proposed approximate natural-gradient/Newton methods which use high-quality non-diagonal curvature matrices (such as Hessian-free optimization), K-FAC works very well in highly stochastic optimization regimes. This is because the cost of storing and inverting K-FAC's approximation to the curvature matrix does not depend on the amount of data used to estimate it, which is a feature typically associated only with diagonal or low-rank approximations to the curvature matrix.",
+    "arxiv_id": "1503.05671",
+    "связь с papers/": "Shampoo 1802.09568; Hessian Structure 2505.02809"
+  },
+  {
+    "openalex_id": "W4378509498",
+    "title": "Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training",
+    "year": 2023,
+    "authors": [
+      {
+        "name": "Hong Liu",
+        "openalex_id": "A5079533791",
+        "institutions": [
+          "Stanford University"
+        ]
+      },
+      {
+        "name": "Zhiyuan Li",
+        "openalex_id": "A5100337924",
+        "institutions": [
+          "Stanford University"
+        ]
+      },
+      {
+        "name": "Hall, David",
+        "openalex_id": "",
+        "institutions": [
+          "Stanford University"
+        ]
+      },
+      {
+        "name": "Percy Liang",
+        "openalex_id": "A5025255782",
+        "institutions": [
+          "Stanford University"
+        ]
+      },
+      {
+        "name": "Tengyu Ma",
+        "openalex_id": "A5101821970",
+        "institutions": [
+          "Stanford University"
+        ]
+      }
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 28,
+    "doi": "10.48550/arxiv.2305.14342",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2305.14342",
+    "publication_date": "2023-05-23",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "topic": {
+      "name": "Stochastic Gradient Optimization Techniques",
+      "field": "Computer Science",
+      "domain": "Physical Sciences"
+    },
+    "references_count": 0,
+    "is_retracted": false,
+    "pdf_urls": [
+      "https://arxiv.org/pdf/2305.14342"
+    ],
+    "abstract": "Given the massive cost of language model pre-training, a non-trivial improvement of the optimization algorithm would lead to a material reduction on the time and cost of training. Adam and its variants have been state-of-the-art for years, and more sophisticated second-order (Hessian-based) optimizers often incur too much per-step overhead. In this paper, we propose Sophia, Second-order Clipped Stochastic Optimization, a simple scalable second-order optimizer that uses a light-weight estimate of the diagonal Hessian as the pre-conditioner. The update is the moving average of the gradients divided by the moving average of the estimated Hessian, followed by element-wise clipping. The clipping controls the worst-case update size and tames the negative impact of non-convexity and rapid change of Hessian along the trajectory. Sophia only estimates the diagonal Hessian every handful of iterations, which has negligible average per-step time and memory overhead. On language modeling with GPT models of sizes ranging from 125M to 1.5B, Sophia achieves a 2x speed-up compared to Adam in the number of steps, total compute, and wall-clock time, achieving the same perplexity with 50% fewer steps, less total compute, and reduced wall-clock time. Theoretically, we show that Sophia, in a much simplified setting, adapts to the heterogeneous curvatures in different parameter dimensions, and thus has a run-time bound that does not depend on the condition number of the loss.",
+    "arxiv_id": "2305.14342",
+    "связь с papers/": "AdamW 1711.05101; Muon 2502.16982; Hessian Structure 2505.02809"
+  },
+  {
+    "openalex_id": "W4403707245",
+    "title": "SOAP: Improving and Stabilizing Shampoo using Adam",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Nikhil Vyas",
+        "openalex_id": "A5102775428",
+        "institutions": [
+          "Harvard University"
+        ]
+      },
+      {
+        "name": "Depen Morwani",
+        "openalex_id": "A5086429101",
+        "institutions": [
+          "Harvard University"
+        ]
+      },
+      {
+        "name": "Rosie Zhao",
+        "openalex_id": "A5088011506",
+        "institutions": [
+          "Harvard University"
+        ]
+      },
+      {
+        "name": "Kwun, Mujin",
+        "openalex_id": "",
+        "institutions": [
+          "Harvard University"
+        ]
+      },
+      {
+        "name": "Shapira, Itai",
+        "openalex_id": "",
+        "institutions": [
+          "Harvard University"
+        ]
+      },
+      {
+        "name": "David Brandfonbrener",
+        "openalex_id": "A5037978510",
+        "institutions": [
+          "Harvard University"
+        ]
+      },
+      {
+        "name": "Lucas Janson",
+        "openalex_id": "A5099582937",
+        "institutions": [
+          "Harvard University"
+        ]
+      },
+      {
+        "name": "Sham M. Kakade",
+        "openalex_id": "A5108381794",
+        "institutions": []
+      }
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 2,
+    "doi": "10.48550/arxiv.2409.11321",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2409.11321",
+    "publication_date": "2024-09-17",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "topic": {
+      "name": "Stochastic Gradient Optimization Techniques",
+      "field": "Computer Science",
+      "domain": "Physical Sciences"
+    },
+    "references_count": 0,
+    "is_retracted": false,
+    "pdf_urls": [
+      "https://arxiv.org/pdf/2409.11321"
+    ],
+    "abstract": "There is growing evidence of the effectiveness of Shampoo, a higher-order preconditioning method, over Adam in deep learning optimization tasks. However, Shampoo's drawbacks include additional hyperparameters and computational overhead when compared to Adam, which only updates running averages of first- and second-moment quantities. This work establishes a formal connection between Shampoo (implemented with the 1/2 power) and Adafactor -- a memory-efficient approximation of Adam -- showing that Shampoo is equivalent to running Adafactor in the eigenbasis of Shampoo's preconditioner. This insight leads to the design of a simpler and computationally efficient algorithm: $\\textbf{S}$hampo$\\textbf{O}$ with $\\textbf{A}$dam in the $\\textbf{P}$reconditioner's eigenbasis (SOAP). With regards to improving Shampoo's computational efficiency, the most straightforward approach would be to simply compute Shampoo's eigendecomposition less frequently. Unfortunately, as our empirical results show, this leads to performance degradation that worsens with this frequency. SOAP mitigates this degradation by continually updating the running average of the second moment, just as Adam does, but in the current (slowly changing) coordinate basis. Furthermore, since SOAP is equivalent to running Adam in a rotated space, it introduces only one additional hyperparameter (the preconditioning frequency) compared to Adam. We empirically evaluate SOAP on language model pre-training with 360m and 660m sized m …",
+    "arxiv_id": "2409.11321",
+    "связь с papers/": "Shampoo 1802.09568; Muon 2502.16982; AdamW 1711.05101"
+  },
+  {
+    "openalex_id": "W3092641135",
+    "title": "Dissecting Hessian: Understanding Common Structure of Hessian in Neural Networks",
+    "year": 2020,
+    "authors": [
+      {
+        "name": "Yikai Wu",
+        "openalex_id": "A5040141548",
+        "institutions": [
+          "Duke University",
+          "Princeton University"
+        ]
+      },
+      {
+        "name": "Xingyu Zhu",
+        "openalex_id": "A5001154061",
+        "institutions": [
+          "Duke University"
+        ]
+      },
+      {
+        "name": "Chenwei Wu",
+        "openalex_id": "A5101499951",
+        "institutions": [
+          "Duke University"
+        ]
+      },
+      {
+        "name": "Annie N. Wang",
+        "openalex_id": "A5059332802",
+        "institutions": [
+          "Duke University"
+        ]
+      },
+      {
+        "name": "Rong Ge",
+        "openalex_id": "A5101636973",
+        "institutions": [
+          "Duke University"
+        ]
+      }
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 9,
+    "doi": "10.48550/arxiv.2010.04261",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2010.04261",
+    "publication_date": "2020-10-08",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "topic": {
+      "name": "Stochastic Gradient Optimization Techniques",
+      "field": "Computer Science",
+      "domain": "Physical Sciences"
+    },
+    "references_count": 51,
+    "is_retracted": false,
+    "pdf_urls": [
+      "https://arxiv.org/pdf/2010.04261"
+    ],
+    "abstract": "Hessian captures important properties of the deep neural network loss landscape. Previous works have observed low rank structure in the Hessians of neural networks. In this paper, we propose a decoupling conjecture that decomposes the layer-wise Hessians of a network as the Kronecker product of two smaller matrices. We can analyze the properties of these smaller matrices and prove the structure of top eigenspace random 2-layer networks. The decoupling conjecture has several other interesting implications - top eigenspaces for different models have surprisingly high overlap, and top eigenvectors form low rank matrices when they are reshaped into the same shape as the corresponding weight matrix. All of these can be verified empirically for deeper networks. Finally, we use the structure of layer-wise Hessian to get better explicit generalization bounds for neural networks.",
+    "arxiv_id": "2010.04261",
+    "связь с papers/": "Hessian Structure 2505.02809"
+  },
+  {
+    "openalex_id": "W4287329019",
+    "title": "Kronecker-factored Quasi-Newton Methods for Deep Learning",
+    "year": 2021,
+    "authors": [
+      {
+        "name": "Yi Ren",
+        "openalex_id": "A5075486968",
+        "institutions": [
+          "Columbia University"
+        ]
+      },
+      {
+        "name": "Achraf Bahamou",
+        "openalex_id": "A5039701628",
+        "institutions": [
+          "Columbia University"
+        ]
+      },
+      {
+        "name": "Donald Goldfarb",
+        "openalex_id": "A5027297328",
+        "institutions": [
+          "Columbia University"
+        ]
+      }
+    ],
+    "source": "arXiv (Cornell University)",
+    "type": "preprint",
+    "cited_by": 1,
+    "doi": "10.48550/arxiv.2102.06737",
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/2102.06737",
+    "publication_date": "2021-02-12",
+    "volume": null,
+    "issue": null,
+    "pages": null,
+    "topic": {
+      "name": "Stochastic Gradient Optimization Techniques",
+      "field": "Computer Science",
+      "domain": "Physical Sciences"
+    },
+    "references_count": 0,
+    "is_retracted": false,
+    "pdf_urls": [
+      "https://arxiv.org/pdf/2102.06737"
+    ],
+    "abstract": "Second-order methods have the capability of accelerating optimization by using much richer curvature information than first-order methods. However, most are impractical for deep learning, where the number of training parameters is huge. In Goldfarb et al. (2020), practical quasi-Newton methods were proposed that approximate the Hessian of a multilayer perceptron (MLP) model by a layer-wise block diagonal matrix where each layer's block is further approximated by a Kronecker product corresponding to the structure of the Hessian restricted to that layer. Here, we extend these methods to enable them to be applied to convolutional neural networks (CNNs), by analyzing the Kronecker-factored structure of the Hessian matrix of convolutional layers. Several improvements to the methods in Goldfarb et al. (2020) are also proposed that can be applied to both MLPs and CNNs. These new methods have memory requirements comparable to first-order methods and much less per-iteration time complexity than those in Goldfarb et al. (2020). Moreover, convergence results are proved for a variant under relatively mild conditions. Finally, we compared the performance of our new methods against several state-of-the-art (SOTA) methods on MLP autoencoder and CNN problems, and found that they outperformed the first-order SOTA methods and performed comparably to the second-order SOTA methods.",
+    "arxiv_id": "2102.06737",
+    "связь с papers/": "Shampoo 1802.09568; Hessian Structure 2505.02809"
+  }
+]

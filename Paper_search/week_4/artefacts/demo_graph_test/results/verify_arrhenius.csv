@@ -1,0 +1,5 @@
+quantity,value,unit
+E_a,51.447,kJ/mol
+E_a_err,0.698,kJ/mol
+ln A,14.701,ln(1/s)
+n_points,15,-
