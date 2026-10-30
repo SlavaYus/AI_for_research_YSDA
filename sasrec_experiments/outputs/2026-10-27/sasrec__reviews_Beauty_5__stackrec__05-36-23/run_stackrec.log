@@ -1,0 +1,392 @@
+[2026-10-27 05:36:24,390][__main__][INFO] - StackRec config:
+dataloader:
+  train:
+    batch_size: 128
+    drop_last: false
+    shuffle: true
+    num_workers: 0
+  validation:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+  test:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+device: cuda
+num_epochs: 200
+early_stopping_rounds: 30
+seed: 42
+metrics:
+  ndcg:
+    _target_: src.metrics.NDCGMetric
+  coverage:
+    _target_: src.metrics.CoverageMetric
+  recall:
+    _target_: src.metrics.RecallMetric
+  meanrank:
+    _target_: src.metrics.MeanRankMetric
+metrics_ks:
+- 10
+- 100
+dataset:
+  path_to_data_dir: data
+  name: reviews_Beauty_5
+  max_sequence_length: 10
+base_dir: '2026-10-27'
+model:
+  embedding_dim: 64
+  num_heads: 1
+  num_layers: 6
+  dim_feedforward: 64
+  dropout: 0.5
+  activation: gelu
+  layer_norm_eps: 1.0e-09
+  topk_k: 100
+optimizer:
+  type: adamw
+  weight_decay: 0.0
+  betas:
+  - 0.9
+  - 0.999
+  eps: 1.0e-08
+  clip_grad_threshold: 10.0
+stackrec:
+  reference_lr: 0.0021002963516611
+  reference_num_layers: 4
+  aux_identity:
+    enabled: true
+    initial_coeff: 1.0
+    power: 1.0
+    eps: 1.0e-08
+    scalar_init: 1.0
+  hyperbolic_heads:
+    enabled: false
+    schedule: inverse_power
+    depth_mode: absolute
+    reference_curvature: 1.0
+    reference_depth: 2
+    power: 2.0
+    learnable_curvature: true
+    distance: squared
+    temperature: 0.03
+    loss_coeff: 0.03
+    warmup: true
+    freeze_previous: true
+  stages:
+  - name: 2_layers
+    active_layers:
+    - 4
+    - 5
+    new_layers: []
+    final_scales:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    - 1.0
+    copy_layers: []
+    lr: 0.0029702675855218593
+    epochs: 90
+    ramp_epochs: 0
+  - name: 4_layers
+    active_layers:
+    - 2
+    - 3
+    - 4
+    - 5
+    new_layers:
+    - 2
+    - 3
+    final_scales:
+    - 0.0
+    - 0.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    copy_layers:
+    - - 4
+      - 2
+    - - 5
+      - 3
+    lr: 0.0021002963516611
+    epochs: 60
+    ramp_epochs: 10
+  - name: 6_layers
+    active_layers:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    new_layers:
+    - 0
+    - 1
+    final_scales:
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    copy_layers:
+    - - 2
+      - 0
+    - - 3
+      - 1
+    lr: 0.0017148847900662653
+    epochs: 60
+    ramp_epochs: 10
+  results_path: sasrec_stackrec_results.json
+  history_path: stackrec_history.json
+loss:
+  _target_: src.loss.LocalObjective
+model_name: sasrec
+
+
+[2026-10-27 05:36:24,395][__main__][INFO] - Current DEVICE: cuda
+[2026-10-27 05:37:10,787][__main__][INFO] - Num params: 926732
+[2026-10-27 05:37:10,787][__main__][INFO] - ================================================================================
+[2026-10-27 05:37:10,787][__main__][INFO] - STAGE 2_layers: active_layers=[4, 5], adamw=0.0029702675855218593
+[2026-10-27 05:37:10,787][__main__][INFO] - STAGE 2_layers: epochs=90, ramp_epochs=0, new_layers=[], final_scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+[2026-10-27 05:37:14,371][__main__][INFO] - STAGE 2_layers: trainable params=825862
+[2026-10-27 05:37:25,372][__main__][INFO] - STAGE 2_layers epoch 1/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.001381 test/ndcg@10=0.000891
+[2026-10-27 05:37:35,352][__main__][INFO] - STAGE 2_layers epoch 2/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.002281 test/ndcg@10=0.001782
+[2026-10-27 05:37:42,973][__main__][INFO] - STAGE 2_layers epoch 3/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.002525 test/ndcg@10=0.001532
+[2026-10-27 05:37:46,199][__main__][INFO] - STAGE 2_layers epoch 4/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.003446 test/ndcg@10=0.001556
+[2026-10-27 05:37:53,448][__main__][INFO] - STAGE 2_layers epoch 5/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.003459 test/ndcg@10=0.002086
+[2026-10-27 05:38:03,882][__main__][INFO] - STAGE 2_layers epoch 6/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.004198 test/ndcg@10=0.002644
+[2026-10-27 05:38:13,760][__main__][INFO] - STAGE 2_layers epoch 7/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.003420 test/ndcg@10=0.001884
+[2026-10-27 05:38:22,885][__main__][INFO] - STAGE 2_layers epoch 8/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.004819 test/ndcg@10=0.002770
+[2026-10-27 05:38:32,455][__main__][INFO] - STAGE 2_layers epoch 9/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.004448 test/ndcg@10=0.002074
+[2026-10-27 05:38:41,851][__main__][INFO] - STAGE 2_layers epoch 10/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.003671 test/ndcg@10=0.002059
+[2026-10-27 05:38:51,297][__main__][INFO] - STAGE 2_layers epoch 11/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.003516 test/ndcg@10=0.002233
+[2026-10-27 05:38:59,790][__main__][INFO] - STAGE 2_layers epoch 12/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.004058 test/ndcg@10=0.002029
+[2026-10-27 05:39:09,574][__main__][INFO] - STAGE 2_layers epoch 13/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.003808 test/ndcg@10=0.001993
+[2026-10-27 05:39:18,261][__main__][INFO] - STAGE 2_layers epoch 14/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.002559 test/ndcg@10=0.001400
+[2026-10-27 05:39:28,074][__main__][INFO] - STAGE 2_layers epoch 15/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.004774 test/ndcg@10=0.002406
+[2026-10-27 05:39:37,981][__main__][INFO] - STAGE 2_layers epoch 16/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.004386 test/ndcg@10=0.002130
+[2026-10-27 05:39:47,577][__main__][INFO] - STAGE 2_layers epoch 17/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.003804 test/ndcg@10=0.002115
+[2026-10-27 05:39:56,970][__main__][INFO] - STAGE 2_layers epoch 18/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.003550 test/ndcg@10=0.001931
+[2026-10-27 05:40:06,380][__main__][INFO] - STAGE 2_layers epoch 19/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.005061 test/ndcg@10=0.003389
+[2026-10-27 05:40:16,175][__main__][INFO] - STAGE 2_layers epoch 20/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.005370 test/ndcg@10=0.003417
+[2026-10-27 05:40:25,288][__main__][INFO] - STAGE 2_layers epoch 21/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.006568 test/ndcg@10=0.003974
+[2026-10-27 05:40:35,075][__main__][INFO] - STAGE 2_layers epoch 22/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.006857 test/ndcg@10=0.004626
+[2026-10-27 05:40:43,266][__main__][INFO] - STAGE 2_layers epoch 23/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.006509 test/ndcg@10=0.004679
+[2026-10-27 05:40:51,292][__main__][INFO] - STAGE 2_layers epoch 24/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.006413 test/ndcg@10=0.004382
+[2026-10-27 05:41:00,590][__main__][INFO] - STAGE 2_layers epoch 25/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007058 test/ndcg@10=0.004688
+[2026-10-27 05:41:09,753][__main__][INFO] - STAGE 2_layers epoch 26/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007701 test/ndcg@10=0.004921
+[2026-10-27 05:41:17,948][__main__][INFO] - STAGE 2_layers epoch 27/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007570 test/ndcg@10=0.005084
+[2026-10-27 05:41:27,587][__main__][INFO] - STAGE 2_layers epoch 28/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007531 test/ndcg@10=0.005479
+[2026-10-27 05:41:35,060][__main__][INFO] - STAGE 2_layers epoch 29/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007198 test/ndcg@10=0.005247
+[2026-10-27 05:41:44,605][__main__][INFO] - STAGE 2_layers epoch 30/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008064 test/ndcg@10=0.005341
+[2026-10-27 05:41:54,786][__main__][INFO] - STAGE 2_layers epoch 31/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007829 test/ndcg@10=0.005372
+[2026-10-27 05:42:03,671][__main__][INFO] - STAGE 2_layers epoch 32/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008240 test/ndcg@10=0.005355
+[2026-10-27 05:42:11,287][__main__][INFO] - STAGE 2_layers epoch 33/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007109 test/ndcg@10=0.004930
+[2026-10-27 05:42:19,386][__main__][INFO] - STAGE 2_layers epoch 34/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007992 test/ndcg@10=0.005178
+[2026-10-27 05:42:24,848][__main__][INFO] - STAGE 2_layers epoch 35/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007732 test/ndcg@10=0.005362
+[2026-10-27 05:42:28,811][__main__][INFO] - STAGE 2_layers epoch 36/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007686 test/ndcg@10=0.004942
+[2026-10-27 05:42:35,697][__main__][INFO] - STAGE 2_layers epoch 37/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007785 test/ndcg@10=0.004973
+[2026-10-27 05:42:45,071][__main__][INFO] - STAGE 2_layers epoch 38/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007545 test/ndcg@10=0.004853
+[2026-10-27 05:42:53,559][__main__][INFO] - STAGE 2_layers epoch 39/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007365 test/ndcg@10=0.004613
+[2026-10-27 05:43:02,872][__main__][INFO] - STAGE 2_layers epoch 40/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008420 test/ndcg@10=0.004996
+[2026-10-27 05:43:11,589][__main__][INFO] - STAGE 2_layers epoch 41/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.007945 test/ndcg@10=0.004949
+[2026-10-27 05:43:20,992][__main__][INFO] - STAGE 2_layers epoch 42/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008391 test/ndcg@10=0.005381
+[2026-10-27 05:43:30,384][__main__][INFO] - STAGE 2_layers epoch 43/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008661 test/ndcg@10=0.005422
+[2026-10-27 05:43:39,286][__main__][INFO] - STAGE 2_layers epoch 44/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008090 test/ndcg@10=0.005731
+[2026-10-27 05:43:47,765][__main__][INFO] - STAGE 2_layers epoch 45/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008138 test/ndcg@10=0.005741
+[2026-10-27 05:43:56,401][__main__][INFO] - STAGE 2_layers epoch 46/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008332 test/ndcg@10=0.006470
+[2026-10-27 05:44:04,171][__main__][INFO] - STAGE 2_layers epoch 47/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008707 test/ndcg@10=0.006451
+[2026-10-27 05:44:12,796][__main__][INFO] - STAGE 2_layers epoch 48/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008042 test/ndcg@10=0.006596
+[2026-10-27 05:44:20,881][__main__][INFO] - STAGE 2_layers epoch 49/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008133 test/ndcg@10=0.007207
+[2026-10-27 05:44:28,071][__main__][INFO] - STAGE 2_layers epoch 50/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.008809 test/ndcg@10=0.007215
+[2026-10-27 05:44:37,079][__main__][INFO] - STAGE 2_layers epoch 51/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.009272 test/ndcg@10=0.007384
+[2026-10-27 05:44:45,479][__main__][INFO] - STAGE 2_layers epoch 52/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.009068 test/ndcg@10=0.007274
+[2026-10-27 05:44:53,776][__main__][INFO] - STAGE 2_layers epoch 53/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.009139 test/ndcg@10=0.007672
+[2026-10-27 05:45:02,058][__main__][INFO] - STAGE 2_layers epoch 54/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.009264 test/ndcg@10=0.008413
+[2026-10-27 05:45:10,486][__main__][INFO] - STAGE 2_layers epoch 55/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.009917 test/ndcg@10=0.008033
+[2026-10-27 05:45:18,758][__main__][INFO] - STAGE 2_layers epoch 56/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.009880 test/ndcg@10=0.008576
+[2026-10-27 05:45:26,780][__main__][INFO] - STAGE 2_layers epoch 57/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.010137 test/ndcg@10=0.008543
+[2026-10-27 05:45:34,850][__main__][INFO] - STAGE 2_layers epoch 58/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.010334 test/ndcg@10=0.008566
+[2026-10-27 05:45:43,149][__main__][INFO] - STAGE 2_layers epoch 59/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.010966 test/ndcg@10=0.008943
+[2026-10-27 05:45:51,360][__main__][INFO] - STAGE 2_layers epoch 60/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.011147 test/ndcg@10=0.009128
+[2026-10-27 05:45:59,556][__main__][INFO] - STAGE 2_layers epoch 61/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.011400 test/ndcg@10=0.009237
+[2026-10-27 05:46:08,181][__main__][INFO] - STAGE 2_layers epoch 62/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.011123 test/ndcg@10=0.009261
+[2026-10-27 05:46:16,686][__main__][INFO] - STAGE 2_layers epoch 63/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.011762 test/ndcg@10=0.009805
+[2026-10-27 05:46:25,475][__main__][INFO] - STAGE 2_layers epoch 64/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.011896 test/ndcg@10=0.009885
+[2026-10-27 05:46:33,568][__main__][INFO] - STAGE 2_layers epoch 65/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.012035 test/ndcg@10=0.009762
+[2026-10-27 05:46:42,002][__main__][INFO] - STAGE 2_layers epoch 66/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.012219 test/ndcg@10=0.009906
+[2026-10-27 05:46:50,361][__main__][INFO] - STAGE 2_layers epoch 67/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.012247 test/ndcg@10=0.010213
+[2026-10-27 05:46:56,653][__main__][INFO] - STAGE 2_layers epoch 68/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.012838 test/ndcg@10=0.010553
+[2026-10-27 05:47:00,132][__main__][INFO] - STAGE 2_layers epoch 69/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.012858 test/ndcg@10=0.010515
+[2026-10-27 05:47:05,991][__main__][INFO] - STAGE 2_layers epoch 70/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.012967 test/ndcg@10=0.010719
+[2026-10-27 05:47:14,589][__main__][INFO] - STAGE 2_layers epoch 71/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.012663 test/ndcg@10=0.010673
+[2026-10-27 05:47:23,563][__main__][INFO] - STAGE 2_layers epoch 72/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013197 test/ndcg@10=0.010953
+[2026-10-27 05:47:31,981][__main__][INFO] - STAGE 2_layers epoch 73/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.012790 test/ndcg@10=0.011287
+[2026-10-27 05:47:39,454][__main__][INFO] - STAGE 2_layers epoch 74/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013175 test/ndcg@10=0.011019
+[2026-10-27 05:47:46,964][__main__][INFO] - STAGE 2_layers epoch 75/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013237 test/ndcg@10=0.011250
+[2026-10-27 05:47:55,306][__main__][INFO] - STAGE 2_layers epoch 76/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013440 test/ndcg@10=0.010969
+[2026-10-27 05:48:04,153][__main__][INFO] - STAGE 2_layers epoch 77/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013332 test/ndcg@10=0.011265
+[2026-10-27 05:48:12,858][__main__][INFO] - STAGE 2_layers epoch 78/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013725 test/ndcg@10=0.011466
+[2026-10-27 05:48:20,800][__main__][INFO] - STAGE 2_layers epoch 79/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.014175 test/ndcg@10=0.011492
+[2026-10-27 05:48:28,161][__main__][INFO] - STAGE 2_layers epoch 80/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013500 test/ndcg@10=0.011520
+[2026-10-27 05:48:35,478][__main__][INFO] - STAGE 2_layers epoch 81/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.014056 test/ndcg@10=0.011595
+[2026-10-27 05:48:42,764][__main__][INFO] - STAGE 2_layers epoch 82/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013350 test/ndcg@10=0.011544
+[2026-10-27 05:48:49,585][__main__][INFO] - STAGE 2_layers epoch 83/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013699 test/ndcg@10=0.011165
+[2026-10-27 05:48:57,077][__main__][INFO] - STAGE 2_layers epoch 84/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.014251 test/ndcg@10=0.011494
+[2026-10-27 05:49:04,578][__main__][INFO] - STAGE 2_layers epoch 85/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013879 test/ndcg@10=0.011687
+[2026-10-27 05:49:12,268][__main__][INFO] - STAGE 2_layers epoch 86/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.013930 test/ndcg@10=0.011979
+[2026-10-27 05:49:20,156][__main__][INFO] - STAGE 2_layers epoch 87/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.014164 test/ndcg@10=0.011865
+[2026-10-27 05:49:27,880][__main__][INFO] - STAGE 2_layers epoch 88/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.014243 test/ndcg@10=0.011945
+[2026-10-27 05:49:36,586][__main__][INFO] - STAGE 2_layers epoch 89/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.014714 test/ndcg@10=0.011958
+[2026-10-27 05:49:45,273][__main__][INFO] - STAGE 2_layers epoch 90/90 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.014229 test/ndcg@10=0.011823
+[2026-10-27 05:49:45,277][__main__][INFO] - STAGE 2_layers: restored best complete checkpoint (stage_epoch=88, val/ndcg@10=0.014714)
+[2026-10-27 05:49:45,281][__main__][INFO] - ================================================================================
+[2026-10-27 05:49:45,281][__main__][INFO] - STAGE 4_layers: active_layers=[2, 3, 4, 5], adamw=0.0021002963516611
+[2026-10-27 05:49:45,281][__main__][INFO] - STAGE 4_layers: epochs=60, ramp_epochs=10, new_layers=[2, 3], final_scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+[2026-10-27 05:49:45,282][__main__][INFO] - STAGE 4_layers: copied layer 4 -> layer 2
+[2026-10-27 05:49:45,282][__main__][INFO] - STAGE 4_layers: copied layer 5 -> layer 3
+[2026-10-27 05:49:45,283][__main__][INFO] - STAGE 4_layers: aux identity loss on layers [2, 4) (scalar on layer 3), lambda(alpha) = 1 * (1 - alpha)^1
+[2026-10-27 05:49:49,371][__main__][INFO] - STAGE 4_layers: start (new gates=0) val/ndcg@10=0.014714, test/ndcg@10=0.011958
+[2026-10-27 05:49:49,373][__main__][INFO] - STAGE 4_layers: trainable params=876295
+[2026-10-27 05:50:01,183][__main__][INFO] - STAGE 4_layers epoch 1/60 scales=[0.0, 0.0, 0.1, 0.1, 1.0, 1.0] alpha=0.100 lambda=0.9000 aux_loss=0.9227 ratio=0.0397 val/ndcg@10=0.014372 test/ndcg@10=0.011618
+[2026-10-27 05:50:12,688][__main__][INFO] - STAGE 4_layers epoch 2/60 scales=[0.0, 0.0, 0.2, 0.2, 1.0, 1.0] alpha=0.200 lambda=0.8000 aux_loss=0.7780 ratio=0.1200 val/ndcg@10=0.014035 test/ndcg@10=0.011808
+[2026-10-27 05:50:25,558][__main__][INFO] - STAGE 4_layers epoch 3/60 scales=[0.0, 0.0, 0.3, 0.3, 1.0, 1.0] alpha=0.300 lambda=0.7000 aux_loss=0.5311 ratio=0.2826 val/ndcg@10=0.014017 test/ndcg@10=0.012049
+[2026-10-27 05:50:36,479][__main__][INFO] - STAGE 4_layers epoch 4/60 scales=[0.0, 0.0, 0.4, 0.4, 1.0, 1.0] alpha=0.400 lambda=0.6000 aux_loss=0.2462 ratio=0.5485 val/ndcg@10=0.014174 test/ndcg@10=0.012110
+[2026-10-27 05:50:47,593][__main__][INFO] - STAGE 4_layers epoch 5/60 scales=[0.0, 0.0, 0.5, 0.5, 1.0, 1.0] alpha=0.500 lambda=0.5000 aux_loss=0.0973 ratio=0.8159 val/ndcg@10=0.014178 test/ndcg@10=0.012094
+[2026-10-27 05:51:00,472][__main__][INFO] - STAGE 4_layers epoch 6/60 scales=[0.0, 0.0, 0.6, 0.6, 1.0, 1.0] alpha=0.600 lambda=0.4000 aux_loss=0.0777 ratio=0.9594 val/ndcg@10=0.014043 test/ndcg@10=0.012181
+[2026-10-27 05:51:12,663][__main__][INFO] - STAGE 4_layers epoch 7/60 scales=[0.0, 0.0, 0.7, 0.7, 1.0, 1.0] alpha=0.700 lambda=0.3000 aux_loss=0.0828 ratio=0.9903 val/ndcg@10=0.013811 test/ndcg@10=0.012354
+[2026-10-27 05:51:24,887][__main__][INFO] - STAGE 4_layers epoch 8/60 scales=[0.0, 0.0, 0.8, 0.8, 1.0, 1.0] alpha=0.800 lambda=0.2000 aux_loss=0.0857 ratio=0.9919 val/ndcg@10=0.013962 test/ndcg@10=0.012060
+[2026-10-27 05:51:31,707][__main__][INFO] - STAGE 4_layers epoch 9/60 scales=[0.0, 0.0, 0.9, 0.9, 1.0, 1.0] alpha=0.900 lambda=0.1000 aux_loss=0.0928 ratio=1.0039 val/ndcg@10=0.013820 test/ndcg@10=0.012067
+[2026-10-27 05:51:38,786][__main__][INFO] - STAGE 4_layers epoch 10/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1206 ratio=1.0733 val/ndcg@10=0.014306 test/ndcg@10=0.012203
+[2026-10-27 05:51:49,276][__main__][INFO] - STAGE 4_layers epoch 11/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1258 ratio=1.0754 val/ndcg@10=0.014429 test/ndcg@10=0.012229
+[2026-10-27 05:52:02,296][__main__][INFO] - STAGE 4_layers epoch 12/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1254 ratio=1.0718 val/ndcg@10=0.014609 test/ndcg@10=0.012514
+[2026-10-27 05:52:14,284][__main__][INFO] - STAGE 4_layers epoch 13/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1264 ratio=1.0695 val/ndcg@10=0.014154 test/ndcg@10=0.012801
+[2026-10-27 05:52:25,771][__main__][INFO] - STAGE 4_layers epoch 14/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1269 ratio=1.0685 val/ndcg@10=0.014233 test/ndcg@10=0.012551
+[2026-10-27 05:52:37,991][__main__][INFO] - STAGE 4_layers epoch 15/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1230 ratio=1.0595 val/ndcg@10=0.014372 test/ndcg@10=0.012429
+[2026-10-27 05:52:49,285][__main__][INFO] - STAGE 4_layers epoch 16/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1241 ratio=1.0552 val/ndcg@10=0.013861 test/ndcg@10=0.012217
+[2026-10-27 05:53:01,567][__main__][INFO] - STAGE 4_layers epoch 17/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1237 ratio=1.0520 val/ndcg@10=0.014444 test/ndcg@10=0.012169
+[2026-10-27 05:53:14,349][__main__][INFO] - STAGE 4_layers epoch 18/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1219 ratio=1.0459 val/ndcg@10=0.013826 test/ndcg@10=0.012393
+[2026-10-27 05:53:25,978][__main__][INFO] - STAGE 4_layers epoch 19/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1220 ratio=1.0474 val/ndcg@10=0.014401 test/ndcg@10=0.012559
+[2026-10-27 05:53:38,006][__main__][INFO] - STAGE 4_layers epoch 20/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1222 ratio=1.0378 val/ndcg@10=0.013811 test/ndcg@10=0.012662
+[2026-10-27 05:53:49,297][__main__][INFO] - STAGE 4_layers epoch 21/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1210 ratio=1.0303 val/ndcg@10=0.013964 test/ndcg@10=0.012296
+[2026-10-27 05:54:01,399][__main__][INFO] - STAGE 4_layers epoch 22/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1182 ratio=1.0257 val/ndcg@10=0.014095 test/ndcg@10=0.012476
+[2026-10-27 05:54:13,185][__main__][INFO] - STAGE 4_layers epoch 23/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1168 ratio=1.0146 val/ndcg@10=0.013822 test/ndcg@10=0.012500
+[2026-10-27 05:54:25,885][__main__][INFO] - STAGE 4_layers epoch 24/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1167 ratio=1.0054 val/ndcg@10=0.014259 test/ndcg@10=0.012546
+[2026-10-27 05:54:36,853][__main__][INFO] - STAGE 4_layers epoch 25/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1180 ratio=1.0032 val/ndcg@10=0.013454 test/ndcg@10=0.012378
+[2026-10-27 05:54:48,491][__main__][INFO] - STAGE 4_layers epoch 26/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1172 ratio=1.0020 val/ndcg@10=0.014030 test/ndcg@10=0.012841
+[2026-10-27 05:54:59,073][__main__][INFO] - STAGE 4_layers epoch 27/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1165 ratio=0.9912 val/ndcg@10=0.014562 test/ndcg@10=0.012772
+[2026-10-27 05:55:10,861][__main__][INFO] - STAGE 4_layers epoch 28/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1136 ratio=0.9857 val/ndcg@10=0.014349 test/ndcg@10=0.012830
+[2026-10-27 05:55:21,881][__main__][INFO] - STAGE 4_layers epoch 29/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1136 ratio=0.9817 val/ndcg@10=0.013977 test/ndcg@10=0.012715
+[2026-10-27 05:55:34,170][__main__][INFO] - STAGE 4_layers epoch 30/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1129 ratio=0.9752 val/ndcg@10=0.014325 test/ndcg@10=0.012674
+[2026-10-27 05:55:46,490][__main__][INFO] - STAGE 4_layers epoch 31/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1124 ratio=0.9722 val/ndcg@10=0.014365 test/ndcg@10=0.012624
+[2026-10-27 05:55:58,884][__main__][INFO] - STAGE 4_layers epoch 32/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1120 ratio=0.9641 val/ndcg@10=0.014287 test/ndcg@10=0.012586
+[2026-10-27 05:56:10,205][__main__][INFO] - STAGE 4_layers epoch 33/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1117 ratio=0.9564 val/ndcg@10=0.014490 test/ndcg@10=0.012641
+[2026-10-27 05:56:15,183][__main__][INFO] - STAGE 4_layers epoch 34/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1105 ratio=0.9435 val/ndcg@10=0.014176 test/ndcg@10=0.012712
+[2026-10-27 05:56:24,449][__main__][INFO] - STAGE 4_layers epoch 35/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1107 ratio=0.9292 val/ndcg@10=0.014752 test/ndcg@10=0.012817
+[2026-10-27 05:56:35,848][__main__][INFO] - STAGE 4_layers epoch 36/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1107 ratio=0.9202 val/ndcg@10=0.014510 test/ndcg@10=0.012492
+[2026-10-27 05:56:48,278][__main__][INFO] - STAGE 4_layers epoch 37/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1115 ratio=0.9188 val/ndcg@10=0.014618 test/ndcg@10=0.012647
+[2026-10-27 05:57:00,450][__main__][INFO] - STAGE 4_layers epoch 38/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1140 ratio=0.9148 val/ndcg@10=0.014149 test/ndcg@10=0.012647
+[2026-10-27 05:57:12,473][__main__][INFO] - STAGE 4_layers epoch 39/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1138 ratio=0.9057 val/ndcg@10=0.015293 test/ndcg@10=0.012780
+[2026-10-27 05:57:22,155][__main__][INFO] - STAGE 4_layers epoch 40/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1132 ratio=0.8981 val/ndcg@10=0.015668 test/ndcg@10=0.012890
+[2026-10-27 05:57:34,157][__main__][INFO] - STAGE 4_layers epoch 41/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1123 ratio=0.8867 val/ndcg@10=0.014180 test/ndcg@10=0.012436
+[2026-10-27 05:57:45,494][__main__][INFO] - STAGE 4_layers epoch 42/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1132 ratio=0.8853 val/ndcg@10=0.014522 test/ndcg@10=0.012545
+[2026-10-27 05:57:57,070][__main__][INFO] - STAGE 4_layers epoch 43/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1144 ratio=0.8784 val/ndcg@10=0.014638 test/ndcg@10=0.012638
+[2026-10-27 05:58:08,973][__main__][INFO] - STAGE 4_layers epoch 44/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1150 ratio=0.8717 val/ndcg@10=0.015067 test/ndcg@10=0.012744
+[2026-10-27 05:58:20,972][__main__][INFO] - STAGE 4_layers epoch 45/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1174 ratio=0.8665 val/ndcg@10=0.014426 test/ndcg@10=0.012416
+[2026-10-27 05:58:32,554][__main__][INFO] - STAGE 4_layers epoch 46/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1174 ratio=0.8654 val/ndcg@10=0.014363 test/ndcg@10=0.012721
+[2026-10-27 05:58:44,070][__main__][INFO] - STAGE 4_layers epoch 47/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1176 ratio=0.8606 val/ndcg@10=0.014732 test/ndcg@10=0.012818
+[2026-10-27 05:58:56,579][__main__][INFO] - STAGE 4_layers epoch 48/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1197 ratio=0.8656 val/ndcg@10=0.014566 test/ndcg@10=0.012623
+[2026-10-27 05:59:08,673][__main__][INFO] - STAGE 4_layers epoch 49/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1196 ratio=0.8491 val/ndcg@10=0.014792 test/ndcg@10=0.013176
+[2026-10-27 05:59:19,859][__main__][INFO] - STAGE 4_layers epoch 50/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1226 ratio=0.8354 val/ndcg@10=0.014874 test/ndcg@10=0.012717
+[2026-10-27 05:59:31,376][__main__][INFO] - STAGE 4_layers epoch 51/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1234 ratio=0.8323 val/ndcg@10=0.014352 test/ndcg@10=0.012525
+[2026-10-27 05:59:42,988][__main__][INFO] - STAGE 4_layers epoch 52/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1266 ratio=0.8139 val/ndcg@10=0.014738 test/ndcg@10=0.012872
+[2026-10-27 05:59:56,169][__main__][INFO] - STAGE 4_layers epoch 53/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1244 ratio=0.8213 val/ndcg@10=0.014808 test/ndcg@10=0.012964
+[2026-10-27 06:00:08,291][__main__][INFO] - STAGE 4_layers epoch 54/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1236 ratio=0.8337 val/ndcg@10=0.015121 test/ndcg@10=0.012594
+[2026-10-27 06:00:20,676][__main__][INFO] - STAGE 4_layers epoch 55/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1262 ratio=0.8126 val/ndcg@10=0.014576 test/ndcg@10=0.012893
+[2026-10-27 06:00:32,779][__main__][INFO] - STAGE 4_layers epoch 56/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1281 ratio=0.8067 val/ndcg@10=0.015378 test/ndcg@10=0.013109
+[2026-10-27 06:00:44,391][__main__][INFO] - STAGE 4_layers epoch 57/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1291 ratio=0.8128 val/ndcg@10=0.014805 test/ndcg@10=0.012942
+[2026-10-27 06:00:54,821][__main__][INFO] - STAGE 4_layers epoch 58/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1314 ratio=0.8015 val/ndcg@10=0.014588 test/ndcg@10=0.013146
+[2026-10-27 06:00:59,303][__main__][INFO] - STAGE 4_layers epoch 59/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1322 ratio=0.7956 val/ndcg@10=0.015467 test/ndcg@10=0.012827
+[2026-10-27 06:01:03,630][__main__][INFO] - STAGE 4_layers epoch 60/60 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1319 ratio=0.7946 val/ndcg@10=0.015920 test/ndcg@10=0.012934
+[2026-10-27 06:01:03,637][__main__][INFO] - STAGE 4_layers: restored best complete checkpoint (stage_epoch=59, val/ndcg@10=0.015920)
+[2026-10-27 06:01:03,642][__main__][INFO] - ================================================================================
+[2026-10-27 06:01:03,642][__main__][INFO] - STAGE 6_layers: active_layers=[0, 1, 2, 3, 4, 5], adamw=0.0017148847900662653
+[2026-10-27 06:01:03,642][__main__][INFO] - STAGE 6_layers: epochs=60, ramp_epochs=10, new_layers=[0, 1], final_scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+[2026-10-27 06:01:03,642][__main__][INFO] - STAGE 6_layers: copied layer 2 -> layer 0
+[2026-10-27 06:01:03,643][__main__][INFO] - STAGE 6_layers: copied layer 3 -> layer 1
+[2026-10-27 06:01:03,643][__main__][INFO] - STAGE 6_layers: aux identity loss on layers [0, 2) (scalar on layer 1), lambda(alpha) = 1 * (1 - alpha)^1
+[2026-10-27 06:01:04,973][__main__][INFO] - STAGE 6_layers: start (new gates=0) val/ndcg@10=0.015920, test/ndcg@10=0.012934
+[2026-10-27 06:01:04,975][__main__][INFO] - STAGE 6_layers: trainable params=926728
+[2026-10-27 06:01:23,171][__main__][INFO] - STAGE 6_layers epoch 1/60 scales=[0.1, 0.1, 1.0, 1.0, 1.0, 1.0] alpha=0.100 lambda=0.9000 aux_loss=0.8474 ratio=0.0799 val/ndcg@10=0.015950 test/ndcg@10=0.012553
+[2026-10-27 06:01:39,987][__main__][INFO] - STAGE 6_layers epoch 2/60 scales=[0.2, 0.2, 1.0, 1.0, 1.0, 1.0] alpha=0.200 lambda=0.8000 aux_loss=0.5968 ratio=0.2313 val/ndcg@10=0.015018 test/ndcg@10=0.013213
+[2026-10-27 06:01:56,484][__main__][INFO] - STAGE 6_layers epoch 3/60 scales=[0.3, 0.3, 1.0, 1.0, 1.0, 1.0] alpha=0.300 lambda=0.7000 aux_loss=0.2778 ratio=0.4951 val/ndcg@10=0.015247 test/ndcg@10=0.012910
+[2026-10-27 06:02:10,086][__main__][INFO] - STAGE 6_layers epoch 4/60 scales=[0.4, 0.4, 1.0, 1.0, 1.0, 1.0] alpha=0.400 lambda=0.6000 aux_loss=0.0859 ratio=0.8013 val/ndcg@10=0.015408 test/ndcg@10=0.013073
+[2026-10-27 06:02:23,267][__main__][INFO] - STAGE 6_layers epoch 5/60 scales=[0.5, 0.5, 1.0, 1.0, 1.0, 1.0] alpha=0.500 lambda=0.5000 aux_loss=0.0651 ratio=0.9937 val/ndcg@10=0.015521 test/ndcg@10=0.013072
+[2026-10-27 06:02:37,049][__main__][INFO] - STAGE 6_layers epoch 6/60 scales=[0.6, 0.6, 1.0, 1.0, 1.0, 1.0] alpha=0.600 lambda=0.4000 aux_loss=0.0750 ratio=1.0431 val/ndcg@10=0.015355 test/ndcg@10=0.013233
+[2026-10-27 06:02:47,984][__main__][INFO] - STAGE 6_layers epoch 7/60 scales=[0.7, 0.7, 1.0, 1.0, 1.0, 1.0] alpha=0.700 lambda=0.3000 aux_loss=0.0769 ratio=1.0386 val/ndcg@10=0.015387 test/ndcg@10=0.013222
+[2026-10-27 06:02:55,790][__main__][INFO] - STAGE 6_layers epoch 8/60 scales=[0.8, 0.8, 1.0, 1.0, 1.0, 1.0] alpha=0.800 lambda=0.2000 aux_loss=0.0807 ratio=1.0344 val/ndcg@10=0.015383 test/ndcg@10=0.013354
+[2026-10-27 06:03:04,620][__main__][INFO] - STAGE 6_layers epoch 9/60 scales=[0.9, 0.9, 1.0, 1.0, 1.0, 1.0] alpha=0.900 lambda=0.1000 aux_loss=0.0867 ratio=1.0478 val/ndcg@10=0.015136 test/ndcg@10=0.013018
+[2026-10-27 06:03:10,712][__main__][INFO] - STAGE 6_layers epoch 10/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1218 ratio=1.1337 val/ndcg@10=0.015008 test/ndcg@10=0.013355
+[2026-10-27 06:03:17,225][__main__][INFO] - STAGE 6_layers epoch 11/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1289 ratio=1.1374 val/ndcg@10=0.016328 test/ndcg@10=0.013086
+[2026-10-27 06:03:22,714][__main__][INFO] - STAGE 6_layers epoch 12/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1314 ratio=1.1379 val/ndcg@10=0.015246 test/ndcg@10=0.013566
+[2026-10-27 06:03:28,240][__main__][INFO] - STAGE 6_layers epoch 13/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1328 ratio=1.1372 val/ndcg@10=0.015034 test/ndcg@10=0.013199
+[2026-10-27 06:03:41,454][__main__][INFO] - STAGE 6_layers epoch 14/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1320 ratio=1.1308 val/ndcg@10=0.015803 test/ndcg@10=0.013092
+[2026-10-27 06:03:56,374][__main__][INFO] - STAGE 6_layers epoch 15/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1287 ratio=1.1217 val/ndcg@10=0.015274 test/ndcg@10=0.012887
+[2026-10-27 06:04:11,106][__main__][INFO] - STAGE 6_layers epoch 16/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1297 ratio=1.1216 val/ndcg@10=0.015444 test/ndcg@10=0.013052
+[2026-10-27 06:04:26,981][__main__][INFO] - STAGE 6_layers epoch 17/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1278 ratio=1.1175 val/ndcg@10=0.015896 test/ndcg@10=0.013318
+[2026-10-27 06:04:40,690][__main__][INFO] - STAGE 6_layers epoch 18/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1288 ratio=1.1153 val/ndcg@10=0.015283 test/ndcg@10=0.013181
+[2026-10-27 06:04:55,880][__main__][INFO] - STAGE 6_layers epoch 19/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1260 ratio=1.1087 val/ndcg@10=0.014892 test/ndcg@10=0.013050
+[2026-10-27 06:05:10,886][__main__][INFO] - STAGE 6_layers epoch 20/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1247 ratio=1.0986 val/ndcg@10=0.015067 test/ndcg@10=0.013135
+[2026-10-27 06:05:25,374][__main__][INFO] - STAGE 6_layers epoch 21/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1232 ratio=1.0913 val/ndcg@10=0.015349 test/ndcg@10=0.012680
+[2026-10-27 06:05:39,161][__main__][INFO] - STAGE 6_layers epoch 22/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1235 ratio=1.0861 val/ndcg@10=0.015106 test/ndcg@10=0.013263
+[2026-10-27 06:05:53,666][__main__][INFO] - STAGE 6_layers epoch 23/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1205 ratio=1.0780 val/ndcg@10=0.015441 test/ndcg@10=0.013656
+[2026-10-27 06:06:08,450][__main__][INFO] - STAGE 6_layers epoch 24/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1189 ratio=1.0727 val/ndcg@10=0.015280 test/ndcg@10=0.013273
+[2026-10-27 06:06:22,786][__main__][INFO] - STAGE 6_layers epoch 25/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1166 ratio=1.0633 val/ndcg@10=0.015176 test/ndcg@10=0.013041
+[2026-10-27 06:06:37,982][__main__][INFO] - STAGE 6_layers epoch 26/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1173 ratio=1.0584 val/ndcg@10=0.014724 test/ndcg@10=0.013334
+[2026-10-27 06:06:52,263][__main__][INFO] - STAGE 6_layers epoch 27/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1125 ratio=1.0443 val/ndcg@10=0.015976 test/ndcg@10=0.013132
+[2026-10-27 06:07:07,575][__main__][INFO] - STAGE 6_layers epoch 28/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1142 ratio=1.0444 val/ndcg@10=0.015672 test/ndcg@10=0.012975
+[2026-10-27 06:07:21,162][__main__][INFO] - STAGE 6_layers epoch 29/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1147 ratio=1.0453 val/ndcg@10=0.015742 test/ndcg@10=0.012946
+[2026-10-27 06:07:36,090][__main__][INFO] - STAGE 6_layers epoch 30/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1122 ratio=1.0387 val/ndcg@10=0.015010 test/ndcg@10=0.013453
+[2026-10-27 06:07:51,479][__main__][INFO] - STAGE 6_layers epoch 31/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1126 ratio=1.0351 val/ndcg@10=0.014378 test/ndcg@10=0.013109
+[2026-10-27 06:08:04,798][__main__][INFO] - STAGE 6_layers epoch 32/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1122 ratio=1.0302 val/ndcg@10=0.015868 test/ndcg@10=0.013069
+[2026-10-27 06:08:10,494][__main__][INFO] - STAGE 6_layers epoch 33/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1108 ratio=1.0164 val/ndcg@10=0.016168 test/ndcg@10=0.013227
+[2026-10-27 06:08:24,869][__main__][INFO] - STAGE 6_layers epoch 34/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1109 ratio=1.0104 val/ndcg@10=0.015422 test/ndcg@10=0.012888
+[2026-10-27 06:08:40,480][__main__][INFO] - STAGE 6_layers epoch 35/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1120 ratio=1.0064 val/ndcg@10=0.015686 test/ndcg@10=0.013369
+[2026-10-27 06:08:55,161][__main__][INFO] - STAGE 6_layers epoch 36/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1102 ratio=1.0024 val/ndcg@10=0.015671 test/ndcg@10=0.013373
+[2026-10-27 06:09:09,365][__main__][INFO] - STAGE 6_layers epoch 37/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1091 ratio=0.9964 val/ndcg@10=0.015671 test/ndcg@10=0.013342
+[2026-10-27 06:09:23,567][__main__][INFO] - STAGE 6_layers epoch 38/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1087 ratio=0.9944 val/ndcg@10=0.014906 test/ndcg@10=0.013293
+[2026-10-27 06:09:37,780][__main__][INFO] - STAGE 6_layers epoch 39/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1093 ratio=0.9854 val/ndcg@10=0.015916 test/ndcg@10=0.013431
+[2026-10-27 06:09:52,790][__main__][INFO] - STAGE 6_layers epoch 40/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1082 ratio=0.9799 val/ndcg@10=0.015159 test/ndcg@10=0.013134
+[2026-10-27 06:10:06,573][__main__][INFO] - STAGE 6_layers epoch 41/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1070 ratio=0.9695 val/ndcg@10=0.015627 test/ndcg@10=0.013417
+[2026-10-27 06:10:21,389][__main__][INFO] - STAGE 6_layers epoch 42/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1075 ratio=0.9675 val/ndcg@10=0.015370 test/ndcg@10=0.012980
+[2026-10-27 06:10:34,872][__main__][INFO] - STAGE 6_layers epoch 43/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1068 ratio=0.9575 val/ndcg@10=0.015386 test/ndcg@10=0.013015
+[2026-10-27 06:10:49,279][__main__][INFO] - STAGE 6_layers epoch 44/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1049 ratio=0.9543 val/ndcg@10=0.015503 test/ndcg@10=0.013298
+[2026-10-27 06:11:02,883][__main__][INFO] - STAGE 6_layers epoch 45/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1063 ratio=0.9532 val/ndcg@10=0.015784 test/ndcg@10=0.013109
+[2026-10-27 06:11:17,049][__main__][INFO] - STAGE 6_layers epoch 46/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1051 ratio=0.9403 val/ndcg@10=0.015398 test/ndcg@10=0.013161
+[2026-10-27 06:11:31,563][__main__][INFO] - STAGE 6_layers epoch 47/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1074 ratio=0.9508 val/ndcg@10=0.015654 test/ndcg@10=0.013188
+[2026-10-27 06:11:45,457][__main__][INFO] - STAGE 6_layers epoch 48/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1078 ratio=0.9461 val/ndcg@10=0.015147 test/ndcg@10=0.012917
+[2026-10-27 06:11:59,786][__main__][INFO] - STAGE 6_layers epoch 49/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1063 ratio=0.9276 val/ndcg@10=0.015365 test/ndcg@10=0.012835
+[2026-10-27 06:12:12,574][__main__][INFO] - STAGE 6_layers epoch 50/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1082 ratio=0.9227 val/ndcg@10=0.015814 test/ndcg@10=0.013512
+[2026-10-27 06:12:27,165][__main__][INFO] - STAGE 6_layers epoch 51/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1080 ratio=0.9218 val/ndcg@10=0.015574 test/ndcg@10=0.013155
+[2026-10-27 06:12:40,761][__main__][INFO] - STAGE 6_layers epoch 52/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1086 ratio=0.9090 val/ndcg@10=0.015283 test/ndcg@10=0.013351
+[2026-10-27 06:12:49,458][__main__][INFO] - STAGE 6_layers epoch 53/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1115 ratio=0.9016 val/ndcg@10=0.015278 test/ndcg@10=0.013371
+[2026-10-27 06:12:58,960][__main__][INFO] - STAGE 6_layers epoch 54/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1117 ratio=0.8934 val/ndcg@10=0.015519 test/ndcg@10=0.013243
+[2026-10-27 06:13:13,390][__main__][INFO] - STAGE 6_layers epoch 55/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1140 ratio=0.8984 val/ndcg@10=0.015453 test/ndcg@10=0.012847
+[2026-10-27 06:13:27,648][__main__][INFO] - STAGE 6_layers epoch 56/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1132 ratio=0.8976 val/ndcg@10=0.015415 test/ndcg@10=0.013174
+[2026-10-27 06:13:42,686][__main__][INFO] - STAGE 6_layers epoch 57/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1125 ratio=0.9034 val/ndcg@10=0.015282 test/ndcg@10=0.013443
+[2026-10-27 06:13:56,063][__main__][INFO] - STAGE 6_layers epoch 58/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1125 ratio=0.9046 val/ndcg@10=0.015365 test/ndcg@10=0.012984
+[2026-10-27 06:14:10,952][__main__][INFO] - STAGE 6_layers epoch 59/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1133 ratio=0.8932 val/ndcg@10=0.015254 test/ndcg@10=0.013218
+[2026-10-27 06:14:24,949][__main__][INFO] - STAGE 6_layers epoch 60/60 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=0.1146 ratio=0.8747 val/ndcg@10=0.015271 test/ndcg@10=0.013137
+[2026-10-27 06:14:24,957][__main__][INFO] - STAGE 6_layers: restored best complete checkpoint (stage_epoch=10, val/ndcg@10=0.016328)
+[2026-10-27 06:14:25,087][__main__][INFO] - Saved stage results to /home/jovyan/Yusupov/multirepr_paper_1/Baseline/sasrec_experiments/outputs/2026-10-27/sasrec__reviews_Beauty_5__stackrec__05-36-23/stackrec_results.json
+[2026-10-27 06:14:25,087][__main__][INFO] - Saved history to /home/jovyan/Yusupov/multirepr_paper_1/Baseline/sasrec_experiments/outputs/2026-10-27/sasrec__reviews_Beauty_5__stackrec__05-36-23/stackrec_history.json
+[2026-10-27 06:14:25,087][__main__][INFO] - Saved summary to sasrec_stackrec_results.json
+[2026-10-27 06:14:25,087][__main__][INFO] - RESULT 2_layers: val/ndcg@10=0.014714, test/ndcg@10=0.011958, val/recall@10=0.029630, test/recall@10=0.023380
+[2026-10-27 06:14:25,087][__main__][INFO] - RESULT 4_layers: val/ndcg@10=0.015920, test/ndcg@10=0.012934, val/recall@10=0.031958, test/recall@10=0.024251
+[2026-10-27 06:14:25,087][__main__][INFO] - RESULT 6_layers: val/ndcg@10=0.016328, test/ndcg@10=0.013086, val/recall@10=0.033439, test/recall@10=0.024748

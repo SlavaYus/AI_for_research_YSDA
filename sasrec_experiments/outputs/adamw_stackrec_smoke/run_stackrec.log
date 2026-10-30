@@ -1,0 +1,164 @@
+[2026-10-23 19:01:38,426][__main__][INFO] - StackRec config:
+dataloader:
+  train:
+    batch_size: 128
+    drop_last: false
+    shuffle: true
+    num_workers: 0
+  validation:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+  test:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+device: cuda
+num_epochs: 200
+early_stopping_rounds: 30
+seed: 42
+metrics:
+  ndcg:
+    _target_: src.metrics.NDCGMetric
+  coverage:
+    _target_: src.metrics.CoverageMetric
+  recall:
+    _target_: src.metrics.RecallMetric
+  meanrank:
+    _target_: src.metrics.MeanRankMetric
+metrics_ks:
+- 10
+- 100
+dataset:
+  path_to_data_dir: data
+  name: reviews_Beauty_5
+  max_sequence_length: 10
+base_dir: '2026-10-23'
+model:
+  embedding_dim: 64
+  num_heads: 1
+  num_layers: 6
+  dim_feedforward: 64
+  dropout: 0.5
+  activation: gelu
+  layer_norm_eps: 1.0e-09
+  topk_k: 100
+optimizer:
+  type: adamw
+  weight_decay: 0.0
+  betas:
+  - 0.9
+  - 0.999
+  eps: 1.0e-08
+  clip_grad_threshold: 10.0
+stackrec:
+  reference_lr: 0.0021002963516611
+  reference_num_layers: 4
+  stages:
+  - name: 2_layers
+    active_layers:
+    - 4
+    - 5
+    new_layers: []
+    final_scales:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    - 1.0
+    copy_layers: []
+    lr: 0.0029702675855218593
+    epochs: 1
+    ramp_epochs: 0
+  - name: 4_layers
+    active_layers:
+    - 2
+    - 3
+    - 4
+    - 5
+    new_layers:
+    - 2
+    - 3
+    final_scales:
+    - 0.0
+    - 0.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    copy_layers:
+    - - 4
+      - 2
+    - - 5
+      - 3
+    lr: 0.0021002963516611
+    epochs: 1
+    ramp_epochs: 1
+  - name: 6_layers
+    active_layers:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    new_layers:
+    - 0
+    - 1
+    final_scales:
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    copy_layers:
+    - - 2
+      - 0
+    - - 3
+      - 1
+    lr: 0.0017148847900662653
+    epochs: 1
+    ramp_epochs: 1
+  results_path: /tmp/opencode/adamw_stackrec_smoke_results.json
+  history_path: stackrec_history.json
+loss:
+  _target_: src.loss.LocalObjective
+model_name: sasrec
+
+
+[2026-10-23 19:01:38,433][__main__][INFO] - Current DEVICE: cuda
+[2026-10-23 19:01:53,783][__main__][INFO] - Num params: 926720
+[2026-10-23 19:01:53,784][__main__][INFO] - ================================================================================
+[2026-10-23 19:01:53,784][__main__][INFO] - STAGE 2_layers: active_layers=[4, 5], adamw=0.0029702675855218593
+[2026-10-23 19:01:53,784][__main__][INFO] - STAGE 2_layers: epochs=1, ramp_epochs=0, new_layers=[], final_scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+[2026-10-23 19:01:55,475][__main__][INFO] - STAGE 2_layers: trainable params=825856
+[2026-10-23 19:01:59,028][__main__][INFO] - STAGE 2_layers epoch 1/1 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] val/ndcg@10=0.001381 test/ndcg@10=0.000891
+[2026-10-23 19:01:59,035][__main__][INFO] - STAGE 2_layers: restored best complete checkpoint (stage_epoch=0, val/ndcg@10=0.001381)
+[2026-10-23 19:01:59,038][__main__][INFO] - ================================================================================
+[2026-10-23 19:01:59,038][__main__][INFO] - STAGE 4_layers: active_layers=[2, 3, 4, 5], adamw=0.0021002963516611
+[2026-10-23 19:01:59,038][__main__][INFO] - STAGE 4_layers: epochs=1, ramp_epochs=1, new_layers=[2, 3], final_scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+[2026-10-23 19:01:59,039][__main__][INFO] - STAGE 4_layers: copied layer 4 -> layer 2
+[2026-10-23 19:01:59,039][__main__][INFO] - STAGE 4_layers: copied layer 5 -> layer 3
+[2026-10-23 19:02:00,077][__main__][INFO] - STAGE 4_layers: start (new gates=0) val/ndcg@10=0.001381, test/ndcg@10=0.000891
+[2026-10-23 19:02:00,077][__main__][INFO] - STAGE 4_layers: trainable params=876288
+[2026-10-23 19:02:04,422][__main__][INFO] - STAGE 4_layers epoch 1/1 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] val/ndcg@10=0.002041 test/ndcg@10=0.001576
+[2026-10-23 19:02:04,428][__main__][INFO] - STAGE 4_layers: restored best complete checkpoint (stage_epoch=0, val/ndcg@10=0.002041)
+[2026-10-23 19:02:04,431][__main__][INFO] - ================================================================================
+[2026-10-23 19:02:04,431][__main__][INFO] - STAGE 6_layers: active_layers=[0, 1, 2, 3, 4, 5], adamw=0.0017148847900662653
+[2026-10-23 19:02:04,431][__main__][INFO] - STAGE 6_layers: epochs=1, ramp_epochs=1, new_layers=[0, 1], final_scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+[2026-10-23 19:02:04,431][__main__][INFO] - STAGE 6_layers: copied layer 2 -> layer 0
+[2026-10-23 19:02:04,432][__main__][INFO] - STAGE 6_layers: copied layer 3 -> layer 1
+[2026-10-23 19:02:05,605][__main__][INFO] - STAGE 6_layers: start (new gates=0) val/ndcg@10=0.002041, test/ndcg@10=0.001576
+[2026-10-23 19:02:05,606][__main__][INFO] - STAGE 6_layers: trainable params=926720
+[2026-10-23 19:02:11,098][__main__][INFO] - STAGE 6_layers epoch 1/1 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] val/ndcg@10=0.004379 test/ndcg@10=0.002372
+[2026-10-23 19:02:11,112][__main__][INFO] - STAGE 6_layers: restored best complete checkpoint (stage_epoch=0, val/ndcg@10=0.004379)
+[2026-10-23 19:02:11,123][__main__][INFO] - Saved stage results to /home/jovyan/Yusupov/multirepr_paper_1/Baseline/sasrec_experiments/outputs/adamw_stackrec_smoke/stackrec_results.json
+[2026-10-23 19:02:11,123][__main__][INFO] - Saved history to /home/jovyan/Yusupov/multirepr_paper_1/Baseline/sasrec_experiments/outputs/adamw_stackrec_smoke/stackrec_history.json
+[2026-10-23 19:02:11,123][__main__][INFO] - Saved summary to /tmp/opencode/adamw_stackrec_smoke_results.json
+[2026-10-23 19:02:11,123][__main__][INFO] - RESULT 2_layers: val/ndcg@10=0.001381, test/ndcg@10=0.000891, val/recall@10=0.003598, test/recall@10=0.002487
+[2026-10-23 19:02:11,123][__main__][INFO] - RESULT 4_layers: val/ndcg@10=0.002041, test/ndcg@10=0.001576, val/recall@10=0.005079, test/recall@10=0.003980
+[2026-10-23 19:02:11,123][__main__][INFO] - RESULT 6_layers: val/ndcg@10=0.004379, test/ndcg@10=0.002372, val/recall@10=0.008042, test/recall@10=0.004726

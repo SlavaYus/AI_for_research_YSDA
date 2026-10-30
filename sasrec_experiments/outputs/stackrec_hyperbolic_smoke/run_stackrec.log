@@ -1,0 +1,340 @@
+[2026-10-26 11:52:41,852][__main__][INFO] - StackRec config:
+dataloader:
+  train:
+    batch_size: 128
+    drop_last: false
+    shuffle: true
+    num_workers: 0
+  validation:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+  test:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+device: cuda
+num_epochs: 200
+early_stopping_rounds: 30
+seed: 42
+metrics:
+  ndcg:
+    _target_: src.metrics.NDCGMetric
+  coverage:
+    _target_: src.metrics.CoverageMetric
+  recall:
+    _target_: src.metrics.RecallMetric
+  meanrank:
+    _target_: src.metrics.MeanRankMetric
+metrics_ks:
+- 10
+- 100
+dataset:
+  path_to_data_dir: data
+  name: reviews_Beauty_5
+  max_sequence_length: 10
+base_dir: '2026-10-26'
+model:
+  embedding_dim: 64
+  num_heads: 1
+  num_layers: 6
+  dim_feedforward: 64
+  dropout: 0.5
+  activation: gelu
+  layer_norm_eps: 1.0e-09
+  topk_k: 100
+optimizer:
+  type: adamw
+  weight_decay: 0.0
+  betas:
+  - 0.9
+  - 0.999
+  eps: 1.0e-08
+  clip_grad_threshold: 10.0
+stackrec:
+  reference_lr: 0.0021002963516611
+  reference_num_layers: 4
+  aux_identity:
+    enabled: true
+    initial_coeff: 1.0
+    power: 1.0
+    eps: 1.0e-08
+    scalar_init: 1.0
+  hyperbolic_heads:
+    enabled: true
+    schedule: inverse_power
+    depth_mode: absolute
+    reference_curvature: 1.0
+    reference_depth: 2
+    power: 2.0
+    learnable_curvature: false
+    distance: squared
+    temperature: 0.1
+    loss_coeff: 0.1
+    warmup: true
+    freeze_previous: true
+  stages:
+  - name: 2_layers
+    active_layers:
+    - 4
+    - 5
+    new_layers: []
+    final_scales:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    - 1.0
+    copy_layers: []
+    lr: 0.0029702675855218593
+    epochs: 1
+    ramp_epochs: 0
+  - name: 4_layers
+    active_layers:
+    - 2
+    - 3
+    - 4
+    - 5
+    new_layers:
+    - 2
+    - 3
+    final_scales:
+    - 0.0
+    - 0.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    copy_layers:
+    - - 4
+      - 2
+    - - 5
+      - 3
+    lr: 0.0021002963516611
+    epochs: 1
+    ramp_epochs: 1
+  - name: 6_layers
+    active_layers:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    new_layers:
+    - 0
+    - 1
+    final_scales:
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    copy_layers:
+    - - 2
+      - 0
+    - - 3
+      - 1
+    lr: 0.0017148847900662653
+    epochs: 1
+    ramp_epochs: 1
+  results_path: stackrec_hyperbolic_smoke_results.json
+  history_path: stackrec_hyperbolic_smoke_history.json
+loss:
+  _target_: src.loss.LocalObjective
+model_name: sasrec
+
+
+[2026-10-26 11:52:41,882][__main__][INFO] - Current DEVICE: cuda
+[2026-10-26 11:53:07,248][__main__][INFO] - StackRec config:
+dataloader:
+  train:
+    batch_size: 128
+    drop_last: false
+    shuffle: true
+    num_workers: 0
+  validation:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+  test:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+device: cuda
+num_epochs: 200
+early_stopping_rounds: 30
+seed: 42
+metrics:
+  ndcg:
+    _target_: src.metrics.NDCGMetric
+  coverage:
+    _target_: src.metrics.CoverageMetric
+  recall:
+    _target_: src.metrics.RecallMetric
+  meanrank:
+    _target_: src.metrics.MeanRankMetric
+metrics_ks:
+- 10
+- 100
+dataset:
+  path_to_data_dir: data
+  name: reviews_Beauty_5
+  max_sequence_length: 10
+base_dir: '2026-10-26'
+model:
+  embedding_dim: 64
+  num_heads: 1
+  num_layers: 6
+  dim_feedforward: 64
+  dropout: 0.5
+  activation: gelu
+  layer_norm_eps: 1.0e-09
+  topk_k: 100
+optimizer:
+  type: adamw
+  weight_decay: 0.0
+  betas:
+  - 0.9
+  - 0.999
+  eps: 1.0e-08
+  clip_grad_threshold: 10.0
+stackrec:
+  reference_lr: 0.0021002963516611
+  reference_num_layers: 4
+  aux_identity:
+    enabled: true
+    initial_coeff: 1.0
+    power: 1.0
+    eps: 1.0e-08
+    scalar_init: 1.0
+  hyperbolic_heads:
+    enabled: true
+    schedule: inverse_power
+    depth_mode: absolute
+    reference_curvature: 1.0
+    reference_depth: 2
+    power: 2.0
+    learnable_curvature: false
+    distance: squared
+    temperature: 0.1
+    loss_coeff: 0.1
+    warmup: true
+    freeze_previous: true
+  stages:
+  - name: 2_layers
+    active_layers:
+    - 4
+    - 5
+    new_layers: []
+    final_scales:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    - 1.0
+    copy_layers: []
+    lr: 0.0029702675855218593
+    epochs: 1
+    ramp_epochs: 0
+  - name: 4_layers
+    active_layers:
+    - 2
+    - 3
+    - 4
+    - 5
+    new_layers:
+    - 2
+    - 3
+    final_scales:
+    - 0.0
+    - 0.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    copy_layers:
+    - - 4
+      - 2
+    - - 5
+      - 3
+    lr: 0.0021002963516611
+    epochs: 1
+    ramp_epochs: 1
+  - name: 6_layers
+    active_layers:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    new_layers:
+    - 0
+    - 1
+    final_scales:
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    copy_layers:
+    - - 2
+      - 0
+    - - 3
+      - 1
+    lr: 0.0017148847900662653
+    epochs: 1
+    ramp_epochs: 1
+  results_path: stackrec_hyperbolic_smoke_results.json
+  history_path: stackrec_hyperbolic_smoke_history.json
+loss:
+  _target_: src.loss.LocalObjective
+model_name: sasrec
+
+
+[2026-10-26 11:53:07,260][__main__][INFO] - Current DEVICE: cuda
+[2026-10-26 11:53:26,482][__main__][INFO] - Num params: 926726
+[2026-10-26 11:53:26,483][__main__][INFO] - ================================================================================
+[2026-10-26 11:53:26,483][__main__][INFO] - STAGE 2_layers: active_layers=[4, 5], adamw=0.0029702675855218593
+[2026-10-26 11:53:26,483][__main__][INFO] - STAGE 2_layers: epochs=1, ramp_epochs=0, new_layers=[], final_scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+[2026-10-26 11:53:26,485][__main__][INFO] - STAGE 2_layers: hyperbolic head on layer 5 (depth=6, schedule=inverse_power, c=0.111111, learnable=False), loss_coeff=0.1
+[2026-10-26 11:53:28,814][__main__][INFO] - STAGE 2_layers: trainable params=834177
+[2026-10-26 11:53:34,674][__main__][INFO] - STAGE 2_layers epoch 1/1 scales=[0.0, 0.0, 0.0, 0.0, 1.0, 1.0] hyp_layer=5 c=0.1111 hyp_coeff=0.1000 hyp_loss=9.3352 val/ndcg@10=0.000917 test/ndcg@10=0.000992
+[2026-10-26 11:53:34,683][__main__][INFO] - STAGE 2_layers: restored best complete checkpoint (stage_epoch=0, val/ndcg@10=0.000917)
+[2026-10-26 11:53:34,685][__main__][INFO] - ================================================================================
+[2026-10-26 11:53:34,686][__main__][INFO] - STAGE 4_layers: active_layers=[2, 3, 4, 5], adamw=0.0021002963516611
+[2026-10-26 11:53:34,686][__main__][INFO] - STAGE 4_layers: epochs=1, ramp_epochs=1, new_layers=[2, 3], final_scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+[2026-10-26 11:53:34,686][__main__][INFO] - STAGE 4_layers: copied layer 4 -> layer 2
+[2026-10-26 11:53:34,686][__main__][INFO] - STAGE 4_layers: copied layer 5 -> layer 3
+[2026-10-26 11:53:34,687][__main__][INFO] - STAGE 4_layers: aux identity loss on layers [2, 4) (scalar on layer 3), lambda(alpha) = 1 * (1 - alpha)^1
+[2026-10-26 11:53:34,688][__main__][INFO] - STAGE 4_layers: hyperbolic head on layer 3 (depth=4, schedule=inverse_power, c=0.250000, learnable=False), loss_coeff=0.1
+[2026-10-26 11:53:36,312][__main__][INFO] - STAGE 4_layers: start (new gates=0) val/ndcg@10=0.000917, test/ndcg@10=0.000992
+[2026-10-26 11:53:36,313][__main__][INFO] - STAGE 4_layers: trainable params=884610
+[2026-10-26 11:53:43,283][__main__][INFO] - STAGE 4_layers epoch 1/1 scales=[0.0, 0.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=1.0420 ratio=0.0709 hyp_layer=3 c=0.2500 hyp_coeff=0.1000 hyp_loss=9.1968 val/ndcg@10=0.002580 test/ndcg@10=0.001341
+[2026-10-26 11:53:43,299][__main__][INFO] - STAGE 4_layers: restored best complete checkpoint (stage_epoch=0, val/ndcg@10=0.002580)
+[2026-10-26 11:53:43,303][__main__][INFO] - ================================================================================
+[2026-10-26 11:53:43,303][__main__][INFO] - STAGE 6_layers: active_layers=[0, 1, 2, 3, 4, 5], adamw=0.0017148847900662653
+[2026-10-26 11:53:43,303][__main__][INFO] - STAGE 6_layers: epochs=1, ramp_epochs=1, new_layers=[0, 1], final_scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+[2026-10-26 11:53:43,303][__main__][INFO] - STAGE 6_layers: copied layer 2 -> layer 0
+[2026-10-26 11:53:43,304][__main__][INFO] - STAGE 6_layers: copied layer 3 -> layer 1
+[2026-10-26 11:53:43,304][__main__][INFO] - STAGE 6_layers: aux identity loss on layers [0, 2) (scalar on layer 1), lambda(alpha) = 1 * (1 - alpha)^1
+[2026-10-26 11:53:43,305][__main__][INFO] - STAGE 6_layers: hyperbolic head on layer 1 (depth=2, schedule=inverse_power, c=1.000000, learnable=False), loss_coeff=0.1
+[2026-10-26 11:53:45,410][__main__][INFO] - STAGE 6_layers: start (new gates=0) val/ndcg@10=0.002580, test/ndcg@10=0.001341
+[2026-10-26 11:53:45,412][__main__][INFO] - STAGE 6_layers: trainable params=935043
+[2026-10-26 11:53:58,604][__main__][INFO] - STAGE 6_layers epoch 1/1 scales=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0] alpha=1.000 lambda=0.0000 aux_loss=1.0945 ratio=0.0983 hyp_layer=1 c=1.0000 hyp_coeff=0.1000 hyp_loss=9.0533 val/ndcg@10=0.003688 test/ndcg@10=0.002137
+[2026-10-26 11:53:58,617][__main__][INFO] - STAGE 6_layers: restored best complete checkpoint (stage_epoch=0, val/ndcg@10=0.003688)
+[2026-10-26 11:53:58,671][__main__][INFO] - Saved stage results to /home/jovyan/Yusupov/multirepr_paper_1/Baseline/sasrec_experiments/outputs/stackrec_hyperbolic_smoke/stackrec_results.json
+[2026-10-26 11:53:58,671][__main__][INFO] - Saved history to /home/jovyan/Yusupov/multirepr_paper_1/Baseline/sasrec_experiments/outputs/stackrec_hyperbolic_smoke/stackrec_hyperbolic_smoke_history.json
+[2026-10-26 11:53:58,671][__main__][INFO] - Saved summary to stackrec_hyperbolic_smoke_results.json
+[2026-10-26 11:53:58,671][__main__][INFO] - RESULT 2_layers: val/ndcg@10=0.000917, test/ndcg@10=0.000992, val/recall@10=0.002540, test/recall@10=0.002487
+[2026-10-26 11:53:58,671][__main__][INFO] - RESULT 4_layers: val/ndcg@10=0.002580, test/ndcg@10=0.001341, val/recall@10=0.006772, test/recall@10=0.003607
+[2026-10-26 11:53:58,671][__main__][INFO] - RESULT 6_layers: val/ndcg@10=0.003688, test/ndcg@10=0.002137, val/recall@10=0.008042, test/recall@10=0.005099

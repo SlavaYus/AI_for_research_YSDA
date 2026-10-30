@@ -1,0 +1,77 @@
+[2026-10-23 11:27:39,865][__main__][INFO] - Training config:
+dataloader:
+  train:
+    batch_size: 128
+    drop_last: false
+    shuffle: true
+    num_workers: 0
+  validation:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+  test:
+    batch_size: 256
+    drop_last: false
+    shuffle: false
+    num_workers: 0
+device: cuda
+num_epochs: 200
+early_stopping_rounds: 30
+seed: 42
+metrics:
+  ndcg:
+    _target_: src.metrics.NDCGMetric
+  coverage:
+    _target_: src.metrics.CoverageMetric
+  recall:
+    _target_: src.metrics.RecallMetric
+  meanrank:
+    _target_: src.metrics.MeanRankMetric
+metrics_ks:
+- 10
+- 100
+dataset:
+  path_to_data_dir: data
+  name: reviews_Beauty_5
+  max_sequence_length: 10
+base_dir: '2026-10-23'
+model:
+  embedding_dim: 64
+  num_heads: 1
+  num_layers: 4
+  dim_feedforward: 64
+  dropout: 0.5
+  activation: gelu
+  layer_norm_eps: 1.0e-09
+  topk_k: null
+optimizer:
+  optimizer:
+    type: muon
+    lr: 0.02
+    adamw_lr: 0.0021002963516611
+    momentum: 0.95
+    nesterov: true
+    ns_steps: 5
+    weight_decay: 0.0
+    exclude_embeddings: true
+    adamw_weight_decay: 0.0
+    adamw_betas:
+    - 0.9
+    - 0.999
+    adamw_eps: 1.0e-08
+  lr_scaling:
+    type: sqrt_depth
+    reference_num_layers: 4
+  clip_grad_threshold: 10.0
+loss:
+  _target_: src.loss.LocalObjective
+model_name: sasrec
+
+
+[2026-10-23 11:27:39,866][__main__][INFO] - SELECT_EPOCH STEP
+[2026-10-23 11:27:39,873][__main__][INFO] - Current DEVICE: cuda
+[2026-10-23 11:28:35,569][__main__][INFO] - Num params: 876288
+[2026-10-23 12:03:04,275][__main__][INFO] - REFIT STEP
+[2026-10-23 12:03:04,276][__main__][INFO] - Current DEVICE: cuda
+[2026-10-23 12:03:11,081][__main__][INFO] - Num params: 876288
