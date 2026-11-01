@@ -956,3 +956,290 @@ Hessian), 2102.06737 (KF-QN). Связи с отправными статьям�
 
 ---
 
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-23 -->
+## 2026-10-23 — SASRec на Beauty: базовые эксперименты (AdamW / Muon, L=2,4,6)
+
+### Цель
+Запустить SASRec на датасете Beauty (reviews_Beauty_5) с разным числом слоёв
+и двумя оптимизаторами (AdamW, Muon), проверить масштабирование LR по формуле
+`lr(L) = lr_ref * sqrt(4/L)`.
+
+### Данные
+- 198 502 взаимодействия, 22 363 пользователя, 12 101 товар.
+- Temporal split: train (140 965), validation (50 336), test (90 621).
+- Проверка temporal split: 0 нарушений, prefix-свойство выполнено.
+
+### Результаты (test NDCG@10)
+
+| Optimizer | L=2 | L=4 | L=6 |
+|---|---|---|---|
+| AdamW | 0.012762 | 0.004797 | 0.005645 |
+| Muon | 0.005187 | 0.003540 | 0.003692 |
+
+AdamW лучше Muon на всех глубинах. L=2 даёт лучший результат для обоих
+оптимизаторов; увеличение глубины ухудшает качество.
+
+### Файлы
+- `sasrec_depth_lr_results.json` — сводка по всем запускам
+- `outputs/adamw_l{2,4,6}/`, `outputs/muon_all2d_l{2,4,6}/`, `outputs/muon_l{2,4,6}/`
+- `logs/` — логи всех экспериментов
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-23 -->
+## 2026-10-23 — Experiment: AdamW + StackRec for SASRec (Beauty)
+
+### Цель
+Реализовать StackRec-style progressive layer stacking для 6-слойного SASRec
+с AdamW и получить метрики валидации/теста для трёх эффективных глубин
+в рамках одного непрерывного обучения:
+1. последние 2 слоя (4, 5),
+2. средние 4 слоя (2-5),
+3. все 6 слоёв.
+
+### Реализация
+- `src/models/sequence.py`: добавлены per-layer forward coefficients
+  (`layer_scales`). Коэффициент 0 делает слой identity (пропуск).
+  Внутренний `nn.TransformerEncoder` заменён на ручной цикл по слоям.
+  Добавлены хелперы: `set_layer_scales`, `get_layer_scales`,
+  `set_layers_trainable`, `copy_layer_weights`.
+- `configs/beauty_sasrec_stackrec.yaml` — новый Hydra-конфиг.
+- `run_stackrec.py` — one-process progressive training loop.
+
+### Протокол
+- Dataset: Beauty, seed 42, batch size 128.
+- Optimizer: AdamW, weight_decay=0, betas=(0.9, 0.999), grad clip 10.0.
+- Stage learning rates: `lr(L) = lr_ref * sqrt(4/L)`.
+- Stage 1 (2_layers, 90 epochs): layers 4,5 trainable; layers 0-3 frozen.
+- Stage 2 (4_layers, 60 epochs, 10-epoch ramp): copy 4->2, 5->3.
+- Stage 3 (6_layers, 60 epochs, 10-epoch ramp): copy 2->0, 3->1.
+- Best-checkpoint selection per stage: best validation ndcg@10.
+
+### Результаты (best complete-gate checkpoint per stage)
+
+| effective layers | lr | best epoch | val ndcg@10 | test ndcg@10 | val recall@10 | test recall@10 |
+|---:|---:|---:|---:|---:|---:|---:|
+| 2 (layers 4,5) | 0.00297027 | 88 | 0.014714 | 0.011958 | 0.029630 | 0.023380 |
+| 4 (layers 2-5) | 0.00210030 | 129 | 0.015451 | 0.012964 | 0.031746 | 0.025370 |
+| 6 (all layers) | 0.00171488 | 194 | 0.016095 | 0.013299 | 0.033439 | 0.025494 |
+
+Total training time: ~854 s.
+
+### Сравнение с AdamW без stacking
+
+| layers | AdamW select test ndcg@10 | StackRec test ndcg@10 |
+|---:|---:|---:|
+| 2 | 0.012762 | 0.011958 |
+| 4 | 0.004797 | 0.012964 |
+| 6 | 0.005645 | 0.013299 |
+
+StackRec substantially better for 4 and 6 effective layers (2.3-2.7x higher).
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-23 -->
+## 2026-10-23 — Experiment: Muon + StackRec for SASRec (Beauty)
+
+### Цель
+Повторить StackRec эксперимент с Muon оптимизатором вместо AdamW.
+
+### Реализация
+- `run_stackrec.py` сделан optimizer-agnostic: `optimizer.type` = adamw/muon.
+- Для muon: 2D hidden weights → Muon, embeddings/1D → AdamW.
+- Новый конфиг: `configs/beauty_sasrec_stackrec_muon.yaml`.
+
+### Результаты
+
+| effective layers | muon lr | adamw lr | best epoch | val ndcg@10 | test ndcg@10 |
+|---:|---:|---:|---:|---:|---:|
+| 2 | 0.02828427 | 0.00297027 | 85 | 0.007215 | 0.004602 |
+| 4 | 0.02000000 | 0.00210030 | 119 | 0.007884 | 0.004518 |
+| 6 | 0.01632993 | 0.00171488 | 173 | 0.007008 | 0.004341 |
+
+Muon + StackRec улучшает plain Muon для 4 и 6 слоёв, но остаётся ниже
+AdamW + StackRec. Лучший Muon stage — 4 layers.
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-26 -->
+## 2026-10-26 — Experiment: StackRec with boundary identity auxiliary loss
+
+### Цель
+При добавлении новой группы 2 слоёв ниже обученной подсети:
+1. добавить обучаемый скаляр на выходе последнего слоя новой группы;
+2. добавить auxiliary loss, который приводит отношение выхода новой группы
+   к входному представлению обученной подсети к 1;
+3. линейно убывать коэффициент auxiliary loss по мере роста stacking coefficient.
+
+### Теоретическая связь
+`lambda(alpha) = lambda0 * (1 - alpha)`, где alpha — forward scale новой группы.
+Lambda убывает линейно до 0, когда alpha достигает 1.
+
+### Результаты (plain / aux, relative delta)
+
+**NDCG@10**
+
+| optimizer | layers | val | test |
+|---|---:|---|---|
+| AdamW | 2 | 0.014714 / 0.014714 (+0.00%) | 0.011958 / 0.011958 (+0.00%) |
+| AdamW | 4 | 0.015451 / 0.015920 (+3.04%) | 0.012964 / 0.012934 (-0.23%) |
+| AdamW | 6 | 0.016095 / 0.016328 (+1.45%) | 0.013299 / 0.013086 (-1.60%) |
+| Muon | 2 | 0.007215 / 0.007215 (+0.00%) | 0.004602 / 0.004602 (+0.00%) |
+| Muon | 4 | 0.007884 / 0.007327 (-7.06%) | 0.004518 / 0.004591 (+1.61%) |
+| Muon | 6 | 0.007008 / 0.006883 (-1.79%) | 0.004341 / 0.004351 (+0.24%) |
+
+### Выводы
+- Для AdamW: auxiliary loss улучшает validation NDCG@10 (+3.0%, +1.5%),
+  но test NDCG@10 немного хуже (-0.2%, -1.6%).
+- Для Muon: mixed/negative — validation падает, test немного улучшается.
+- Научённые boundary scalars: все > 1 (компенсация sub-unit forward ramp).
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-26 -->
+## 2026-10-26 — Experiment: hyperbolic heads at StackRec group boundaries
+
+### Цель
+Добавить hyperbolic (Poincare-ball) next-item head на выходе каждой группы,
+которую StackRec добавляет ниже обученной подсети.
+
+### Curvature schedule
+`c(d) = c_ref * (d_ref / d) ** power`, где d — абсолютная глубина head.
+Кривизна убывает с глубиной: c ~ 1/L^2 для power=2.
+
+### Результаты (test NDCG@10)
+
+| effective layers | plain ndcg@10 | aux ndcg@10 | hyperbolic ndcg@10 | hyp vs plain |
+|---:|---:|---:|---:|---:|
+| 2 | 0.011958 | 0.011958 | 0.011958 | +0.00% |
+| 4 | 0.012964 | 0.012934 | 0.012428 | -4.13% |
+| 6 | 0.013299 | 0.013086 | 0.013419 | +0.90% |
+
+### Выводы
+- Depth-decaying curvature schedule работает; 6-layer модель получает
+  прирост на test NDCG/Recall/coverage (+0.9% vs plain, +2.5% vs aux).
+- 4-layer stage слабее — возможно, фиксированный loss_coeff=0.1 слишком мал.
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-26 -->
+## 2026-10-26 — Experiment: Lorentz hyperbolic residual on StackRec group boundaries
+
+### Цель
+Ввести гиперболическую геометрию *в скрытое представление* копируемой
+StackRec группы вместо только auxiliary hyperbolic prediction.
+
+### Реализация
+- `src/models/hyperbolic.py`: `lorentz_expmap0`, `lorentz_distance`,
+  `LorentzResidualHead` (item-scoring + residual branches).
+- Residual: `r = (sinhc(sqrt(c)||u||) - 1) * res_out(u)` — ровно 0 при c=0.
+- Norm-preserving: `h_out = normalize(h + gate * normalize_to_norm(h, r))`.
+- Gate и curvature ramp от 0 до целевых значений.
+
+### Верификация
+- Unit-level checks (CPU): hyperboloid constraint, symmetric distance,
+  zero residual at c=0, bitwise identity at gate=0, norm preservation.
+- Smoke run (2/3/3 epochs): stage-start continuity exact, gate/c logs
+  соответствуют ожиданиям.
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-30 -->
+## 2026-10-30 — Тесты метрик ранжирования
+
+**Дата:** 2026-10-30, **Платформа:** CPU, **Данные:** 10 пользователей, 10 товаров, top-k = 5
+
+| # | Метрика | Статус | Значение |
+|---|---------|--------|----------|
+| 1 | NDCG@5 | PASS | 0.487914 |
+| 2 | Recall@5 | PASS | 0.800000 |
+| 3 | Coverage@5 | PASS | 1.000000 |
+| 4 | Novelty@5 | PASS | 0.944260 |
+| 5 | MeanRank@5 | PASS | 3.500000 |
+| 6 | ILD@5 | PASS | 0.506127 |
+| 7 | PopularityGroups | PASS | OK |
+| 8 | EdgeCases | PASS | OK |
+| 9 | CoveragePartial | PASS | 0.100000 |
+| 10 | MeanRankPartial | PASS | 1.000000 |
+
+**Итого:** 10/10 PASS
+
+**Замечания:**
+1. `NDCGMetric` вычисляет DCG, а не нормализованный NDCG (без деления на IDCG).
+2. `RecallMetric` считает абсолютное число hits (не нормализованное на |true|).
+3. `CoverageMetric` и `NoveltyMetric` — stateful: требуют `.reduce()`.
+4. `MeanRankMetric` — stateful: требует `.reduce()`.
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-30 -->
+## 2026-10-30 — Проверка temporal split датасета
+
+**Датасет:** `reviews_Beauty_5` (5-core), 198 502 interactions, 22 363 users, 12 101 items
+
+| Split | Rows | Users | Items |
+|-------|------|-------|-------|
+| train | 140 965 | 18 474 | 11 534 |
+| validation | 50 336 | 4 725 | 10 310 |
+| test | 90 621 | 8 041 | 11 727 |
+| train_validation | 151 081 | 18 474 | 11 736 |
+
+**Результат:** Нарушений temporal split: 0. Статус: ✅ CORRECT.
+`train ⊂ val ⊂ test` (prefix-свойство): True.
+
+---
+
+<!-- проект: sasrec_experiments -->
+<!-- источник: sasrec_experiments/diary.md -->
+<!-- дата: 2026-10-30 -->
+## 2026-10-30 — Тесты StackRec (17 тестов, CPU)
+
+**Файл:** `test_stackrec.py`, 17 тестов, CPU, 2 примера (seq=5, seq=20)
+
+| # | Тест | Статус |
+|---|------|--------|
+| 1 | Model initialization | PASS |
+| 2 | Forward pass (short seq=5) | PASS |
+| 3 | Forward pass (long seq=20) | PASS |
+| 4 | Stage 1 — 2 layers (4, 5) | PASS |
+| 5 | Stage 2 — 4 layers (2-5) with copy | PASS |
+| 6 | Stage 3 — 6 layers (0-5) with copy | PASS |
+| 7 | Full StackRec pipeline (short seq=5) | PASS |
+| 8 | Full StackRec pipeline (long seq=20) | PASS |
+| 9 | Ramp scale=0 identity | PASS |
+| 10 | Aux scalar and boundary | PASS |
+| 11 | Lorentz head addition | PASS |
+| 12 | Curvature schedule | PASS |
+| 13 | Copy layer weights | PASS |
+| 14 | Batch with two sequences | PASS |
+| 15 | CPU only | PASS |
+| 16 | SASRec vs StackRec (2 layers) identity | PASS |
+| 17 | SASRec vs StackRec (2 layers) long seq | PASS |
+
+**Итого:** 17/17 PASS
+
+**Ключевые проверки:**
+- Тест 9: при scale=0 новые слои — identity, предсказания совпадают
+  с моделью, обученной только на 2 слоях.
+- Тест 16-17: StackRec с 6 слоями (scale=0 для 0-3) даёт абсолютно
+  идентичные предсказания с SASRec на 2 слоях — ключевое свойство
+  progressive stacking.
